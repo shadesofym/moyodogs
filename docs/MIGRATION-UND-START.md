@@ -1,6 +1,6 @@
 # WordPress-Übernahme und SEO-Vorbereitung
 
-Stand: 2. November 2026. Nur lokal vorbereitet; kein Upload, kein Domainwechsel und keine Freigabe für Suchmaschinen in diesem Arbeitsschritt.
+Übernahme vorbereitet am 2. November 2026. Die neue Website ist inzwischen als Vorschau auf https://moyodogs.pages.dev veröffentlicht. Kein Domainwechsel und keine Freigabe für Suchmaschinen.
 
 ## Übernommene Inhalte
 
@@ -59,7 +59,7 @@ Offizielle Formatreferenz: https://developers.cloudflare.com/rules/url-forwardin
 
 - Impressum und Datenschutz vervollständigen: vorhandene Platzhalter sind keine freigegebenen Rechtstexte.
 - Die bestehenden Gesundheits-/Prüfungsangaben anhand der Unterlagen redaktionell freigeben. Malus Grössen-/Gewichtsangaben unterscheiden sich zwischen Profil und Wurfplanung; sie wurden aus den jeweiligen Quellen übernommen.
-- Echten Pages-CMS-Speicherablauf mit dem richtigen GitHub-Konto prüfen. Die Konfiguration bietet auch Nachzuchtporträts an.
+- Pages CMS wurde mit dem richtigen GitHub-Konto im echten Speicherablauf geprüft. Auch die Veröffentlichung samt Bild in der Online-Vorschau wurde bestätigt. Neue Datei-Uploads und die CMS-Bedienung auf einem echten Mobilgerät wurden noch nicht getestet.
 - Domain-Verlängerung sichern; laut bisheriger Angabe läuft die gekündigte Domain im Juni 2027 aus. Mailbetrieb nach Hosting-Ende am 15.03.2027 planen.
 - Vollständiges Hosting-/Datenbank-Backup erstellen. Der öffentliche Export enthält keine privaten Formulareinträge, Datenbank, Plugins oder Serverkonfiguration und ersetzt dieses Backup nicht.
 
@@ -67,3 +67,15 @@ Offizielle Formatreferenz: https://developers.cloudflare.com/rules/url-forwardin
 
 `scripts/import-wordpress.py --source <Archivordner> --write` ist ein einmaliges Offline-Werkzeug. Es benötigt BeautifulSoup, markdownify und PyYAML. Nicht nach redaktionellen Änderungen erneut ausführen: bestehende importierte Inhalte würden ersetzt. Vorher immer sichern.
 `scripts/import-wordpress-images.mjs <migration-work.json>` konvertiert die Originalbilder. Für HEIC-Dateien verwendet das einmalige Werkzeug auf macOS den Systemkonverter. Die fertige Astro-Website benötigt diesen nicht.
+
+## Prüfung am 3. November 2026
+
+Im öffentlichen DNS von `moyodogs.com` ist ein Google-Verifizierungsnachweis vorhanden. Er muss beim Domain-/DNS-Umzug unverändert erhalten bleiben. Im aktuell angemeldeten Konto `shadesofym@gmail.com` war keine Search-Console-Property vorhanden. Der DNS-Nachweis allein belegt daher noch keinen Zugriff dieses Kontos. Keine neue Google-Inhaberschaft ohne Sandras Freigabe einrichten.
+
+Die Vorschau bleibt `noindex`; kanonische Adressen und Sitemap zeigen auf die vorgesehene Hauptdomain. Die Suchmaschinenfreigabe und Sitemap-Einreichung erfolgen erst nach dem Domainwechsel und der inhaltlichen Freigabe.
+
+Die Website ist statisch; das CMS liegt separat bei Pages CMS und schreibt über GitHub. Die Paketprüfung meldete keine bekannten Schwachstellen. Die öffentlichen Prüfungen von `/.env`, `/.git/config`, `/package.json` und `/wp-login.php` auf der Vorschau lieferten HTTP 404. CSP, Einbettungsschutz, Typprüfung, Referrer- und Berechtigungsrichtlinien waren in den HTTP-Antworten vorhanden. Dies ist kein vollständiger Penetrationstest. Zwei-Faktor-Schutz und Wiederherstellung der Benutzerkonten wurden nicht geprüft.
+
+Das GitHub-Repository ist öffentlich. Entwürfe und frühere Commit-/Deployment-Stände sind dadurch keine privaten Daten. Keine vertraulichen Texte oder personenbezogenen Dokumente dort speichern. Eine Änderung der Repository-Sichtbarkeit ist eine eigene Entscheidung.
+
+Cloudflare Pages kann alte Assets noch vorhalten. Der Build ergänzt deshalb temporäre Regeln für alle Blogentwürfe, die vor den unveränderten WordPress-301-Regeln stehen. Sie führen auf `/nicht-verfuegbar/` mit HTTP 404; bei erneuter Veröffentlichung entfallen sie. Das direkte Ziel `/404.html` ist ungeeignet, weil Pages diese Datei mit HTTP 200 ausliefert. `Cache-Control: no-store` gilt für Blogseiten und das Rücknahmeziel, nicht pauschal für Bilder und Schriften.

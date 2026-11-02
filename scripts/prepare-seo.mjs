@@ -1,6 +1,7 @@
-import {readFile,writeFile} from 'node:fs/promises';
+import {readFile,writeFile,readdir} from 'node:fs/promises';
 import {resolve} from 'node:path';
-import {indexingEnabled} from '../src/lib/seo.ts';
+import {indexingEnabled,unpublishedPostRedirects} from '../src/lib/seo.ts';
+import {frontmatter} from './validate-content.mjs';
 const root=resolve(import.meta.dirname,'..');
 const output=resolve(process.argv[2]??resolve(root,'dist'));
 const {origin}=JSON.parse(await readFile(resolve(root,'src/data/seo.json'),'utf8'));
@@ -12,4 +13,14 @@ headers+='\nhttps://:project.pages.dev/*\n  X-Robots-Tag: noindex, follow\n\nhtt
 for(const path of ['/vorschau/*','/vorschau','/konzept/*','/konzept','/404.html','/impressum/','/datenschutz/'])headers+=`\n${path}\n  X-Robots-Tag: noindex, follow\n`;
 await writeFile(resolve(output,'_headers'),headers);
 await writeFile(resolve(output,'robots.txt'),enabled?`User-agent: *\nAllow: /\nSitemap: ${origin}/sitemap.xml\n`:'User-agent: *\nDisallow: /\n');
+const posts=await Promise.all((await readdir(resolve(root,'src/content/posts'))).filter(file=>file.endsWith('.md')).sort().map(async file=>{
+ const data=frontmatter(await readFile(resolve(root,'src/content/posts',file),'utf8'));
+ return {id:String(data.slug??file.slice(0,-3)),published:data.published};
+}));
+const draftRules=unpublishedPostRedirects(posts);
+const legacyRedirects=await readFile(resolve(root,'public/_redirects'),'utf8');
+const redirects=[...draftRules,...legacyRedirects.split('\n').filter(line=>line&&!line.startsWith('#'))];
+if(redirects.length>2000)throw new Error('Zu viele statische Pages-Weiterleitungen.');
+if(new Set(redirects.map(line=>line.split(/\s+/)[0])).size!==redirects.length)throw new Error('Doppelte Pages-Weiterleitungsquelle.');
+await writeFile(resolve(output,'_redirects'),'# Temporary draft guards precede permanent WordPress redirects.\n'+draftRules.join('\n')+'\n'+legacyRedirects);
 console.log(enabled?'SEO für den freigegebenen Start gebaut. pages.dev und Beispiele bleiben noindex.':'Vorschau gebaut: Suchmaschinenfreigabe bleibt ausgeschaltet.');

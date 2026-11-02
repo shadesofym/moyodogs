@@ -3,9 +3,24 @@ import assert from 'node:assert/strict';
 import {readFileSync,existsSync,readdirSync} from 'node:fs';
 import {resolve} from 'node:path';
 import {parse} from 'yaml';
-import {canonicalUrl,indexingEnabled,excludedFromSearch,jsonLd} from '../src/lib/seo.ts';
+import {canonicalUrl,indexingEnabled,excludedFromSearch,jsonLd,unpublishedPostRedirects} from '../src/lib/seo.ts';
 const root=resolve(import.meta.dirname,'..');
 const read=path=>readFileSync(resolve(root,path),'utf8');
+test('Zurückgezogene Blogbeiträge sperren alte Cache-Adressen und lassen sich wieder veröffentlichen',()=>{
+ const draft={id:'2026-11-02-cms-funktionstest',published:false};
+ const rules=unpublishedPostRedirects([draft,{id:'insight',published:true}]);
+ assert.deepEqual(rules,[
+  '/blog/2026-11-02-cms-funktionstest/ /nicht-verfuegbar/ 302',
+  '/blog/2026-11-02-cms-funktionstest /nicht-verfuegbar/ 302',
+  '/blog/2026-11-02-cms-funktionstest/index.html /nicht-verfuegbar/ 302',
+ ]);
+ assert.deepEqual(unpublishedPostRedirects([{...draft,published:true}]),[]);
+ for(const id of ['../secret','test\n/other','https://example.com'])assert.throws(()=>unpublishedPostRedirects([{id,published:false}]));
+ const deployed=read('dist/_redirects');
+ assert.ok(deployed.includes(rules[0]));
+ assert.ok(!deployed.includes('/blog/insight/ /nicht-verfuegbar/'));
+ assert.ok(read('dist/_headers').includes('/blog/*\n  Cache-Control: no-store'));
+});
 test('Suchmaschinenfreigabe ist ausdrücklich und auf den Hauptbranch begrenzt',()=>{
  for(const value of [undefined,'','true','false','disabled'])assert.equal(indexingEnabled(value,'main'),false);
  assert.equal(indexingEnabled('enabled','main'),true);

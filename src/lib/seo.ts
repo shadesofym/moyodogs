@@ -14,3 +14,15 @@ export function canonicalUrl(path:string){
 }
 export function jsonLd(value:unknown){return JSON.stringify(value).replaceAll('<','\\u003c');}
 export function xmlEscape(value:string){return value.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&apos;');}
+
+// Pages can retain an old asset after it disappears from a later deployment.
+// Temporary redirects take priority over assets and disappear when republished.
+export function unpublishedPostRedirects(entries:{id:string;published:boolean}[]){
+ const rules:string[]=[];
+ for(const {id,published} of entries){
+  if(published)continue;
+  if(!/^[a-z0-9_-]+$/.test(id))throw new Error(`Unsichere Blogadresse für Entwurf: ${id}`);
+  for(const path of [`/blog/${id}/`,`/blog/${id}`,`/blog/${id}/index.html`])rules.push(`${path} /nicht-verfuegbar/ 302`);
+ }
+ return rules;
+}

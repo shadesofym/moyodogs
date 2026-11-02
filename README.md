@@ -49,6 +49,10 @@ Standard-Builds bleiben für Suchmaschinen gesperrt. Eine spätere ausdrücklich
 
 Cloudflare-Build: `npm run build`, Ausgabe `dist`, Root leer, Branch `main`, `NODE_VERSION=24.15.0`.
 
-Die Website ist noch nicht zur Hauptdomain umgeschaltet. Impressum/Datenschutz, Domain-/E-Mail-Erhalt und ein kompletter Hosting-Backup bleiben vor dem endgültigen Start zu erledigen. Pages CMS muss noch mit dem richtigen GitHub-Konto im echten Speicherablauf getestet werden.
+Die Website ist noch nicht zur Hauptdomain umgeschaltet. Impressum/Datenschutz, Domain-/E-Mail-Erhalt und ein kompletter Hosting-Backup bleiben vor dem endgültigen Start zu erledigen. Pages CMS ist mit `shadesofym/moyodogs` verbunden; Anlegen, Speichern, Bildauswahl und Veröffentlichung wurden im echten Ablauf geprüft.
+
+Blogverwaltung: https://app.pagescms.org/shadesofym/moyodogs/main/collection/posts. Neue Beiträge bleiben Entwurf, bis „Auf der Website veröffentlichen“ eingeschaltet und gespeichert wird. Das Datum plant keine automatische Veröffentlichung.
+
+Der Build ergänzt temporäre Weiterleitungen für nicht veröffentlichte Blogbeiträge. Sie führen auf eine tatsächlich fehlende Adresse mit HTTP 404 und verhindern, dass alte Pages-Cache-Dateien weiterhin unter der Blogadresse ausgeliefert werden. Bei erneuter Veröffentlichung entfallen diese Regeln. Blogseiten erhalten `Cache-Control: no-store`; Bild- und Schriftdateien behalten ihre normalen Cache-Einstellungen. Das ist keine Zugriffskontrolle für das öffentliche GitHub-Repository oder alte Deployment-Links.
 
 Das Journal verwendet Swiss-Typografie und asymmetrische Plakatkarten mit Foto-, hellen und dunklen Flächen. Auf Mobilgeräten werden die Karten einspaltig dargestellt. Die filmische Startseite bleibt erhalten.

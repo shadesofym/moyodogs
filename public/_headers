@@ -5,3 +5,13 @@
   X-Robots-Tag: noindex, nofollow
   Permissions-Policy: camera=(), microphone=(), geolocation=()
   Content-Security-Policy: default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; font-src 'self'; media-src 'self'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; object-src 'none'
+
+/blog/*
+  Cache-Control: no-store
+
+/404.html
+  Cache-Control: no-store
+
+/nicht-verfuegbar/
+  Cache-Control: no-store
+  X-Robots-Tag: noindex, follow
