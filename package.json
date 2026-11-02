@@ -1,0 +1,36 @@
+{
+  "name": "moyodogs-website",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "ASTRO_TELEMETRY_DISABLED=1 astro dev --host 127.0.0.1",
+    "check": "ASTRO_TELEMETRY_DISABLED=1 astro check",
+    "lint": "eslint scripts tests",
+    "test": "node --test tests/*.test.mjs",
+    "build": "npm run validate && npm run prepare && ASTRO_TELEMETRY_DISABLED=1 astro build && node scripts/prepare-seo.mjs",
+    "validate": "node scripts/validate-content.mjs",
+    "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview --host 127.0.0.1",
+    "prepare": "node scripts/prepare-images.mjs",
+    "predev": "npm run prepare"
+  },
+  "engines": {
+    "node": ">=24.15.0 <25"
+  },
+  "dependencies": {
+    "astro": "7.4.4",
+    "markdown-it": "15.0.3"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.12",
+    "@eslint/js": "10.0.1",
+    "@types/markdown-it": "14.2.0",
+    "eslint": "10.14.0",
+    "sharp": "0.35.5",
+    "typescript": "6.0.3",
+    "yaml": "2.9.1"
+  },
+  "overrides": {
+    "minimatch": "^11.0.1"
+  }
+}

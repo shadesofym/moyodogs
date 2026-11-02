@@ -1,0 +1,9 @@
+---
+import JournalPost from '../../../layouts/JournalPost.astro';
+import {journalExamples,exampleBlocks} from '../../../data/journal-preview';
+export function getStaticPaths(){return journalExamples.map(post=>({params:{id:post.id},props:{post}}));}
+const {post}=Astro.props;
+---
+<JournalPost {...post} href={`/vorschau/journal/${post.id}/`} backHref="/vorschau/journal/" preview blocks={exampleBlocks}>
+ <p>{post.first}</p><p>Dieser Beispieltext zeigt, wie sich ein längerer Beitrag anfühlen würde: mit Platz für persönliche Gedanken, ruhigen Bildern und kleinen Beobachtungen. Die Geschichte und ihre Bilder bestimmst später du.</p><h2>Raum für das, was zählt.</h2><p>Du kannst hier vom Alltag erzählen, einen Hund vorstellen oder Einblicke in die Zucht geben. Zwischen den Bildern bleibt genug Ruhe zum Lesen.</p>
+</JournalPost>

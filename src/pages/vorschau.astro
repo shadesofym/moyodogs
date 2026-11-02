@@ -1,0 +1,12 @@
+---
+import Base from '../layouts/Base.astro';
+import ContentBlocks from '../components/ContentBlocks.astro';
+import type {ContentBlock} from '../lib/content-schema';
+const blocks:ContentBlock[]=[
+ {type:'text',body:'## Texte frei gestalten\n\nDas ist ein **Beispieltext** für deine Inhaltsbausteine. Überschriften, Listen und [interne Links](/hunde/) lassen sich ergänzen.'},
+ {type:'image',image:'/media/malu.webp',alt:'Malu auf einem Felsen',caption:'Beispiel: ein einzelnes Bild mit Bildunterschrift.'},
+ {type:'quote',text:'Hier ist Platz für deine eigenen Worte.',attribution:'Beispielzitat – noch kein redaktioneller Inhalt'},
+ {type:'gallery',images:[{image:'/media/malu.webp',alt:'Malu auf einem Felsen'},{image:'/media/malu-portrait.webp',alt:'Malu im Porträt'}]},
+];
+---
+<Base title="Inhaltsbausteine ausprobieren"><section class="page-heading wrap"><span class="eyebrow">Interne Designvorschau · nicht veröffentlicht</span><h1>Deine Inhalte.<br/>Deine Reihenfolge.</h1><p>Beispiele für Text-, Bild-, Galerie- und Zitatbausteine. Diese Seite zeigt keine unveröffentlichten Blogbeiträge.</p><a class="text-link" href="/vorschau/journal/">Das neue Journal ansehen ↗</a></section><ContentBlocks blocks={blocks}/></Base>

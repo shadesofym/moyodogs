@@ -1,0 +1,15 @@
+import {readFile,writeFile} from 'node:fs/promises';
+import {resolve} from 'node:path';
+import {indexingEnabled} from '../src/lib/seo.ts';
+const root=resolve(import.meta.dirname,'..');
+const output=resolve(process.argv[2]??resolve(root,'dist'));
+const {origin}=JSON.parse(await readFile(resolve(root,'src/data/seo.json'),'utf8'));
+const enabled=indexingEnabled(process.env.SITE_INDEXING,process.env.CF_PAGES_BRANCH);
+let headers=await readFile(resolve(root,'public/_headers'),'utf8');
+headers=headers.replace(/^ {2}X-Robots-Tag:.*\n/gm,'');
+if(!enabled)headers=headers.replace('/*\n','/*\n  X-Robots-Tag: noindex, follow\n');
+headers+='\nhttps://:project.pages.dev/*\n  X-Robots-Tag: noindex, follow\n\nhttps://:version.:project.pages.dev/*\n  X-Robots-Tag: noindex, follow\n';
+for(const path of ['/vorschau/*','/vorschau','/konzept/*','/konzept','/404.html','/impressum/','/datenschutz/'])headers+=`\n${path}\n  X-Robots-Tag: noindex, follow\n`;
+await writeFile(resolve(output,'_headers'),headers);
+await writeFile(resolve(output,'robots.txt'),enabled?`User-agent: *\nAllow: /\nSitemap: ${origin}/sitemap.xml\n`:'User-agent: *\nDisallow: /\n');
+console.log(enabled?'SEO für den freigegebenen Start gebaut. pages.dev und Beispiele bleiben noindex.':'Vorschau gebaut: Suchmaschinenfreigabe bleibt ausgeschaltet.');

@@ -1,0 +1,15 @@
+---
+import EntryCard from '../../components/EntryCard.astro';
+import Timeline from '../../components/Timeline.astro';
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Gallery from '../../components/Gallery.astro';
+import MediaImage from '../../components/MediaImage.astro';
+import ContentBlocks from '../../components/ContentBlocks.astro';
+import { publicLitters, publicOffspring } from '../../lib-content';
+export async function getStaticPaths() { return (await publicLitters()).map(entry => ({ params: { id: entry.id }, props: { entry } })); }
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const offspring=(await publicOffspring()).filter(dog=>dog.data.litter===entry.id);
+---
+<Base title={entry.data.title} description={entry.data.description} image={entry.data.image} imageAlt={entry.data.imageAlt}><section class="detail-hero wrap"><div><a class="breadcrumb" href="/wuerfe/">← Würfe & Wurfplanung</a><span class="eyebrow">{entry.data.status} · {entry.data.period}</span><h1>{entry.data.title}</h1><p>{entry.data.description}</p>{entry.data.mother && <p class="parent-line">Mutter: {entry.data.mother}{entry.data.father && ` · Vater: ${entry.data.father}`}</p>}</div>{entry.data.image && <MediaImage src={entry.data.image} alt={entry.data.imageAlt} eager transitionName={`entry--wuerfe-${entry.id}-`}/>}</section><article class="prose wrap section"><Content /></article><Timeline events={entry.data.timeline}/><ContentBlocks blocks={entry.data.blocks}/><Gallery images={entry.data.gallery} />{offspring.length>0&&<section class="wrap section"><span class="eyebrow">Unsere Nachzucht</span><h2>Die Hunde dieses Wurfs.</h2><div class="cards-grid">{offspring.map(dog=><EntryCard {...dog.data} href={`/nachzucht/${dog.id}/`}/>)}</div></section>}</Base>

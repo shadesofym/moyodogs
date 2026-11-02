@@ -1,0 +1,16 @@
+---
+import Base from '../layouts/Base.astro';
+import FilmHero from '../components/FilmHero.astro';
+import EntryCard from '../components/EntryCard.astro';
+import site from '../data/site.json';
+import { publicDogs, publicLitters, publicPosts } from '../lib-content';
+const [dogs, litters, posts] = await Promise.all([publicDogs(), publicLitters(), publicPosts()]);
+const planned = litters.find(entry => entry.data.status === 'Geplant');
+---
+<Base title="Holländische Schäferhund-Zucht im Kanton Bern">
+<FilmHero/>
+{planned && <section class="litter-teaser"><div class="wrap teaser-inner"><div><span class="eyebrow">Wurfplanung · {planned.data.period}</span><h2>{planned.data.title}</h2></div><a class="text-link light" href={`/wuerfe/${planned.id}/`}>Mehr erfahren ↗</a></div></section>}
+<section class="section wrap" data-reveal><div class="section-heading"><div><span class="eyebrow">Die Gesichter von MOYO DOGS</span><h2>Jeder Hund.<br/>Eine Persönlichkeit.</h2></div><a class="text-link" href="/hunde/">Alle Hunde entdecken ↗</a></div><div class="cards-grid">{dogs.slice(0, 3).map(dog => <EntryCard {...dog.data} href={`/hunde/${dog.id}/`} />)}</div></section>
+<section class="about-section" id="unsere-geschichte" data-reveal><div class="wrap about-inner"><span class="eyebrow">Über unsere Zucht</span><h2>{site.aboutTitle}</h2><div><p>{site.aboutText}</p><a class="text-link" href="/zucht/">Sandra & die Zucht kennenlernen ↗</a></div></div></section>
+<section class="section wrap" data-reveal><div class="section-heading"><div><span class="eyebrow">Geschichten aus unserem Alltag</span><h2>Journal.</h2></div><a class="text-link" href="/blog/">Alle Geschichten ↗</a></div>{posts.length ? <div class="cards-grid">{posts.slice(0, 3).map(post => <EntryCard {...post.data} href={`/blog/${post.id}/`} label={post.data.category} />)}</div> : <div class="empty-state"><p>Hier teilen wir bald neue Geschichten, Bilder und Momente mit unseren Hunden.</p><a class="text-link" href="/vorschau/journal/">Journal-Entwurf ansehen ↗</a></div>}</section>
+</Base>

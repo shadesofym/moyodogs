@@ -1,0 +1,5 @@
+---
+import Base from '../layouts/Base.astro';
+import site from '../data/site.json';
+---
+<Base title="Kontakt"><section class="page-heading wrap"><span class="eyebrow">Der erste Schritt ist eine Nachricht</span><h1>Lernen wir<br/>uns kennen.</h1><p>Fragen zu unseren Hunden, unserer Zucht oder einem geplanten Wurf? Ich freue mich darauf, von dir zu hören.</p><a class="button" href={`mailto:${site.email}`}>E-Mail an Sandra ↗</a></section><section class="wrap section below-heading prose"><h2>Direkt & persönlich.</h2><p>Du erreichst uns unter <a href={`mailto:${site.email}`}>{site.email}</a>.</p><p>Wenn du dich für einen Welpen interessierst, erzähl gerne etwas über dich und wie du dir das Leben mit einem Holländischen Schäferhund vorstellst.</p><p>MOYO DOGS · Kanton Bern, Schweiz</p></section></Base>

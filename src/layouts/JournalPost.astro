@@ -1,0 +1,18 @@
+---
+import Base from './Base.astro';
+import '../styles/journal.css';
+import MediaImage from '../components/MediaImage.astro';
+import Gallery from '../components/Gallery.astro';
+import ContentBlocks from '../components/ContentBlocks.astro';
+import type {ContentBlock} from '../lib/content-schema';
+interface Props{title:string;seoTitle?:string;description:string;category:string;image?:string;imageAlt?:string;date?:Date;href:string;backHref?:string;preview?:boolean;historical?:boolean;blocks?:ContentBlock[];gallery?:{image:string;alt:string}[]}
+const {title,seoTitle,description,category,image,imageAlt='',date,href,backHref='/blog/',preview=false,historical=false,blocks=[],gallery=[]}=Astro.props;
+---
+<Base title={seoTitle??title} description={description} image={image} imageAlt={imageAlt} article={!preview} date={date} noindex={preview}>
+ <header class="post-heading journal-story-heading wrap"><a class="breadcrumb" href={backHref}>← Alle Geschichten</a><div class="story-edition"><span>MOYO DOGS / JOURNAL</span><span>Geschichten von draussen.</span></div><span class="eyebrow">{category}{date&&<> · <time datetime={date.toISOString()}>{date.toLocaleDateString('de-CH',{timeZone:'UTC'})}</time></>}{preview&&' · Gestaltungsbeispiel'}</span><h1>{title}</h1><p>{description}</p><div class="post-byline"><span class="author-mark" aria-hidden="true">S</span><span>Sandra · MOYO DOGS{preview&&' · Beispieltext'}</span></div></header>
+ {image&&<div class="wrap post-image journal-story-image"><MediaImage src={image} alt={imageAlt} eager sizes="100vw" transitionName={`entry-${href.replaceAll('/','-')}`}/></div>}
+ {historical&&<aside class="wrap archive-note"><p>Aus unserem Archiv. Angaben zu Wurfplanung und verfügbaren Welpen beziehen sich auf das damalige Beitragsdatum. <a href="/wuerfe/">Zur aktuellen Wurfplanung ↗</a></p></aside>}
+ <article class="prose wrap section"><slot/></article>
+ <ContentBlocks blocks={blocks}/><Gallery images={gallery}/>
+ <div class="wrap post-end">{preview&&<p class="journal-example">Gestaltungsbeispiel mit bestehenden Fotos. Dieser Text ist kein veröffentlichter Blogbeitrag.</p>}<a class="text-link" href={backHref}>Zurück zum Journal <span aria-hidden="true">↗</span></a></div>
+</Base>

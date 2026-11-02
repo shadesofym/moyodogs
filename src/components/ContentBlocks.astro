@@ -1,0 +1,20 @@
+---
+import MarkdownIt from 'markdown-it';
+import type {ContentBlock} from '../lib/content-schema';
+import MediaImage from './MediaImage.astro';
+import Gallery from './Gallery.astro';
+interface Props{blocks?:ContentBlock[]}
+const {blocks=[]}=Astro.props;
+// HTML is escaped by the processor before trusted editor-authored Markdown is rendered.
+const processor=new MarkdownIt({html:false,linkify:false});
+const rendered=blocks.map(block=>block.type==='text'?processor.render(block.body):'');
+---
+<div class="content-blocks wrap">
+{blocks.map((block,i)=><section class="content-block" data-reveal>
+ {block.type==='text'&&<div class="prose" set:html={rendered[i]}/>}
+ {block.type==='image'&&<figure><MediaImage src={block.image} alt={block.alt}/>{block.caption&&<figcaption>{block.caption}</figcaption>}</figure>}
+ {block.type==='gallery'&&<Gallery images={block.images} contained/>}
+ {block.type==='quote'&&<blockquote><p>{block.text}</p>{block.attribution&&<cite>{block.attribution}</cite>}</blockquote>}
+ {block.type==='video'&&<figure><video controls playsinline preload="none" poster={block.poster} aria-label={block.title}><source src={block.file} type={block.file.endsWith('.webm')?'video/webm':'video/mp4'}/>{block.captions&&<track kind="captions" src={block.captions} srclang="de" label="Deutsch" default/>}<a href={block.file}>Video herunterladen</a></video><figcaption>{block.title}</figcaption><details><summary>Videobeschreibung / Transkript</summary><p>{block.transcript}</p></details></figure>}
+</section>)}
+</div>

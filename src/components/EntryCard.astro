@@ -1,0 +1,10 @@
+---
+import MediaImage from './MediaImage.astro';
+interface Props { title: string; description: string; href: string; image?: string; imageAlt?: string; label?: string }
+const { title, description, href, image, imageAlt = '', label } = Astro.props;
+---
+<article class="entry-card"><a href={href}>
+  {image && <div class="card-image"><MediaImage src={image} alt={imageAlt} transitionName={`entry-${href.replaceAll('/','-')}`} sizes="(max-width: 760px) 100vw, 33vw"/></div>}
+  {label && <span class="eyebrow">{label}</span>}
+  <div class="card-heading"><h3>{title}</h3><span aria-hidden="true">↗</span></div><p>{description}</p>
+</a></article>

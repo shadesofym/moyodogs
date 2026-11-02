@@ -1,0 +1,13 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Gallery from '../../components/Gallery.astro';
+import DogPortrait from '../../components/DogPortrait.astro';
+import ContentBlocks from '../../components/ContentBlocks.astro';
+import { publicDogs } from '../../lib-content';
+export async function getStaticPaths() { return (await publicDogs()).map(entry => ({ params: { id: entry.id }, props: { entry } })); }
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const dogs=await publicDogs();
+---
+<Base title={entry.data.seoTitle??entry.data.title} description={entry.data.description} image={entry.data.image} imageAlt={entry.data.imageAlt}><DogPortrait entry={entry} dogs={dogs}/><article class="prose wrap section" id="hundegeschichte"><Content /></article><ContentBlocks blocks={entry.data.blocks}/><Gallery images={entry.data.gallery} /></Base>

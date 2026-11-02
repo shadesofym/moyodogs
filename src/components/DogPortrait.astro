@@ -1,0 +1,13 @@
+---
+import type {CollectionEntry} from 'astro:content';
+import MediaImage from './MediaImage.astro';
+interface Props{entry:CollectionEntry<'dogs'>;dogs:CollectionEntry<'dogs'>[];overview?:boolean}
+const {entry,dogs,overview=false}=Astro.props;
+---
+<section aria-label={`${entry.data.title} kennenlernen`}>
+ <div class="portrait-heading wrap"><div>{!overview&&<a class="breadcrumb" href="/hunde/">← Unsere Hunde</a>}<span class="eyebrow">Die Hunde · MOYO DOGS</span><h1>{entry.data.title}</h1></div><span class="eyebrow">Jeder Hund.<br/>Eine eigene Welt.</span></div>
+ <div class="portrait-stage wrap">
+  {entry.data.image&&<MediaImage class="portrait-photo" src={entry.data.image} alt={entry.data.imageAlt} eager transitionName={`entry--hunde-${entry.id}-`}/>}
+  <div class="portrait-copy"><span class="eyebrow">Ganz nah dran.</span><h2>Charakter,<br/>der verbindet.</h2><p>{entry.data.description}</p><a class="button" href={overview?`/hunde/${entry.id}/`:'#hundegeschichte'}>{overview?'Das Porträt entdecken':'Mehr kennenlernen'} <span aria-hidden="true">↗</span></a><nav class="portrait-switch" aria-label="Hund auswählen">{dogs.map(dog=><a href={`/hunde/${dog.id}/`} aria-current={dog.id===entry.id?'page':undefined}>{dog.data.title}</a>)}</nav></div>
+ </div>
+</section>

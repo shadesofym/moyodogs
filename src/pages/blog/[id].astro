@@ -1,0 +1,9 @@
+---
+import { render } from 'astro:content';
+import JournalPost from '../../layouts/JournalPost.astro';
+import { publicPosts } from '../../lib-content';
+export async function getStaticPaths() { return (await publicPosts()).map(entry => ({ params: { id: entry.id }, props: { entry } })); }
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+<JournalPost {...entry.data} href={`/blog/${entry.id}/`}><Content/></JournalPost>

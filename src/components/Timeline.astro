@@ -1,0 +1,7 @@
+---
+import type {TimelineEvent} from '../lib/content-schema';
+import MediaImage from './MediaImage.astro';
+interface Props{events:TimelineEvent[]}
+const {events}=Astro.props;
+---
+{events.length>0&&<section class="wrap section timeline"><span class="eyebrow">Die Geschichte dieses Wurfs</span><h2>Schritt für Schritt.</h2><ol>{events.map(event=><li data-reveal><div class="timeline-date"><span>{event.when}</span><span class="timeline-state">{event.state}</span></div><div><h3>{event.title}</h3>{event.description&&<p>{event.description}</p>}{event.image&&<MediaImage src={event.image} alt={event.alt??event.title}/>}</div></li>)}</ol></section>}

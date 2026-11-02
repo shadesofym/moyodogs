@@ -1,0 +1,827 @@
+{
+  "snapshot": "2026-11-02",
+  "pages": 37,
+  "posts": 23,
+  "images": 381,
+  "entries": [
+    {
+      "file": "src/content/posts/fotoshooting-8-weeks.md",
+      "sources": [
+        1353
+      ],
+      "published": false
+    },
+    {
+      "file": "src/content/posts/insight.md",
+      "sources": [
+        1155
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/posts/t-wurf-litter.md",
+      "sources": [
+        1140
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/posts/4-wochen-alt.md",
+      "sources": [
+        1137
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/posts/1132.md",
+      "sources": [
+        1132
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/posts/t-wurf.md",
+      "sources": [
+        1129
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/posts/birthday-2.md",
+      "sources": [
+        1092
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/posts/happy-2-years.md",
+      "sources": [
+        850
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/posts/happy-first-birthday.md",
+      "sources": [
+        751
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/posts/the-eleven.md",
+      "sources": [
+        714
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/posts/birthday.md",
+      "sources": [
+        710
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/posts/traechtigkeit.md",
+      "sources": [
+        583
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/posts/sich-begegnen.md",
+      "sources": [
+        572
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/posts/bh-vt.md",
+      "sources": [
+        552
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/posts/unsere-erste-mantrailing-pruefung.md",
+      "sources": [
+        489
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/posts/frisbee-2-0.md",
+      "sources": [
+        420
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/posts/einblick-ins-mondioring.md",
+      "sources": [
+        416
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/posts/badespass.md",
+      "sources": [
+        339
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/posts/joyce-und-malu.md",
+      "sources": [
+        309
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/posts/dog-show-aarau.md",
+      "sources": [
+        247
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/posts/ankoerung-malu.md",
+      "sources": [
+        275
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/posts/mantrailing.md",
+      "sources": [
+        295
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/posts/frisbee.md",
+      "sources": [
+        286
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/dogs/malu.md",
+      "sources": [
+        1593
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/dogs/yam.md",
+      "sources": [
+        1601
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/dogs/bumblebee.md",
+      "sources": [
+        1608
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/pages/zucht.md",
+      "sources": [
+        165
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/pages/rasse.md",
+      "sources": [
+        163
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/offspring/shades-of-yam.md",
+      "sources": [
+        1422
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/offspring/shades-of-clay.md",
+      "sources": [
+        1417
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/offspring/shades-of-bumblebee.md",
+      "sources": [
+        1382
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/offspring/shades-of-ocean.md",
+      "sources": [
+        1380
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/offspring/shades-of-anchor-onyx.md",
+      "sources": [
+        1378
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/offspring/shades-of-pine-shirley.md",
+      "sources": [
+        1376
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/offspring/shades-of-midnight.md",
+      "sources": [
+        1374
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/offspring/shades-of-lace.md",
+      "sources": [
+        1372
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/offspring/shades-of-frost.md",
+      "sources": [
+        1370
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/offspring/shades-of-jade-pink.md",
+      "sources": [
+        1364
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/offspring/shades-of-azur.md",
+      "sources": [
+        1359
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/offspring/the-gods-vayu-2.md",
+      "sources": [
+        1304
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/offspring/the-gods-njord.md",
+      "sources": [
+        1207
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/offspring/the-gods-tyr.md",
+      "sources": [
+        1205
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/offspring/the-gods-kama.md",
+      "sources": [
+        1203,
+        1209
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/offspring/the-gods-sif.md",
+      "sources": [
+        1201
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/offspring/the-gods-anu.md",
+      "sources": [
+        1199
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/offspring/the-gods-inari.md",
+      "sources": [
+        1195
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/offspring/the-gods-nyame.md",
+      "sources": [
+        1193
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/offspring/the-gods-maat.md",
+      "sources": [
+        1191
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/offspring/the-gods-skadi.md",
+      "sources": [
+        1189
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/offspring/the-gods-ra.md",
+      "sources": [
+        1186
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/offspring/poseidon.md",
+      "sources": [
+        1184
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/litters/fruehling-2027.md",
+      "sources": [
+        1458,
+        1582
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/litters/shades-of.md",
+      "sources": [
+        63,
+        710,
+        751,
+        850
+      ],
+      "published": true
+    },
+    {
+      "file": "src/content/litters/the-gods.md",
+      "sources": [
+        394,
+        1092
+      ],
+      "published": true
+    }
+  ],
+  "routes": [
+    {
+      "id": 1608,
+      "old": "/bumblebee/",
+      "new": "/hunde/bumblebee/",
+      "note": ""
+    },
+    {
+      "id": 1601,
+      "old": "/yam/",
+      "new": "/hunde/yam/",
+      "note": ""
+    },
+    {
+      "id": 1593,
+      "old": "/malu/",
+      "new": "/hunde/malu/",
+      "note": ""
+    },
+    {
+      "id": 1582,
+      "old": "/wurfplanung-27-2/",
+      "new": "/wuerfe/fruehling-2027/",
+      "note": ""
+    },
+    {
+      "id": 1458,
+      "old": "/wurfplanung/",
+      "new": "/wuerfe/fruehling-2027/",
+      "note": ""
+    },
+    {
+      "id": 1422,
+      "old": "/shades-of-yam/",
+      "new": "/nachzucht/shades-of-yam/",
+      "note": ""
+    },
+    {
+      "id": 1417,
+      "old": "/shades-of-clay/",
+      "new": "/nachzucht/shades-of-clay/",
+      "note": ""
+    },
+    {
+      "id": 1382,
+      "old": "/shades-of-bumblebee/",
+      "new": "/nachzucht/shades-of-bumblebee/",
+      "note": ""
+    },
+    {
+      "id": 1380,
+      "old": "/shades-of-ocean/",
+      "new": "/nachzucht/shades-of-ocean/",
+      "note": ""
+    },
+    {
+      "id": 1378,
+      "old": "/shades-of-anchor-onyx/",
+      "new": "/nachzucht/shades-of-anchor-onyx/",
+      "note": ""
+    },
+    {
+      "id": 1376,
+      "old": "/shades-of-pine-shirley/",
+      "new": "/nachzucht/shades-of-pine-shirley/",
+      "note": ""
+    },
+    {
+      "id": 1374,
+      "old": "/shades-of-midnight/",
+      "new": "/nachzucht/shades-of-midnight/",
+      "note": ""
+    },
+    {
+      "id": 1372,
+      "old": "/shades-of-lace/",
+      "new": "/nachzucht/shades-of-lace/",
+      "note": ""
+    },
+    {
+      "id": 1370,
+      "old": "/shades-of-frost/",
+      "new": "/nachzucht/shades-of-frost/",
+      "note": ""
+    },
+    {
+      "id": 1364,
+      "old": "/elementor-seite-1364/",
+      "new": "/nachzucht/shades-of-jade-pink/",
+      "note": ""
+    },
+    {
+      "id": 1359,
+      "old": "/shades-of-azur/",
+      "new": "/nachzucht/shades-of-azur/",
+      "note": ""
+    },
+    {
+      "id": 1304,
+      "old": "/the-gods-vayu-2/",
+      "new": "/nachzucht/the-gods-vayu-2/",
+      "note": ""
+    },
+    {
+      "id": 1209,
+      "old": "/the-gods-kama-2/",
+      "new": "/nachzucht/the-gods-kama/",
+      "note": ""
+    },
+    {
+      "id": 1207,
+      "old": "/the-gods-njord/",
+      "new": "/nachzucht/the-gods-njord/",
+      "note": ""
+    },
+    {
+      "id": 1205,
+      "old": "/the-gods-tyr/",
+      "new": "/nachzucht/the-gods-tyr/",
+      "note": ""
+    },
+    {
+      "id": 1203,
+      "old": "/the-gods-kama/",
+      "new": "/nachzucht/the-gods-kama/",
+      "note": ""
+    },
+    {
+      "id": 1201,
+      "old": "/the-gods-sif/",
+      "new": "/nachzucht/the-gods-sif/",
+      "note": ""
+    },
+    {
+      "id": 1199,
+      "old": "/the-gods-anu/",
+      "new": "/nachzucht/the-gods-anu/",
+      "note": ""
+    },
+    {
+      "id": 1197,
+      "old": "/the-gods-vayu/",
+      "new": "/nachzucht/the-gods-vayu-2/",
+      "note": ""
+    },
+    {
+      "id": 1195,
+      "old": "/the-gods-inari/",
+      "new": "/nachzucht/the-gods-inari/",
+      "note": ""
+    },
+    {
+      "id": 1193,
+      "old": "/the-gods-nyame/",
+      "new": "/nachzucht/the-gods-nyame/",
+      "note": ""
+    },
+    {
+      "id": 1191,
+      "old": "/the-gods-maat/",
+      "new": "/nachzucht/the-gods-maat/",
+      "note": ""
+    },
+    {
+      "id": 1189,
+      "old": "/the-gods-skadi/",
+      "new": "/nachzucht/the-gods-skadi/",
+      "note": ""
+    },
+    {
+      "id": 1186,
+      "old": "/the-gods-ra/",
+      "new": "/nachzucht/the-gods-ra/",
+      "note": ""
+    },
+    {
+      "id": 1184,
+      "old": "/poseidon/",
+      "new": "/nachzucht/poseidon/",
+      "note": ""
+    },
+    {
+      "id": 394,
+      "old": "/wuerfe/",
+      "new": "/wuerfe/the-gods/",
+      "note": ""
+    },
+    {
+      "id": 267,
+      "old": "/blog/",
+      "new": "/blog/",
+      "note": ""
+    },
+    {
+      "id": 165,
+      "old": "/zucht/",
+      "new": "/zucht/",
+      "note": ""
+    },
+    {
+      "id": 163,
+      "old": "/rasse/",
+      "new": "/rasse/",
+      "note": ""
+    },
+    {
+      "id": 145,
+      "old": "/interesse/",
+      "new": "/kontakt/",
+      "note": ""
+    },
+    {
+      "id": 63,
+      "old": "/home-2/",
+      "new": "/wuerfe/shades-of/",
+      "note": ""
+    },
+    {
+      "id": 38,
+      "old": "/",
+      "new": "/",
+      "note": ""
+    },
+    {
+      "id": 1353,
+      "old": "/2025/11/15/fotoshooting-8-weeks/",
+      "new": "/blog/",
+      "note": "Leere Quelle: Metadaten als Entwurf übernommen, Übersicht als Ziel."
+    },
+    {
+      "id": 1155,
+      "old": "/2025/10/15/insight/",
+      "new": "/blog/insight/",
+      "note": ""
+    },
+    {
+      "id": 1140,
+      "old": "/2025/10/15/t-wurf-litter/",
+      "new": "/blog/t-wurf-litter/",
+      "note": ""
+    },
+    {
+      "id": 1137,
+      "old": "/2025/10/13/4-wochen-alt/",
+      "new": "/blog/4-wochen-alt/",
+      "note": ""
+    },
+    {
+      "id": 1132,
+      "old": "/2025/09/21/1132/",
+      "new": "/blog/1132/",
+      "note": ""
+    },
+    {
+      "id": 1129,
+      "old": "/2025/09/16/t-wurf/",
+      "new": "/blog/t-wurf/",
+      "note": ""
+    },
+    {
+      "id": 1092,
+      "old": "/2025/09/15/birthday-2/",
+      "new": "/blog/birthday-2/",
+      "note": ""
+    },
+    {
+      "id": 850,
+      "old": "/2025/01/02/happy-2-years/",
+      "new": "/blog/happy-2-years/",
+      "note": ""
+    },
+    {
+      "id": 751,
+      "old": "/2024/01/02/happy-first-birthday/",
+      "new": "/blog/happy-first-birthday/",
+      "note": ""
+    },
+    {
+      "id": 714,
+      "old": "/2023/03/31/the-eleven/",
+      "new": "/blog/the-eleven/",
+      "note": ""
+    },
+    {
+      "id": 710,
+      "old": "/2023/01/11/birthday/",
+      "new": "/blog/birthday/",
+      "note": ""
+    },
+    {
+      "id": 583,
+      "old": "/2022/12/04/traechtigkeit/",
+      "new": "/blog/traechtigkeit/",
+      "note": ""
+    },
+    {
+      "id": 572,
+      "old": "/2022/11/06/sich-begegnen/",
+      "new": "/blog/sich-begegnen/",
+      "note": ""
+    },
+    {
+      "id": 552,
+      "old": "/2022/11/01/bh-vt/",
+      "new": "/blog/bh-vt/",
+      "note": ""
+    },
+    {
+      "id": 489,
+      "old": "/2022/09/21/unsere-erste-mantrailing-pruefung/",
+      "new": "/blog/unsere-erste-mantrailing-pruefung/",
+      "note": ""
+    },
+    {
+      "id": 420,
+      "old": "/2022/09/02/frisbee-2-0/",
+      "new": "/blog/frisbee-2-0/",
+      "note": ""
+    },
+    {
+      "id": 416,
+      "old": "/2022/09/02/einblick-ins-mondioring/",
+      "new": "/blog/einblick-ins-mondioring/",
+      "note": ""
+    },
+    {
+      "id": 339,
+      "old": "/2022/07/21/badespass/",
+      "new": "/blog/badespass/",
+      "note": ""
+    },
+    {
+      "id": 309,
+      "old": "/2022/07/07/joyce-und-malu/",
+      "new": "/blog/joyce-und-malu/",
+      "note": ""
+    },
+    {
+      "id": 247,
+      "old": "/2022/07/07/dog-show-aarau/",
+      "new": "/blog/dog-show-aarau/",
+      "note": ""
+    },
+    {
+      "id": 275,
+      "old": "/2022/06/07/ankoerung-malu/",
+      "new": "/blog/ankoerung-malu/",
+      "note": ""
+    },
+    {
+      "id": 295,
+      "old": "/2022/06/02/mantrailing/",
+      "new": "/blog/mantrailing/",
+      "note": ""
+    },
+    {
+      "id": 286,
+      "old": "/2022/06/01/frisbee/",
+      "new": "/blog/frisbee/",
+      "note": ""
+    }
+  ],
+  "redirects": 1026,
+  "media_variants": 3755,
+  "missing_images": [
+    {
+      "entry": 1129,
+      "url": "https://moyodogs.com/wp-content/uploads/2025/09/Schwarz-Weiss-Modern-Handschriftlich-Ueber-Mich-Business-Collage-Instagram-Post.zip-11-819x1024.png",
+      "status": "HTTP 404 auf der WordPress-Website, am 02.11.2026 geprüft"
+    },
+    {
+      "entry": 1129,
+      "url": "https://moyodogs.com/wp-content/uploads/2025/09/Schwarz-Weiss-Modern-Handschriftlich-Ueber-Mich-Business-Collage-Instagram-Post.zip-10-819x1024.png",
+      "status": "HTTP 404 auf der WordPress-Website, am 02.11.2026 geprüft"
+    },
+    {
+      "entry": 1129,
+      "url": "https://moyodogs.com/wp-content/uploads/2025/09/Schwarz-Weiss-Modern-Handschriftlich-Ueber-Mich-Business-Collage-Instagram-Post.png.PNG-819x1024.jpg",
+      "status": "HTTP 404 auf der WordPress-Website, am 02.11.2026 geprüft"
+    }
+  ],
+  "video_urls": [
+    "https://moyodogs.com/wp-content/uploads/2022/07/Frisbee_video.mov",
+    "https://moyodogs.com/wp-content/uploads/2022/07/K9_Malu.mov",
+    "https://moyodogs.com/wp-content/uploads/2022/07/ankoerung_video.mp4",
+    "https://moyodogs.com/wp-content/uploads/2022/09/1661717700.mp4",
+    "https://moyodogs.com/wp-content/uploads/2022/09/9862156481.mp4",
+    "https://moyodogs.com/wp-content/uploads/2025/10/3fbff54e30c344b5a705552064250ed8.mp4"
+  ],
+  "review": [
+    "Malu: Geburtsdatum 04.09.2019; Jahr 2019 von Sandra am 02.11.2026 bestätigt.",
+    "Beitrag 1353: Quelle enthält weder Text noch Bilder. Als Entwurf erhalten.",
+    "Malu: Grössen-/Gewichtsangaben unterscheiden sich zwischen Profil und Wurfplanung; unverändert übernommen.",
+    "Historische Wurf- und Beitragsangaben sind keine aktuelle Verfügbarkeitsauskunft.",
+    "Gesundheits-, Prüfungs- und Abstammungsangaben aus den eigenen WordPress-Texten; Belege vor Freigabe prüfen.",
+    "Kein vollständiges WordPress-Backup: Datenbank, private Inhalte und Serverkonfiguration fehlen."
+  ],
+  "videos": [
+    {
+      "id": 1156,
+      "source": "https://moyodogs.com/wp-content/uploads/2025/10/3fbff54e30c344b5a705552064250ed8.mp4",
+      "target": "/media/wordpress/video-1156.mp4",
+      "bytes": 17056049
+    },
+    {
+      "id": 422,
+      "source": "https://moyodogs.com/wp-content/uploads/2022/09/9862156481.mp4",
+      "target": "/media/wordpress/video-422.mp4",
+      "bytes": 1944616
+    },
+    {
+      "id": 417,
+      "source": "https://moyodogs.com/wp-content/uploads/2022/09/1661717700.mp4",
+      "target": "/media/wordpress/video-417.mp4",
+      "bytes": 11995098
+    },
+    {
+      "id": 296,
+      "source": "https://moyodogs.com/wp-content/uploads/2022/07/K9_Malu.mov",
+      "target": "/media/wordpress/video-296.mp4",
+      "bytes": 13035524
+    },
+    {
+      "id": 288,
+      "source": "https://moyodogs.com/wp-content/uploads/2022/07/Frisbee_video.mov",
+      "target": "/media/wordpress/video-288.mp4",
+      "bytes": 11644578
+    },
+    {
+      "id": 283,
+      "source": "https://moyodogs.com/wp-content/uploads/2022/07/ankoerung_video.mp4",
+      "target": "/media/wordpress/video-283.mp4",
+      "bytes": 16910649
+    }
+  ]
+}

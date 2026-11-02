@@ -1,0 +1,12 @@
+---
+import site from '../data/site.json';
+import MediaImage from './MediaImage.astro';
+const lines=site.headline.split('\n');
+---
+<section class="film-hero" aria-label="MOYO DOGS kennenlernen">
+ <MediaImage src={site.heroImage} alt={site.heroAlt} class="film-image" eager sizes="100vw"/>
+ <div class="film-shade" aria-hidden="true"></div>
+ <div class="film-wordmark" aria-hidden="true">{site.name}</div>
+ <div class="film-copy"><span class="eyebrow">{site.eyebrow}</span><h1>{lines.map((line,i)=><>{i>0&&<br/>}{line}</>)}</h1><a class="button" href="/hunde/">Unsere Hunde kennenlernen <span aria-hidden="true">↗</span></a></div>
+ <div class="film-bottom"><span class="eyebrow">Holländische Schäferhunde · Kanton Bern</span><a class="text-link" href="#unsere-geschichte">Geschichten beginnen draussen <span aria-hidden="true">↓</span></a></div>
+</section>

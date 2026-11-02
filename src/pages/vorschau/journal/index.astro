@@ -1,0 +1,6 @@
+---
+import Base from '../../../layouts/Base.astro';
+import Journal from '../../../components/Journal.astro';
+import {journalExamples} from '../../../data/journal-preview';
+---
+<Base title="Journal · Designvorschau"><Journal preview posts={journalExamples.map(post=>({...post,href:`/vorschau/journal/${post.id}/`}))}/></Base>

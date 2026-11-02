@@ -1,0 +1,8 @@
+---
+import Base from '../../layouts/Base.astro';
+import EntryCard from '../../components/EntryCard.astro';
+import DogPortrait from '../../components/DogPortrait.astro';
+import { publicDogs } from '../../lib-content';
+const dogs = await publicDogs();
+---
+<Base title="Unsere Hunde">{dogs[0]?<><DogPortrait entry={dogs[0]} dogs={dogs} overview/>{dogs.length>1&&<section class="section wrap"><div class="section-heading"><div><span class="eyebrow">Unsere Hundefamilie</span><h2>Weitere Charakterköpfe.</h2></div></div><div class="cards-grid two-up">{dogs.slice(1).map(dog=><EntryCard {...dog.data} href={`/hunde/${dog.id}/`}/>)}</div></section>}</>:<section class="page-heading wrap"><h1>Unsere Hunde.</h1><p>Die Hundeprofile werden gerade ergänzt.</p></section>}</Base>

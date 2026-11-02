@@ -1,0 +1,9 @@
+---
+import Base from '../../layouts/Base.astro';
+import EntryCard from '../../components/EntryCard.astro';
+import { publicLitters } from '../../lib-content';
+const litters = await publicLitters();
+const current = litters.filter(entry => entry.data.status !== 'Abgeschlossen');
+const past = litters.filter(entry => entry.data.status === 'Abgeschlossen');
+---
+<Base title="Würfe & Wurfplanung"><section class="page-heading wrap"><span class="eyebrow">Ein neuer Anfang</span><h1>Mit Vorfreude.<br/>Mit Verantwortung.</h1><p>Unsere Wurfplanung und die Geschichten unserer bisherigen Würfe.</p></section><section class="wrap section below-heading"><h2>Aktuelle Wurfplanung</h2><div class="cards-grid">{current.map(entry => <EntryCard {...entry.data} label={`${entry.data.period} · ${entry.data.status}`} href={`/wuerfe/${entry.id}/`} />)}</div>{!current.length && <p>Aktuell ist hier keine Wurfplanung veröffentlicht. Frag uns gerne persönlich.</p>}</section><section class="wrap section past-litters"><span class="eyebrow">Unsere bisherigen Würfe</span><h2>Teil unserer Geschichte.</h2>{past.length ? <div class="cards-grid">{past.map(entry => <EntryCard {...entry.data} label={entry.data.period} href={`/wuerfe/${entry.id}/`} />)}</div> : <p>Die Porträts unserer bisherigen Würfe «Shades of» und «The Gods» werden noch von der bestehenden Website übernommen.</p>}</section></Base>

@@ -1,0 +1,7 @@
+---
+import Base from '../../layouts/Base.astro';
+import Journal from '../../components/Journal.astro';
+import { publicPosts } from '../../lib-content';
+const posts = await publicPosts();
+---
+<Base title="Journal – Leben mit Holländischen Schäferhunden" description="Sandra erzählt von Aufzucht, Hundesport und Alltag mit den Holländischen Schäferhunden von MOYO DOGS. Entdecke unsere Geschichten und Bilder."><Journal posts={posts.map(post=>({...post.data,href:`/blog/${post.id}/`}))}/></Base>

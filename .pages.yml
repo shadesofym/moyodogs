@@ -1,0 +1,413 @@
+media:
+  input: public/media
+  output: /media
+  rename: safe
+  extensions:
+    - jpg
+    - jpeg
+    - png
+    - webp
+    - avif
+    - mp4
+    - webm
+    - vtt
+components:
+  gallery:
+    label: Weitere Bilder
+    type: object
+    list: true
+    fields:
+      - name: image
+        label: Bild
+        type: image
+        required: true
+      - name: alt
+        label: Bildbeschreibung
+        type: string
+        required: true
+  blocks:
+    label: Zusätzliche Inhaltsbausteine
+    type: block
+    list: true
+    blockKey: type
+    blocks:
+      - name: text
+        label: Text
+        fields:
+          - name: body
+            label: Text
+            type: rich-text
+            required: true
+      - name: image
+        label: Einzelbild
+        fields:
+          - name: image
+            label: Bild
+            type: image
+            required: true
+          - name: alt
+            label: Bildbeschreibung
+            type: string
+            required: true
+          - name: caption
+            label: Bildunterschrift
+            type: string
+      - name: gallery
+        label: Fotogalerie
+        fields:
+          - name: images
+            component: gallery
+      - name: quote
+        label: Zitat
+        fields:
+          - name: text
+            label: Zitat
+            type: text
+            required: true
+          - name: attribution
+            label: Name / Quelle
+            type: string
+      - name: video
+        label: Video
+        fields:
+          - name: title
+            label: Titel
+            type: string
+            required: true
+          - name: file
+            label: Videodatei
+            type: file
+            required: true
+            options:
+              extensions:
+                - mp4
+                - webm
+            description: Kurze weboptimierte Videos, höchstens 20 MB pro Datei.
+          - name: poster
+            label: Vorschaubild
+            type: image
+          - name: captions
+            label: Untertitel (VTT)
+            type: file
+            options:
+              extensions:
+                - vtt
+          - name: transcript
+            label: Videobeschreibung / gesprochenes Transkript
+            type: text
+            required: true
+content:
+  - name: home
+    label: Startseite & Kontakt
+    type: file
+    path: src/data/site.json
+    format: json
+    fields:
+      - name: name
+        label: Name der Zucht
+        type: string
+        required: true
+      - name: eyebrow
+        label: Kleine Überschrift
+        type: string
+        required: true
+      - name: headline
+        label: Grosse Überschrift
+        type: text
+        required: true
+        description: Ein Zeilenumbruch beginnt eine neue Zeile auf der Startseite.
+      - name: intro
+        label: Vorstellung
+        type: text
+        required: true
+      - name: heroImage
+        label: Grosses Startbild
+        type: image
+        required: true
+      - name: heroAlt
+        label: Bildbeschreibung
+        type: string
+        required: true
+      - name: email
+        label: Kontakt-E-Mail
+        type: string
+        required: true
+      - name: aboutTitle
+        label: Überschrift zur Zucht
+        type: string
+        required: true
+      - name: aboutText
+        label: Kurztext zur Zucht
+        type: text
+        required: true
+  - name: dogs
+    label: Hunde
+    type: collection
+    path: src/content/dogs
+    format: yaml-frontmatter
+    filename: "{primary}.md"
+    view:
+      primary: title
+      fields:
+        - title
+        - published
+        - order
+      sort: order
+    fields:
+      - name: title
+        label: Name des Hundes
+        type: string
+        required: true
+      - name: seoTitle
+        label: Optionaler Titel für Suchergebnisse
+        type: string
+      - name: description
+        label: Kurzbeschreibung
+        type: text
+        required: true
+      - name: published
+        label: Auf der Website veröffentlichen
+        type: boolean
+        default: false
+        description: "Ausgeschaltet bleibt dieses Profil ein Entwurf. Entwürfe sind nicht vertraulich: Inhalte liegen
+          im GitHub-Projekt."
+      - name: image
+        label: Profilbild
+        type: image
+      - name: imageAlt
+        label: Bildbeschreibung
+        type: string
+      - name: gallery
+        component: gallery
+      - name: order
+        label: Reihenfolge
+        type: number
+        default: 0
+      - name: body
+        label: Über den Hund
+        type: rich-text
+      - name: blocks
+        component: blocks
+  - name: litters
+    label: Würfe & Wurfplanung
+    type: collection
+    path: src/content/litters
+    format: yaml-frontmatter
+    filename: "{primary}.md"
+    view:
+      primary: title
+      fields:
+        - title
+        - period
+        - status
+        - published
+    fields:
+      - name: title
+        label: Titel des Wurfs
+        type: string
+        required: true
+      - name: seoTitle
+        label: Optionaler Titel für Suchergebnisse
+        type: string
+      - name: description
+        label: Kurzbeschreibung
+        type: text
+        required: true
+      - name: period
+        label: Zeitraum
+        type: string
+        required: true
+        description: Zum Beispiel Frühling 2027 oder ein Geburtsdatum.
+      - name: mother
+        label: Mutter
+        type: string
+      - name: father
+        label: Vater
+        type: string
+      - name: status
+        label: Status
+        type: select
+        required: true
+        options:
+          values:
+            - Geplant
+            - Welpen geboren
+            - Abgeschlossen
+      - name: historical
+        label: Historischer Beitrag
+        type: boolean
+        default: false
+      - name: published
+        label: Auf der Website veröffentlichen
+        type: boolean
+        default: false
+      - name: image
+        label: Titelbild
+        type: image
+      - name: imageAlt
+        label: Bildbeschreibung
+        type: string
+      - name: gallery
+        component: gallery
+      - name: order
+        label: Reihenfolge
+        type: number
+        default: 0
+      - name: body
+        label: Informationen zum Wurf
+        type: rich-text
+      - name: blocks
+        component: blocks
+      - name: timeline
+        label: Wurf-Zeitleiste
+        type: object
+        list: true
+        description: Einträge werden in dieser Reihenfolge dargestellt. Nur bestätigte Informationen eintragen.
+        fields:
+          - name: title
+            label: Ereignis
+            type: string
+            required: true
+          - name: when
+            label: Datum / Zeitraum
+            type: string
+            required: true
+          - name: state
+            label: Stand
+            type: select
+            default: Geplant
+            options:
+              values:
+                - Geplant
+                - Aktuell
+                - Abgeschlossen
+          - name: description
+            label: Beschreibung
+            type: text
+          - name: image
+            label: Bild
+            type: image
+          - name: alt
+            label: Bildbeschreibung
+            type: string
+  - name: posts
+    label: Blogbeiträge
+    type: collection
+    path: src/content/posts
+    format: yaml-frontmatter
+    filename: "{year}-{month}-{day}-{primary}.md"
+    view:
+      primary: title
+      fields:
+        - title
+        - date
+        - published
+      sort: date
+      order: desc
+    fields:
+      - name: title
+        label: Titel
+        type: string
+        required: true
+      - name: seoTitle
+        label: Optionaler Titel für Suchergebnisse
+        type: string
+      - name: description
+        label: Kurzbeschreibung
+        type: text
+        required: true
+      - name: date
+        label: Beitragsdatum
+        type: date
+        required: true
+      - name: category
+        label: Thema
+        type: string
+        default: Einblicke
+      - name: historical
+        label: Historischer Beitrag
+        type: boolean
+        default: false
+      - name: published
+        label: Auf der Website veröffentlichen
+        type: boolean
+        default: false
+        description: Zum Veröffentlichen einschalten und speichern. Das Datum plant keine automatische Veröffentlichung.
+      - name: image
+        label: Titelbild
+        type: image
+      - name: imageAlt
+        label: Bildbeschreibung
+        type: string
+      - name: gallery
+        component: gallery
+      - name: body
+        label: Dein Beitrag
+        type: rich-text
+      - name: blocks
+        component: blocks
+  - name: pages
+    label: Zucht & Rasse
+    type: collection
+    path: src/content/pages
+    format: yaml-frontmatter
+    operations:
+      create: false
+      delete: false
+      rename: false
+    view:
+      primary: title
+    fields:
+      - name: title
+        label: Überschrift
+        type: string
+        required: true
+      - name: description
+        label: Kurzbeschreibung
+        type: text
+        required: true
+      - name: body
+        label: Text
+        type: rich-text
+
+  - name: offspring
+    label: Nachzuchtporträts
+    type: collection
+    path: src/content/offspring
+    format: yaml-frontmatter
+    filename: "{primary}.md"
+    view:
+      primary: title
+      fields: [title, litter, published]
+    fields:
+      - name: title
+        label: Name des Hundes
+        type: string
+        required: true
+      - name: description
+        label: Kurzbeschreibung
+        type: text
+        required: true
+      - name: litter
+        label: Wurf
+        type: select
+        required: true
+        options:
+          values: [shades-of, the-gods]
+      - name: published
+        label: Auf der Website veröffentlichen
+        type: boolean
+        default: false
+      - name: image
+        label: Porträtbild
+        type: image
+      - name: imageAlt
+        label: Bildbeschreibung
+        type: string
+      - name: gallery
+        component: gallery
+      - name: body
+        label: Über den Hund
+        type: rich-text
+      - name: blocks
+        component: blocks

@@ -1,0 +1,38 @@
+---
+import MediaImage from './MediaImage.astro';
+interface Props { images:{image:string;alt:string}[]; contained?:boolean }
+const {images,contained=false}=Astro.props;
+---
+{images.length>0 && <moyo-gallery class:list={['gallery',!contained&&'wrap section']}>
+<span class="eyebrow">Bilder & Momente</span><div class="gallery-grid">{images.map((photo,i)=><a href={photo.image} data-photo-index={i} data-alt={photo.alt} aria-label={`${photo.alt} – Bild vergrössern`}><MediaImage src={photo.image} alt={photo.alt}/></a>)}</div>
+<dialog class="lightbox" aria-label="Fotogalerie"><div class="lightbox-toolbar"><span data-gallery-count role="status" aria-live="polite"></span><button type="button" data-gallery-fullscreen>Vollbild</button><button type="button" data-gallery-close aria-label="Galerie schliessen">Schliessen ×</button></div><figure><img data-gallery-image alt=""/><figcaption data-gallery-caption></figcaption></figure><div class="lightbox-controls"><button type="button" data-gallery-prev aria-label="Vorheriges Foto">←</button><button type="button" data-gallery-next aria-label="Nächstes Foto">→</button></div></dialog>
+</moyo-gallery>}
+<script>
+class MoyoGallery extends HTMLElement {
+ private cleanup?:AbortController;
+ connectedCallback(){
+ this.cleanup?.abort();this.cleanup=new AbortController();const {signal}=this.cleanup;
+ const links=Array.from(this.querySelectorAll<HTMLAnchorElement>('[data-photo-index]'));
+ const dialog=this.querySelector<HTMLDialogElement>('dialog');const image=this.querySelector<HTMLImageElement>('[data-gallery-image]');
+ if(!dialog||!image||!links.length)return;
+ let index=0;let opener:HTMLElement|null=null;let touch:{x:number;y:number}|null=null;
+ const show=(next:number)=>{index=(next+links.length)%links.length;const link=links[index];const thumbnail=link.querySelector('img');image.src=thumbnail?.src??link.href;image.alt=link.dataset.alt??'';image.dataset.fallback=link.href;this.querySelector('[data-gallery-caption]')!.textContent=image.alt;this.querySelector('[data-gallery-count]')!.textContent=`${index+1} / ${links.length}`;};
+ const close=()=>dialog.close();
+ links.forEach((link,i)=>link.addEventListener('click',event=>{if(event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;if(!dialog.showModal)return;event.preventDefault();opener=link;show(i);dialog.showModal();document.documentElement.classList.add('gallery-open');},{signal}));
+ this.querySelector('[data-gallery-close]')?.addEventListener('click',close,{signal});
+ const previous=this.querySelector<HTMLButtonElement>('[data-gallery-prev]');const next=this.querySelector<HTMLButtonElement>('[data-gallery-next]');
+ if(previous)previous.hidden=links.length<2;if(next)next.hidden=links.length<2;
+ previous?.addEventListener('click',()=>show(index-1),{signal});next?.addEventListener('click',()=>show(index+1),{signal});
+ dialog.addEventListener('keydown',event=>{if(event.key==='ArrowLeft'){event.preventDefault();show(index-1);}if(event.key==='ArrowRight'){event.preventDefault();show(index+1);}},{signal});
+ dialog.addEventListener('click',event=>{if(event.target===dialog)close();},{signal});
+ dialog.addEventListener('close',()=>{document.documentElement.classList.remove('gallery-open');if(document.fullscreenElement===dialog)void document.exitFullscreen().catch(()=>{});if(opener?.isConnected)opener.focus();},{signal});
+ image.addEventListener('error',()=>{if(image.dataset.fallback&&image.src!==image.dataset.fallback){image.src=image.dataset.fallback;delete image.dataset.fallback;}},{signal});
+ const full=this.querySelector<HTMLButtonElement>('[data-gallery-fullscreen]');if(full){full.hidden=!document.fullscreenEnabled;full.addEventListener('click',()=>{if(document.fullscreenElement)void document.exitFullscreen().catch(()=>{});else void dialog.requestFullscreen?.().catch(()=>{});},{signal});}
+ dialog.addEventListener('touchstart',event=>{if(event.touches.length===1)touch={x:event.touches[0].clientX,y:event.touches[0].clientY};else touch=null;},{signal,passive:true});
+ dialog.addEventListener('touchend',event=>{if(!touch||event.changedTouches.length!==1)return;const dx=event.changedTouches[0].clientX-touch.x,dy=event.changedTouches[0].clientY-touch.y;touch=null;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.5)show(index+(dx<0?1:-1));},{signal,passive:true});
+ document.addEventListener('astro:before-swap',()=>{if(dialog.open)close();},{signal});
+ }
+ disconnectedCallback(){this.cleanup?.abort();document.documentElement.classList.remove('gallery-open');}
+}
+if(!customElements.get('moyo-gallery'))customElements.define('moyo-gallery',MoyoGallery);
+</script>

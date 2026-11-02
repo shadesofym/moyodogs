@@ -1,0 +1,37 @@
+---
+import MediaImage from './MediaImage.astro';
+import '../styles/journal.css';
+export interface JournalPost{title:string;description:string;href:string;category:string;date?:Date;image?:string;imageAlt?:string}
+interface Props{posts:JournalPost[];preview?:boolean}
+const {posts,preview=false}=Astro.props;
+const categories=[...new Set(posts.map(post=>post.category))];
+const styles=['photo','paper','ink','split'];
+---
+<section class="journal-heading journal-masthead wrap">
+ <div class="journal-edition"><span>{preview?'Gestaltungsbeispiele · keine veröffentlichten Blogbeiträge':'MOYO DOGS · Geschichten & Gedanken'}</span><span>Hunde. Menschen. Verbindung.</span></div>
+ <h1>JOURNAL<span>.</span></h1>
+ <div class="journal-introduction"><p>Mitten im Leben.<br/>Ganz nah an unseren Hunden.</p><span>Einblicke in unsere Zucht,<br/>in Bewegung und die Zeit dazwischen.</span></div>
+</section>
+<moyo-journal class="wrap journal-board">
+ {categories.length>1&&<div class="journal-filters" aria-label="Beiträge nach Thema" hidden><button type="button" data-filter-all aria-pressed="true">Alle</button>{categories.map(category=><button type="button" data-category-filter={category} aria-pressed="false">{category}</button>)}</div>}
+ {posts.length>0?<><div class="journal-items journal-posters">{posts.map((post,index)=>{
+  const style=post.image?styles[index%styles.length]:'ink';
+  return <article class:list={['journal-entry',`journal-entry--${style}`]} data-journal-category={post.category}>
+   <a class="journal-poster" href={post.href} aria-label={`${post.title} lesen`}>
+    {post.image&&<div class="poster-image"><MediaImage src={post.image} alt={post.imageAlt??''} sizes="(max-width: 760px) 100vw, 50vw" transitionName={`entry-${post.href.replaceAll('/','-')}`}/></div>}
+    <div class="poster-top"><span>MOYO DOGS</span><span class="poster-number">{String(index+1).padStart(2,'0')} / JOURNAL</span></div>
+    <div class="poster-content"><span class="poster-category">{post.category}</span><h2>{post.title}<span class="poster-stop" aria-hidden="true">.</span></h2><p>{post.description}</p></div>
+    <div class="poster-bottom"><span>{post.date?<time datetime={post.date.toISOString()}>{post.date.toLocaleDateString('de-CH',{timeZone:'UTC'})}</time>:'Einblicke'}<small>Die Geschichte lesen</small></span><span class="poster-arrow" aria-hidden="true">↗</span></div>
+   </a>
+  </article>;
+ })}</div><p class="sr-only" data-filter-count role="status" aria-live="polite"></p></>:<div class="empty-state"><h2>Neue Geschichten folgen.</h2><p>Hier teilen wir bald neue Einblicke aus unserem Alltag.</p></div>}
+ {preview&&<p class="journal-example">Diese Beispiele zeigen die Gestaltung. Deine eigenen Beiträge bearbeitest du später in Pages CMS. <a href="/blog/">Zum Journal</a></p>}
+</moyo-journal>
+<script>
+class MoyoJournal extends HTMLElement{
+ private cleanup?:AbortController;
+ connectedCallback(){this.cleanup?.abort();this.cleanup=new AbortController();const {signal}=this.cleanup;const filters=this.querySelector<HTMLElement>('.journal-filters');if(!filters)return;filters.hidden=false;const buttons=Array.from(filters.querySelectorAll<HTMLButtonElement>('button'));const entries=Array.from(this.querySelectorAll<HTMLElement>('[data-journal-category]'));buttons.forEach(button=>button.addEventListener('click',()=>{buttons.forEach(item=>item.setAttribute('aria-pressed',String(item===button)));let count=0;entries.forEach(entry=>{entry.hidden=button.hasAttribute('data-filter-all')?false:entry.dataset.journalCategory!==button.dataset.categoryFilter;if(!entry.hidden)count++;});const status=this.querySelector('[data-filter-count]');if(status)status.textContent=`${count} ${count===1?'Beitrag':'Beiträge'}`;},{signal}));}
+ disconnectedCallback(){this.cleanup?.abort();}
+}
+if(!customElements.get('moyo-journal'))customElements.define('moyo-journal',MoyoJournal);
+</script>

@@ -1,0 +1,12 @@
+---
+import manifest from '../data/media.generated.json';
+interface Props { src:string; alt:string; sizes?:string; class?:string; eager?:boolean; transitionName?:string }
+const {src,alt,sizes='(max-width: 760px) 100vw, 50vw',class:className,eager=false,transitionName}=Astro.props;
+const entry=(manifest as Record<string,{width:number;height:number;src:string;variants:Record<string,{src:string;width:number}[]>}>)[src];
+if(!entry)throw new Error(`Bild nicht vorbereitet: ${src}. npm run prepare ausführen.`);
+const srcset=(format:string)=>entry.variants[format].map(v=>`${v.src} ${v.width}w`).join(', ');
+---
+<picture class={className} transition:name={transitionName}>
+<source type="image/avif" srcset={srcset('avif')} sizes={sizes}/>
+<img src={entry.src} srcset={srcset('webp')} sizes={sizes} alt={alt} width={entry.width} height={entry.height} loading={eager?'eager':'lazy'} fetchpriority={eager?'high':'auto'} decoding="async"/>
+</picture>
