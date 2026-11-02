@@ -4,7 +4,7 @@ description: Ein klar gekennzeichneter Testbeitrag für die Einrichtung der Blog
 date: 2026-11-02
 category: CMS-Test
 historical: false
-published: true
+published: false
 image: /media/malu-portrait.webp
 imageAlt: Malu im Porträt – Testbild für die Blogverwaltung
 ---
