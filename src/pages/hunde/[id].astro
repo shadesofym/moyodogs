@@ -10,4 +10,4 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 const dogs=await publicDogs();
 ---
-<Base title={entry.data.seoTitle??entry.data.title} description={entry.data.description} image={entry.data.image} imageAlt={entry.data.imageAlt}><DogPortrait entry={entry} dogs={dogs}/><article class="prose wrap section" id="hundegeschichte"><Content /></article><ContentBlocks blocks={entry.data.blocks}/><Gallery images={entry.data.gallery} /></Base>
+<Base title={entry.data.seoTitle??entry.data.title} description={entry.data.description} image={entry.data.image} imageAlt={entry.data.imageAlt}><DogPortrait entry={entry} dogs={dogs}/><div class="wrap"><article class="prose section" id="hundegeschichte"><Content /></article></div><ContentBlocks blocks={entry.data.blocks}/><Gallery images={entry.data.gallery} /></Base>

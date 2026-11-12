@@ -5,6 +5,7 @@ description: 'Ecyoj-Malu of Black-Golden Pearls: Gesundheit, Abstammung, Prüfun
 published: true
 image: /media/malu-portrait.webp
 imageAlt: Malu von MOYO DOGS
+meta: 'Hündin · 2019 · Mutterlinie'
 order: 1
 gallery:
 - image: /media/malu.webp

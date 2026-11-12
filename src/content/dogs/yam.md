@@ -5,6 +5,7 @@ description: 'Shades of Yam: ein fröhlicher, arbeitsfreudiger Holländischer Sc
 published: true
 image: /media/yam.webp
 imageAlt: Yam von MOYO DOGS
+meta: 'Rüde · 2023 · Angekört'
 order: 2
 gallery: []
 seoTitle: Yam – Holländischer Schäferhund

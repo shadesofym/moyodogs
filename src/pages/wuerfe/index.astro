@@ -1,9 +1,74 @@
 ---
 import Base from '../../layouts/Base.astro';
-import EntryCard from '../../components/EntryCard.astro';
+import MediaImage from '../../components/MediaImage.astro';
 import { publicLitters } from '../../lib-content';
 const litters = await publicLitters();
 const current = litters.filter(entry => entry.data.status !== 'Abgeschlossen');
 const past = litters.filter(entry => entry.data.status === 'Abgeschlossen');
+const yearOf = (period: string) => period.match(/\d{4}/)?.[0] ?? '';
 ---
-<Base title="Würfe & Wurfplanung"><section class="page-heading wrap"><span class="eyebrow">Ein neuer Anfang</span><h1>Mit Vorfreude.<br/>Mit Verantwortung.</h1><p>Unsere Wurfplanung und die Geschichten unserer bisherigen Würfe.</p></section><section class="wrap section below-heading"><h2>Aktuelle Wurfplanung</h2><div class="cards-grid">{current.map(entry => <EntryCard {...entry.data} label={`${entry.data.period} · ${entry.data.status}`} href={`/wuerfe/${entry.id}/`} />)}</div>{!current.length && <p>Aktuell ist hier keine Wurfplanung veröffentlicht. Frag uns gerne persönlich.</p>}</section><section class="wrap section past-litters"><span class="eyebrow">Unsere bisherigen Würfe</span><h2>Teil unserer Geschichte.</h2>{past.length ? <div class="cards-grid">{past.map(entry => <EntryCard {...entry.data} label={entry.data.period} href={`/wuerfe/${entry.id}/`} />)}</div> : <p>Die Porträts unserer bisherigen Würfe «Shades of» und «The Gods» werden noch von der bestehenden Website übernommen.</p>}</section></Base>
+<Base title="Würfe & Wurfplanung">
+  <section class="page-heading wrap">
+    <span class="eyebrow">Ein neuer Anfang</span>
+    <h1 class="long-title">Mit Vorfreude.<br/>Mit Verantwortung.</h1>
+    <p>Unsere Wurfplanung und die Geschichten unserer bisherigen Würfe.</p>
+  </section>
+
+  <section class="wrap section below-heading">
+    <div class="sec-label">
+      <h2>Aktuelle Wurfplanung</h2>
+      <span class="mono">{current.length ? `${current.length} geplant` : 'Noch offen'}</span>
+    </div>
+    {current.length ? current.map(entry => (
+      <a class:list={['litter-feature', !entry.data.image && 'litter-feature--text']} href={`/wuerfe/${entry.id}/`} data-reveal>
+        <div class="litter-feature-copy">
+          <span class="eyebrow">{entry.data.period} · {entry.data.status}</span>
+          <h3>{entry.data.title}</h3>
+          <p>{entry.data.description}</p>
+          {entry.data.mother && <span class="parent-line">{entry.data.mother}{entry.data.father && ` × ${entry.data.father}`}</span>}
+          <span class="text-link">Zur Wurfplanung ↗</span>
+        </div>
+        {entry.data.image && (
+          <figure class="litter-feature-image">
+            <MediaImage src={entry.data.image} alt={entry.data.imageAlt} sizes="(max-width: 940px) 100vw, 46vw"/>
+            <figcaption>{entry.data.period}</figcaption>
+          </figure>
+        )}
+      </a>
+    )) : (
+      <p class="empty-state">Aktuell ist hier keine Wurfplanung veröffentlicht. Frag uns gerne persönlich.</p>
+    )}
+  </section>
+
+  <section class="wrap section past-litters">
+    <div class="sec-label">
+      <h2>Teil unserer Geschichte.</h2>
+      <span class="mono">{past.length} {past.length === 1 ? 'Wurf' : 'Würfe'}</span>
+    </div>
+    {past.length ? (
+      <div class="litter-grid">
+        {past.map(entry => (
+          <a class="litter-card" href={`/wuerfe/${entry.id}/`} data-reveal>
+            <figure>
+              {entry.data.image
+                ? <MediaImage src={entry.data.image} alt={entry.data.imageAlt} sizes="(max-width: 760px) 100vw, 46vw"/>
+                : <div class="litter-poster-fallback" data-year={yearOf(entry.data.period)} aria-hidden="true">
+                    <span class="mono">Wurf · {entry.data.period}</span>
+                    <b>{entry.data.title}</b>
+                    <span class="mono">MOYO DOGS · {yearOf(entry.data.period)}</span>
+                  </div>}
+            </figure>
+            <div class="litter-card-body">
+              <span class="eyebrow">{entry.data.period}</span>
+              <h3>{entry.data.title}</h3>
+              <p>{entry.data.description}</p>
+              <span class="text-link">Zum Wurf ↗</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    ) : (
+      <p>Die Porträts unserer bisherigen Würfe werden noch von der bestehenden Website übernommen.</p>
+    )}
+  </section>
+</Base>

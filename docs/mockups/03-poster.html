@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>MOYO DOGS — Konzept 03 · Neo Poster</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#efece3; --ink:#0c0c0b; --orange:#ff4d00; --orange-2:#ff7a3d;
+  --line:rgba(12,12,11,.16); --muted:#6f6d66;
+  --display:"Anton",Impact,sans-serif; --mono:"Space Mono",monospace; --sans:"Inter",Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.5;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--orange);color:#fff}
+.wrap{width:min(1320px,92vw);margin:0 auto}
+.progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--orange);z-index:120}
+.mono{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase}
+/* TOPBAR */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:90;display:flex;justify-content:space-between;align-items:center;padding:14px min(4vw,44px);border-bottom:1px solid var(--line);background:rgba(239,236,227,.86);backdrop-filter:blur(12px);transition:.3s}
+.topbar .brand{font-family:var(--display);font-size:1.1rem;letter-spacing:.02em;display:flex;align-items:center;gap:10px}
+.topbar .brand i{width:12px;height:12px;background:var(--orange);border-radius:50%;display:inline-block;animation:pulse 2.4s infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(.72)}}
+.topbar nav{display:flex;gap:22px}
+.topbar nav a{font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;padding:4px 0;border-bottom:1px solid transparent}
+.topbar nav a:hover{border-color:var(--ink)}
+.topbar .cta{background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;padding:10px 16px;border-radius:2px}
+.topbar .cta:hover{background:var(--orange)}
+.burger{display:none;background:none;border:1px solid var(--ink);width:40px;height:34px;font-family:var(--mono);cursor:pointer}
+.menu{position:fixed;inset:0;z-index:80;background:var(--orange);color:#fff;padding:18vh 7vw;display:flex;flex-direction:column;justify-content:center;transform:translateY(-100%);transition:transform .6s cubic-bezier(.7,0,.2,1)}
+.menu.open{transform:none}
+.menu a{font-family:var(--display);font-size:clamp(2.4rem,10vw,5.5rem);line-height:1.02;border-bottom:1px solid rgba(255,255,255,.35);padding:8px 0}
+@media(max-width:940px){.topbar nav,.topbar .cta{display:none}.burger{display:block}}
+/* HERO */
+.hero{padding:92px 0 0}
+.hero-topmeta{display:flex;justify-content:space-between;gap:20px;padding:12px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.hero h1{font-family:var(--display);font-size:clamp(5rem,17.5vw,17rem);line-height:.78;letter-spacing:-.01em;text-transform:uppercase;margin:18px 0 0}
+.hero h1 .row{display:flex;align-items:center;gap:clamp(12px,2.4vw,36px);white-space:nowrap}
+.hero h1 .pic{position:relative;flex:none;width:clamp(90px,15vw,220px);aspect-ratio:1.55/1;overflow:hidden;border-radius:999px;border:2px solid var(--ink)}
+.hero h1 .pic img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.16,1,.3,1)}
+.hero h1 .pic:hover img{transform:scale(1.12)}
+.hero h1 .out{color:transparent;-webkit-text-stroke:2px var(--ink)}
+.hero-bottom{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:end;padding:34px 0 44px;border-bottom:1px solid var(--line)}
+.hero-bottom p{max-width:46ch;font-size:1.02rem;color:#3d3c37}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.btn{display:inline-flex;align-items:center;gap:12px;font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;background:var(--ink);color:var(--paper);padding:15px 22px;border-radius:2px;transition:.3s;border:1px solid var(--ink)}
+.btn:hover{background:var(--orange);border-color:var(--orange)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:var(--paper)}
+.hero-sticker{justify-self:end;width:clamp(130px,15vw,178px);aspect-ratio:1;border-radius:50%;background:var(--orange);color:#fff;display:grid;place-content:center;text-align:center;transform:rotate(9deg);font-family:var(--mono);font-size:.6rem;line-height:1.5;letter-spacing:.06em;text-transform:uppercase;box-shadow:8px 8px 0 var(--ink);animation:float 5s ease-in-out infinite}
+.hero-sticker b{display:block;font-family:var(--display);font-size:1.7rem;letter-spacing:.02em}
+@keyframes float{0%,100%{transform:rotate(9deg) translateY(0)}50%{transform:rotate(6deg) translateY(-10px)}}
+@media(max-width:940px){.hero-bottom{grid-template-columns:1fr}.hero-sticker{justify-self:start}}
+/* TICKER */
+.ticker{background:var(--ink);color:var(--paper);overflow:hidden;padding:13px 0;border-block:1px solid var(--ink)}
+.tk{display:flex;gap:34px;width:max-content;animation:tk 30s linear infinite}
+.tk span{font-family:var(--display);font-size:1.15rem;letter-spacing:.04em;text-transform:uppercase;display:flex;align-items:center;gap:34px;white-space:nowrap}
+.tk i{color:var(--orange);font-style:normal}
+@keyframes tk{to{transform:translateX(-50%)}}
+/* INDEX / DOGS */
+.index{padding:clamp(70px,10vh,110px) 0}
+.sec-label{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid var(--ink);padding-bottom:10px;margin-bottom:8px}
+.sec-label h2{font-family:var(--display);font-size:clamp(1.6rem,3vw,2.6rem);text-transform:uppercase;letter-spacing:.01em}
+.dog-row{display:grid;grid-template-columns:52px 1fr auto auto;gap:20px;align-items:center;padding:22px 0;border-bottom:1px solid var(--line);position:relative;cursor:pointer;transition:padding .35s,background .35s}
+.dog-row:hover{padding-left:16px;background:rgba(12,12,11,.03)}
+.dog-row .no{font-family:var(--mono);font-size:.66rem;color:var(--muted)}
+.dog-row h3{font-family:var(--display);font-size:clamp(1.7rem,4.4vw,3.4rem);line-height:1;text-transform:uppercase;transition:color .3s}
+.dog-row:hover h3{color:var(--orange)}
+.dog-row .meta{font-family:var(--mono);font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:right}
+.dog-row .go{width:42px;height:42px;border:1px solid var(--ink);border-radius:50%;display:grid;place-content:center;transition:.3s}
+.dog-row:hover .go{background:var(--orange);border-color:var(--orange);color:#fff;transform:rotate(45deg)}
+.preview{position:fixed;z-index:60;width:300px;aspect-ratio:4/5;pointer-events:none;opacity:0;transform:translate(-50%,-50%) scale(.9);transition:opacity .3s,transform .3s;overflow:hidden;border:2px solid var(--ink);box-shadow:12px 12px 0 rgba(12,12,11,.18)}
+.preview.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.preview img{width:100%;height:100%;object-fit:cover}
+@media(max-width:940px){.dog-row{grid-template-columns:34px 1fr auto}.dog-row .meta{display:none}.preview{display:none}}
+/* STATS */
+.stats{border-block:2px solid var(--ink)}
+.stats-in{display:grid;grid-template-columns:repeat(4,1fr)}
+.stat{padding:30px 22px;border-right:1px solid var(--line)}
+.stat:last-child{border-right:0}
+.stat b{display:block;font-family:var(--display);font-size:clamp(2.4rem,5vw,4.4rem);line-height:.9;color:var(--orange)}
+.stat span{font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:block;margin-top:8px}
+@media(max-width:940px){.stats-in{grid-template-columns:1fr 1fr}.stat:nth-child(2){border-right:0}.stat:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+/* UNLEASHED */
+.unleashed{padding:clamp(60px,9vh,100px) 0}
+.un{background:var(--orange);color:#fff;padding:clamp(30px,5vw,60px);display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(26px,5vw,60px);align-items:center;position:relative;overflow:hidden}
+.un::after{content:"2027";position:absolute;right:-1vw;bottom:-4vw;font-family:var(--display);font-size:clamp(8rem,24vw,22rem);line-height:1;color:rgba(255,255,255,.1);pointer-events:none}
+.un .mono{color:rgba(255,255,255,.8)}
+.un h2{font-family:var(--display);font-size:clamp(2.6rem,6.5vw,6rem);line-height:.88;text-transform:uppercase;margin:14px 0 18px}
+.un p{max-width:42ch;color:rgba(255,255,255,.9);font-size:.96rem}
+.un .pair{display:flex;gap:10px;margin:26px 0;flex-wrap:wrap}
+.un .pair span{border:1px solid rgba(255,255,255,.45);padding:10px 14px;font-family:var(--mono);font-size:.62rem;text-transform:uppercase}
+.un .btn{background:#fff;color:var(--ink);border-color:#fff}
+.un .btn:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.un-poster{position:relative;transform:rotate(2.5deg);box-shadow:16px 16px 0 rgba(12,12,11,.35);border:2px solid var(--ink)}
+.un-poster img{width:100%}
+@media(max-width:940px){.un{grid-template-columns:1fr}.un-poster{max-width:520px;transform:rotate(1.5deg)}}
+/* JOURNAL */
+.journal{padding:0 0 clamp(70px,10vh,110px)}
+.jgrid{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--line)}
+.jitem{display:grid;grid-template-columns:150px 1fr;gap:20px;padding:24px 0;border-bottom:1px solid var(--line);align-items:start}
+.jitem:nth-child(odd){padding-right:30px;border-right:1px solid var(--line)}
+.jitem:nth-child(even){padding-left:30px}
+.jitem img{width:100%;aspect-ratio:4/3;object-fit:cover;filter:grayscale(1);transition:.5s}
+.jitem:hover img{filter:none;transform:rotate(-1deg)}
+.jitem time{font-family:var(--mono);font-size:.6rem;color:var(--orange);text-transform:uppercase}
+.jitem h3{font-family:var(--display);font-size:clamp(1.1rem,1.8vw,1.6rem);text-transform:uppercase;line-height:1.05;margin:6px 0}
+.jitem p{font-size:.82rem;color:var(--muted)}
+@media(max-width:940px){.jgrid{grid-template-columns:1fr}.jitem:nth-child(odd){padding-right:0;border-right:0}.jitem:nth-child(even){padding-left:0}}
+/* CONTACT */
+.contact{background:var(--ink);color:var(--paper);padding:clamp(70px,10vh,110px) 0}
+.contact .mono{color:var(--orange)}
+.contact h2{font-family:var(--display);font-size:clamp(3.4rem,12vw,11rem);line-height:.82;text-transform:uppercase;margin:18px 0 30px}
+.contact h2 span{color:var(--orange)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end}
+.contact p{color:rgba(239,236,227,.7);max-width:40ch}
+.contact-links{display:grid;gap:0;border-top:1px solid rgba(239,236,227,.2)}
+.contact-links a{display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(239,236,227,.2);font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase}
+.contact-links a:hover{color:var(--orange)}
+@media(max-width:940px){.contact-grid{grid-template-columns:1fr}}
+/* FOOTER */
+footer{padding:24px 0;background:var(--ink);color:rgba(239,236,227,.55);border-top:1px solid rgba(239,236,227,.15)}
+.foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase}
+.foot nav{display:flex;gap:18px}
+.foot a:hover{color:var(--orange)}
+/* reveal */
+[data-r]{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+[data-r].in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}[data-r]{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+
+<header class="topbar">
+  <a class="brand" href="#"><i></i> MOYO DOGS</a>
+  <nav>
+    <a href="#hunde">01 Hunde</a>
+    <a href="#wurf">02 Wurf 2027</a>
+    <a href="#zucht">03 Zucht</a>
+    <a href="#journal">04 Journal</a>
+  </nav>
+  <a class="cta" href="#kontakt">Kontakt ↗</a>
+  <button class="burger" id="burger" aria-label="Menü">☰</button>
+</header>
+
+<div class="menu" id="menu">
+  <a href="#hunde">Hunde</a>
+  <a href="#wurf">Wurf 2027</a>
+  <a href="#zucht">Zucht</a>
+  <a href="#journal">Journal</a>
+  <a href="#kontakt">Kontakt</a>
+</div>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-topmeta mono">
+        <span>Zuchtstätte · Kanton Bern · CH</span>
+        <span>SKG / FCI anerkannt</span>
+        <span>Nächster Wurf · Frühling 2027</span>
+      </div>
+      <h1>
+        <span class="row"><span>MOYO</span><span class="pic"><img src="/media/wordpress/wp-529.webp" alt="Malu"></span></span>
+        <span class="row"><span class="out">DOGS</span><span class="pic"><img src="/media/wordpress/wp-554.webp" alt="Malu Portrait"></span></span>
+      </h1>
+      <div class="hero-bottom">
+        <div data-r>
+          <p><strong>Holländische Schäferhunde.</strong> Eine kleine, familiäre Zucht im Kanton Bern – für Hunde, die im Kopf klar, im Alltag zuverlässig und im Einsatz zuhause sind.</p>
+          <div class="hero-actions">
+            <a class="btn" href="#hunde">Hunde kennenlernen ↗</a>
+            <a class="btn ghost" href="#wurf">Wurfplanung 2027</a>
+          </div>
+        </div>
+        <div class="hero-sticker" data-r><span><b>2027</b>UNLEASHED<br>Welpen geplant</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="tk">
+      <span>Charakter <i>■</i> Gesundheit <i>■</i> Arbeitsfreude <i>■</i> Holländische Schäferhunde <i>■</i> Kanton Bern <i>■</i></span>
+      <span>Charakter <i>■</i> Gesundheit <i>■</i> Arbeitsfreude <i>■</i> Holländische Schäferhunde <i>■</i> Kanton Bern <i>■</i></span>
+    </div>
+  </div>
+
+  <section class="index wrap" id="hunde">
+    <div class="sec-label" data-r>
+      <h2>Die Hunde</h2>
+      <span class="mono">03 Porträts</span>
+    </div>
+    <a class="dog-row" href="#" data-preview="/media/malu-portrait.webp" data-r>
+      <span class="no">001</span><h3>Malu</h3><span class="meta">Hündin · 2019 · Mutterlinie</span><span class="go">↗</span>
+    </a>
+    <a class="dog-row" href="#" data-preview="/media/yam.webp" data-r>
+      <span class="no">002</span><h3>Yam</h3><span class="meta">Rüde · 2023 · Angekört</span><span class="go">↗</span>
+    </a>
+    <a class="dog-row" href="#" data-preview="/media/wordpress/wp-729.webp" data-r>
+      <span class="no">003</span><h3>Bumblebee</h3><span class="meta">Rüde · 2023 · Deckrüde</span><span class="go">↗</span>
+    </a>
+    <a class="dog-row" href="#" data-preview="/media/wordpress/wp-724.webp" data-r>
+      <span class="no">004</span><h3>Nachzucht</h3><span class="meta">23 Porträts · Shades of & The Gods</span><span class="go">↗</span>
+    </a>
+  </section>
+  <div class="preview" id="preview"><img alt=""></div>
+
+  <section class="stats">
+    <div class="wrap stats-in">
+      <div class="stat" data-r><b data-count="2019">0</b><span>Gegründet</span></div>
+      <div class="stat" data-r><b data-count="12">0</b><span>Welpen · erster Wurf</span></div>
+      <div class="stat" data-r><b data-count="23">0</b><span>Nachzuchtporträts</span></div>
+      <div class="stat" data-r><b data-count="2027">0</b><span>Nächster Wurf</span></div>
+    </div>
+  </section>
+
+  <section class="unleashed wrap" id="wurf">
+    <div class="un" data-r>
+      <div>
+        <span class="mono">Wurfplanung · Frühling 2027</span>
+        <h2>UNLEASHED<br>Forces of Nature</h2>
+        <p>Malus letzter Wurf. Eine bewusste Verpaarung mit O’Deadshot du Royaume de Géane – für natürliche Stärke, Energie und einen klaren Kopf.</p>
+        <div class="pair"><span>IK 1,76 %</span><span>AVK 80,65 %</span><span>Status: geplant</span></div>
+        <a class="btn" href="#">Zur Wurfplanung ↗</a>
+      </div>
+      <div class="un-poster"><img src="/media/wordpress/wp-1465.webp" alt="UNLEASHED Poster"></div>
+    </div>
+  </section>
+
+  <section class="journal wrap" id="journal">
+    <div class="sec-label" data-r>
+      <h2>Journal</h2>
+      <span class="mono">23 Beiträge</span>
+    </div>
+    <div class="jgrid">
+      <a class="jitem" href="#" data-r>
+        <img src="/media/wordpress/wp-724.webp" alt="Welpe">
+        <div><time>15.10.2025</time><h3>Insight</h3><p>Ein Blick in den Alltag unserer Hunde.</p></div>
+      </a>
+      <a class="jitem" href="#" data-r>
+        <img src="/media/wordpress/wp-736.webp" alt="Welpe">
+        <div><time>16.09.2025</time><h3>T-Wurf</h3><p>Die Geschichte unseres zweiten Wurfes.</p></div>
+      </a>
+      <a class="jitem" href="#" data-r>
+        <img src="/media/wordpress/wp-565.webp" alt="Training">
+        <div><time>02.01.2025</time><h3>Happy 2 Years</h3><p>Zwei Jahre Shades of.</p></div>
+      </a>
+      <a class="jitem" href="#" data-r>
+        <img src="/media/wordpress/wp-410.webp" alt="Wasser">
+        <div><time>21.07.2022</time><h3>Badespass</h3><p>Sommer, Wasser und müde Hunde.</p></div>
+      </a>
+    </div>
+  </section>
+
+  <section class="contact" id="kontakt">
+    <div class="wrap">
+      <span class="mono">Kontakt · Kanton Bern</span>
+      <h2 data-r>Lass uns<br><span>kennenlernen.</span></h2>
+      <div class="contact-grid">
+        <p data-r>Fragen zur Rasse, zur Zucht oder zum geplanten Wurf 2027? Schreib mir – ich freue mich auf dich und deine Geschichte.</p>
+        <div class="contact-links" data-r>
+          <a href="mailto:zucht@moyodogs.com"><span>E-Mail</span><span>zucht@moyodogs.com ↗</span></a>
+          <a href="tel:+41762454082"><span>Telefon</span><span>+41 76 245 40 82 ↗</span></a>
+          <a href="#"><span>Instagram</span><span>@moyodogs ↗</span></a>
+          <a href="#"><span>Ort</span><span>Kanton Bern, Schweiz</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>© 2026 MOYO DOGS</span>
+    <nav><a href="#">Impressum</a><a href="#">Datenschutz</a></nav>
+    <span>Konzept 03 · Neo Poster</span>
+  </div>
+</footer>
+
+<script>
+const bar=document.getElementById('progress');
+addEventListener('scroll',()=>{const h=document.documentElement;bar.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%'},{passive:true});
+const burger=document.getElementById('burger'),menu=document.getElementById('menu');
+burger.addEventListener('click',()=>{const o=menu.classList.toggle('open');burger.textContent=o?'✕':'☰';document.body.style.overflow=o?'hidden':'';});
+menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');burger.textContent='☰';document.body.style.overflow='';}));
+// reveal + counters
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.1});
+document.querySelectorAll('[data-r]').forEach(el=>io.observe(el));
+const counters=document.querySelectorAll('[data-count]');
+const cio=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const el=e.target,target=+el.dataset.count;let start=null;const dur=1400;
+  function step(t){if(!start)start=t;const p=Math.min((t-start)/dur,1);const eased=1-Math.pow(1-p,3);el.textContent=Math.round(target*eased);if(p<1)requestAnimationFrame(step)}
+  requestAnimationFrame(step);cio.unobserve(el);
+  setTimeout(()=>{el.textContent=target},dur+400)}),{threshold:.6});
+counters.forEach(c=>cio.observe(c));
+// hover preview follows cursor
+const pv=document.getElementById('preview'),pimg=pv.querySelector('img');
+if(matchMedia('(hover:hover)').matches){
+  document.querySelectorAll('[data-preview]').forEach(row=>{
+    row.addEventListener('mouseenter',()=>{pimg.src=row.dataset.preview;pv.classList.add('on')});
+    row.addEventListener('mouseleave',()=>pv.classList.remove('on'));
+    row.addEventListener('mousemove',e=>{pv.style.left=e.clientX+'px';pv.style.top=e.clientY+'px'});
+  });
+}
+</script>
+</body>
+</html>

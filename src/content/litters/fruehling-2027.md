@@ -8,6 +8,8 @@ mother: Ecyoj-Malu of Black-Golden Pearls
 father: O’Deadshot du Royaume de Géane
 status: Geplant
 order: 1
+image: /media/wordpress/wp-1465.webp
+imageAlt: UNLEASHED – Forces of Nature · Poster zur Wurfplanung
 gallery: []
 timeline:
 - title: UNLEASHED – Forces of Nature
@@ -15,9 +17,7 @@ timeline:
   state: Geplant
   description: Geplante Verpaarung mit O’Deadshot du Royaume de Géane und Malu.
 ---
-## **UNLEASHED – Forces of Nature**
-
-## **O’Deadshot du Royaume de Géane × Ecyoj-Malu of Black-Golden Pearls**
+## O’Deadshot du Royaume de Géane × Ecyoj-Malu of Black-Golden Pearls
 
 **Geplanter Wurf · Frühling 2027**  
 **MOYO DOGS · Holländische Schäferhunde**

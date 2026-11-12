@@ -1,7 +1,7 @@
 ---
-import '../styles/studio.css';
+import '../styles/journal.css';
+import '../styles/neo.css';
 import {ClientRouter} from 'astro:transitions';
-import ThemeSelect from '../components/ThemeSelect.astro';
 import site from '../data/site.json';
 import {canonicalUrl,excludedFromSearch,indexingEnabled,jsonLd,siteOrigin} from '../lib/seo';
 interface Props { title: string; description?: string; image?:string; imageAlt?:string; article?:boolean; date?:Date; noindex?:boolean }
@@ -16,18 +16,21 @@ const website={'@type':'WebSite','@id':`${siteOrigin}/#website`,name:site.name,u
 const page={'@type':article?'BlogPosting':'WebPage','@id':`${canonical}#page`,url:canonical,name:title,headline:title,description,inLanguage:'de-CH',isPartOf:{'@id':`${siteOrigin}/#website`},image:new URL(image,siteOrigin).href,...(article&&date?{datePublished:date.toISOString(),author:{'@type':'Person',name:'Sandra'},publisher:{'@id':`${siteOrigin}/#organisation`},mainEntityOfPage:canonical}:{})};
 const breadcrumbs=pathname==='/'?null:{'@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'MOYO DOGS',item:siteOrigin+'/'},{'@type':'ListItem',position:2,name:title,item:canonical}]};
 const structured={'@context':'https://schema.org','@graph':[organisation,website,page,...(breadcrumbs?[breadcrumbs]:[])]};
-const links = [['/hunde/', 'Die Hunde'], ['/zucht/', 'Zucht'], ['/wuerfe/', 'Würfe'], ['/blog/', 'Journal']];
+const links = [['/hunde/', 'Hunde'], ['/wuerfe/', 'Würfe'], ['/zucht/', 'Zucht'], ['/blog/', 'Journal']];
 const active=(href:string)=>pathname.startsWith(href)||(href==='/blog/'&&pathname.startsWith('/vorschau/journal/'));
 ---
 <!doctype html>
-<html lang="de-CH" data-theme="dark" data-theme-choice="dark">
+<html lang="de-CH">
 <head>
-  <ClientRouter /><script is:inline src="/theme-init.js"></script><meta charset="utf-8" /><meta name="viewport" content="width=device-width" />
+  <ClientRouter /><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{fullTitle}</title><meta name="description" content={description} />
   <meta name="robots" content={preview||excluded?'noindex, follow':'index, follow, max-image-preview:large'} />
   <link rel="canonical" href={canonical}/>
-  <meta name="theme-color" content="#141414" />
+  <meta name="theme-color" content="#efece3" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
   <meta property="og:title" content={fullTitle} /><meta property="og:description" content={description} />
   <meta property="og:type" content={article?'article':'website'} /><meta property="og:url" content={canonical}/>
   <meta property="og:site_name" content={site.name}/><meta property="og:locale" content="de_CH"/>
@@ -37,17 +40,38 @@ const active=(href:string)=>pathname.startsWith(href)||(href==='/blog/'&&pathnam
 </head>
 <body>
 <a class="skip" href="#inhalt">Zum Inhalt</a>
-<aside class="site-rail" aria-hidden="true"><span class="rail-mark">m.</span><small>MOYO DOGS</small><small>HUNDE / MENSCHEN / VERBINDUNG</small></aside>
-<div class="site-shell">
+<div class="scroll-progress" aria-hidden="true"><span data-progress></span></div>
 {preview&&<div class="preview-note">VORSCHAU · Die neue Website entsteht. Inhalte werden noch ergänzt.</div>}
-<header class="site-header wrap">
+<header class="site-header">
   <a href="/" class="brand" aria-label="MOYO DOGS Startseite">{site.name}</a>
-  <nav class="desktop-nav" aria-label="Hauptnavigation">{links.map(([href, label]) => <a href={href} aria-current={active(href) ? 'page' : undefined}>{label}</a>)}<a class="nav-contact" href="/kontakt/">Kontakt ↗</a></nav>
-  <div class="site-tools"><ThemeSelect/><details class="mobile-menu"><summary>Menü</summary><nav aria-label="Mobile Navigation">{links.map(([href, label]) => <a href={href} aria-current={active(href)?'page':undefined}>{label}</a>)}<a href="/rasse/">Rasse</a><a href="/kontakt/">Kontakt</a></nav></details></div>
+  <nav class="desktop-nav" aria-label="Hauptnavigation">
+    {links.map(([href, label]) => <a href={href} aria-current={active(href) ? 'page' : undefined}>{label}</a>)}
+    <a href="/rasse/">Rasse</a>
+    <a class="nav-contact" href="/kontakt/">Kontakt ↗</a>
+  </nav>
+  <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="site-menu">Menü</button>
 </header>
+<nav class="site-menu" id="site-menu" aria-label="Hauptnavigation" data-menu data-open="false" inert>
+  <button class="site-menu-close" type="button" data-menu-close>Schliessen ✕</button>
+  <a href="/hunde/">Hunde <span>01</span></a>
+  <a href="/wuerfe/">Würfe <span>02</span></a>
+  <a href="/zucht/">Zucht <span>03</span></a>
+  <a href="/rasse/">Rasse <span>04</span></a>
+  <a href="/blog/">Journal <span>05</span></a>
+  <a href="/kontakt/">Kontakt <span>06</span></a>
+  <div class="site-menu-foot"><span>Kanton Bern · Schweiz</span><a href={`mailto:${site.email}`}>{site.email}</a></div>
+</nav>
 <main id="inhalt"><slot /></main>
-<footer class="site-footer"><div class="wrap footer-top"><div><a class="footer-brand" href="/">MOYO DOGS</a><p>Holländische Schäferhunde.<br/>Ein Teil unseres Lebens.</p></div><div><span class="eyebrow">Lernen wir uns kennen</span><a class="email-link" href={`mailto:${site.email}`}>{site.email} ↗</a></div></div><div class="wrap footer-bottom"><span>© {new Date().getUTCFullYear()} MOYO DOGS · Kanton Bern</span><nav aria-label="Weitere Informationen"><a href="/rasse/">Die Rasse</a><a href="/impressum/">Impressum</a><a href="/datenschutz/">Datenschutz</a></nav></div></footer>
-<script>import '../scripts/reveal';</script>
-</div>
+<footer class="site-footer">
+  <div class="wrap footer-top">
+    <div><a class="footer-brand" href="/">{site.name}</a><p>Holländische Schäferhunde.<br/>Ein Teil unseres Lebens.</p></div>
+    <div><span class="eyebrow">Lernen wir uns kennen</span><a class="email-link" href={`mailto:${site.email}`}>{site.email} ↗</a></div>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>© {new Date().getUTCFullYear()} MOYO DOGS · Kanton Bern</span>
+    <nav aria-label="Weitere Informationen"><a href="/rasse/">Die Rasse</a><a href="/impressum/">Impressum</a><a href="/datenschutz/">Datenschutz</a></nav>
+  </div>
+</footer>
+<script>import '../scripts/site';</script>
 </body>
 </html>

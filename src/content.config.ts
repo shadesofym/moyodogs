@@ -16,7 +16,7 @@ const common = {
   gallery: z.array(z.object({ image: media, alt: z.string().min(1) })).default([]),
 };
 export const collections = {
-  dogs: defineCollection({ loader: glob({ pattern: '*.md', base: './src/content/dogs' }), schema: z.object({ ...common, order: z.number().int().default(0) }) }),
+  dogs: defineCollection({ loader: glob({ pattern: '*.md', base: './src/content/dogs' }), schema: z.object({ ...common, order: z.number().int().default(0), meta: z.string().optional() }) }),
   offspring: defineCollection({ loader: glob({ pattern: '*.md', base: './src/content/offspring' }), schema: z.object({ ...common, litter: z.enum(['shades-of', 'the-gods']) }) }),
   litters: defineCollection({ loader: glob({ pattern: '*.md', base: './src/content/litters' }), schema: z.object({ ...common, timeline: timelineSchema.default([]), period: z.string().min(1), mother: z.string().optional(), father: z.string().optional(), status: z.enum(['Geplant', 'Welpen geboren', 'Abgeschlossen']), order: z.number().int().default(0) }) }),
   posts: defineCollection({ loader: glob({ pattern: '*.md', base: './src/content/posts' }), schema: z.object({ ...common, date: z.coerce.date(), category: z.string().default('Einblicke') }) }),

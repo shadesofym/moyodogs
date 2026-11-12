@@ -1,6 +1,5 @@
 ---
 import MediaImage from './MediaImage.astro';
-import '../styles/journal.css';
 export interface JournalPost{title:string;description:string;href:string;category:string;date?:Date;image?:string;imageAlt?:string}
 interface Props{posts:JournalPost[];preview?:boolean}
 const {posts,preview=false}=Astro.props;

@@ -5,6 +5,7 @@ description: 'Shades of Bumblebee: sportlicher Holländischer Schäferhund mit o
 published: true
 image: /media/bumblebee.webp
 imageAlt: Bumblebee von MOYO DOGS
+meta: 'Rüde · 2023 · Deckrüde'
 order: 3
 gallery: []
 seoTitle: Bumblebee – Holländischer Schäferhund
