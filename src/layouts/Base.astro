@@ -1,4 +1,5 @@
 ---
+import '../styles/fonts.css';
 import '../styles/journal.css';
 import '../styles/neo.css';
 import {ClientRouter} from 'astro:transitions';
@@ -28,9 +29,7 @@ const active=(href:string)=>pathname.startsWith(href)||(href==='/blog/'&&pathnam
   <link rel="canonical" href={canonical}/>
   <meta name="theme-color" content="#efece3" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <link rel="preload" href="/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin/>
   <meta property="og:title" content={fullTitle} /><meta property="og:description" content={description} />
   <meta property="og:type" content={article?'article':'website'} /><meta property="og:url" content={canonical}/>
   <meta property="og:site_name" content={site.name}/><meta property="og:locale" content="de_CH"/>

@@ -45,7 +45,7 @@ for m in media:
                    'attachment': m['link']})
 
 routes = {38: '/', 63: '/wuerfe/shades-of/', 165: '/zucht/', 163: '/rasse/',
-          145: '/kontakt/', 267: '/blog/', 394: '/wuerfe/the-gods/',
+          145: '/kontakt/', 267: '/blog/', 394: '/wuerfe/',
           1458: '/wuerfe/fruehling-2027/', 1582: '/wuerfe/fruehling-2027/',
           1593: '/hunde/malu/', 1601: '/hunde/yam/', 1608: '/hunde/bumblebee/'}
 for p in posts:
