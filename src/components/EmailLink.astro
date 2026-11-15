@@ -1,0 +1,10 @@
+---
+import site from '../data/site.json';
+interface Props { class?: string; suffix?: string }
+const { class: className, suffix = '' } = Astro.props;
+// Cloudflare ersetzt E-Mail-Adressen im HTML durch «[email protected]» und
+// entschlüsselt sie per Skript. Wird das Skript blockiert (Werbeblocker) oder
+// scheitert es, bleibt «[email protected]» stehen. Die Marker schalten die
+// Ersetzung für den umschlossenen Bereich ab.
+---
+<!--email_off--><a class={className} href={`mailto:${site.email}`}>{site.email}{suffix}</a><!--/email_off-->
