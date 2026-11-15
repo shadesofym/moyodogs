@@ -140,6 +140,26 @@ content:
         label: Kurztext zur Zucht
         type: text
         required: true
+      - name: owner
+        label: Inhaberin (Impressum)
+        type: string
+        required: true
+      - name: postalCode
+        label: Postleitzahl
+        type: string
+        required: true
+      - name: city
+        label: Ort
+        type: string
+        required: true
+      - name: phoneWhatsapp
+        label: WhatsApp-Nummer
+        type: string
+        required: true
+      - name: phone
+        label: Telefonnummer
+        type: string
+        required: true
   - name: dogs
     label: Hunde
     type: collection

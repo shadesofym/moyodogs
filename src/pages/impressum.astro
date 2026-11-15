@@ -1,4 +1,42 @@
 ---
 import Base from '../layouts/Base.astro';
+import site from '../data/site.json';
+const tel = (number: string) => `tel:${number.replace(/[^+\d]/g, '')}`;
 ---
-<Base title="Impressum"><section class="page-heading wrap"><span class="eyebrow">Vorschau</span><h1>Impressum.</h1><p>Diese Website befindet sich im Aufbau.</p></section><div class="wrap"><article class="prose section below-heading"><p>Die vollständigen Angaben zur verantwortlichen Person und zur Kontaktadresse werden vor der öffentlichen Freigabe ergänzt und geprüft.</p><p>Diese Vorschau ersetzt noch nicht die bestehende Website.</p></article></div></Base>
+<Base title="Impressum" description="Impressum von MOYO DOGS – Zucht für Holländische Schäferhunde im Kanton Bern.">
+  <section class="page-heading wrap">
+    <span class="eyebrow">Rechtliches</span>
+    <h1>Impressum<span class="dot">.</span></h1>
+    <p>Wer hinter dieser Website steht und wie du uns erreichst.</p>
+  </section>
+  <div class="wrap">
+    <article class="prose section below-heading">
+      <h2>Verantwortlich für diese Website</h2>
+      <p>
+        <strong>{site.owner}</strong><br/>
+        {site.name} · Zucht für Holländische Schäferhunde<br/>
+        {site.postalCode} {site.city}<br/>
+        Schweiz
+      </p>
+
+      <h2>Kontakt</h2>
+      <p>
+        E-Mail: <!--email_off--><a href={`mailto:${site.email}`}>{site.email}</a><!--/email_off--><br/>
+        WhatsApp: <a href={tel(site.phoneWhatsapp)}>{site.phoneWhatsapp}</a><br/>
+        Telefon: <a href={tel(site.phone)}>{site.phone}</a>
+      </p>
+
+      <h2>Zweck dieser Website</h2>
+      <p>Diese Website stellt unsere Hunde und unsere Zucht vor. Sie ist kein Onlineshop: Über die Website lassen sich weder Welpen noch Produkte oder Dienstleistungen kaufen, und es werden keine Zahlungen abgewickelt.</p>
+
+      <h2>Haftung für Inhalte</h2>
+      <p>Die Inhalte dieser Website werden mit Sorgfalt erstellt und regelmässig geprüft. Für Richtigkeit, Vollständigkeit und Aktualität wird dennoch keine Gewähr übernommen. Angaben zu Gesundheit, Prüfungen und Abstammung geben den Stand wieder, der zum Zeitpunkt der Veröffentlichung dokumentiert war.</p>
+
+      <h2>Haftung für Links</h2>
+      <p>Diese Website enthält Links zu Websites Dritter. Für deren Inhalte sind ausschliesslich die jeweiligen Betreiber verantwortlich. Zum Zeitpunkt der Verlinkung waren keine rechtswidrigen Inhalte erkennbar.</p>
+
+      <h2>Urheberrecht</h2>
+      <p>Texte, Fotografien und Grafiken dieser Website sind urheberrechtlich geschützt. © {site.owner} / {site.name}. Eine Verwendung – auch auszugsweise – ist nur mit vorheriger schriftlicher Zustimmung erlaubt. Das gilt besonders für die Porträts unserer Hunde und die Bilder der Würfe.</p>
+    </article>
+  </div>
+</Base>

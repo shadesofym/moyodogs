@@ -1,4 +1,45 @@
 ---
 import Base from '../layouts/Base.astro';
+import site from '../data/site.json';
 ---
-<Base title="Datenschutz"><section class="page-heading wrap"><span class="eyebrow">Vorschau</span><h1>Datenschutz.</h1><p>Die Datenschutzhinweise werden vor der öffentlichen Freigabe vervollständigt.</p></section><div class="wrap"><article class="prose section below-heading"><p>Diese Version bindet keine Analysewerkzeuge, Werbedienste, externen Schriftarten oder Social-Media-Inhalte ein. Der Kontaktlink öffnet dein E-Mail-Programm.</p><p>Vor der Freigabe müssen insbesondere die Angaben zu Verantwortlichen, Hosting, Serverprotokollen und Kontaktverarbeitung anhand der tatsächlich eingesetzten Dienste geprüft und ergänzt werden.</p></article></div></Base>
+<Base title="Datenschutz" description="Datenschutzerklärung von MOYO DOGS: welche Daten beim Besuch dieser Website anfallen und wie sie bearbeitet werden.">
+  <section class="page-heading wrap">
+    <span class="eyebrow">Rechtliches</span>
+    <h1>Datenschutz<span class="dot">.</span></h1>
+    <p>Kurz, konkret und ohne Kleingedrucktes: Was beim Besuch dieser Seite passiert.</p>
+  </section>
+  <div class="wrap">
+    <article class="prose section below-heading">
+      <h2>Das Wichtigste zuerst</h2>
+      <p>Diese Website ist eine Informationsseite. Sie setzt <strong>keine Cookies</strong>, verwendet <strong>keine Analyse- oder Werbedienste</strong> und lädt keine Inhalte von fremden Servern. Personenbezogene Daten fallen nur an, wenn du uns schreibst oder anrufst.</p>
+
+      <h2>Verantwortliche Stelle</h2>
+      <p>{site.owner}, {site.postalCode} {site.city}, Schweiz.<br/>
+        E-Mail: <!--email_off--><a href={`mailto:${site.email}`}>{site.email}</a><!--/email_off--></p>
+
+      <h2>Hosting</h2>
+      <p>Die Website wird über Cloudflare Pages bereitgestellt (Cloudflare, Inc., 101 Townsend Street, San Francisco, CA 94107, USA). Beim Aufruf einer Seite verarbeitet der Dienst technisch notwendige Angaben: IP-Adresse, Datum und Uhrzeit, aufgerufene Adresse, übertragene Datenmenge sowie Browser- und Betriebssystemkennung.</p>
+      <p>Diese Angaben dienen ausschliesslich dem sicheren und stabilen Betrieb – der Abwehr von Angriffen und der Fehlersuche – und werden nicht mit anderen Daten zusammengeführt. Rechtsgrundlage ist unser berechtigtes Interesse an einem sicheren Betrieb (Art. 31 DSG). Cloudflare kann Daten auch ausserhalb der Schweiz bearbeiten; die Übermittlung stützt sich auf Standardvertragsklauseln und, soweit anwendbar, auf die Zertifizierung nach dem EU-US Data Privacy Framework.</p>
+
+      <h2>Keine Cookies, kein Tracking</h2>
+      <p>Es werden keine Cookies gesetzt, keine Zählpixel eingebunden, keine Social-Media-Plugins und keine Karten- oder Videodienste von Dritten geladen. Die Schriften dieser Website liegen auf dem eigenen Server; es findet keine Verbindung zu Google Fonts statt. Es entstehen keine Nutzungsprofile.</p>
+
+      <h2>Kontakt per E-Mail</h2>
+      <p>Wenn du uns per E-Mail schreibst, bearbeiten wir deine E-Mail-Adresse, deinen Namen und den Inhalt der Nachricht samt allfälliger Anhänge – ausschliesslich, um deine Anfrage zu beantworten. Das Postfach wird bei Google (Gmail) geführt; Nachrichten können dabei auf Servern von Google in den USA gespeichert werden.</p>
+      <p>Wir löschen die Nachrichten, sobald sie nicht mehr benötigt werden, sofern keine gesetzliche Aufbewahrungspflicht entgegensteht (etwa bei Vertrags- und Buchhaltungsunterlagen).</p>
+
+      <h2>Kontakt per WhatsApp und Telefon</h2>
+      <p>Für Nachrichten über WhatsApp nutzt du einen Dienst der Meta Platforms Ireland Ltd. Dabei werden Daten nach den Bedingungen dieses Anbieters bearbeitet – unter anderem deine Telefonnummer, der Nachrichteninhalt und Metadaten wie Sendezeitpunkt. Wenn du das vermeiden möchtest, schreib uns eine E-Mail oder ruf an.</p>
+
+      <h2>Anfragen zu einem Welpen</h2>
+      <p>Für eine Anfrage genügen Angaben, die du freiwillig machst. Wir verwenden sie nur, um dich zu kontaktieren und über eine mögliche Platzierung zu entscheiden. Sie werden nicht an Dritte weitergegeben und nicht an andere Interessenten ausgetauscht. Besonders schützenswerte Daten im Sinne von Art. 5 DSG brauchst du uns nicht mitzuteilen.</p>
+
+      <h2>Deine Rechte</h2>
+      <p>Du kannst jederzeit Auskunft über die zu deiner Person bearbeiteten Daten verlangen, deren Berichtigung oder Löschung verlangen, die Bearbeitung einschränken oder ihr widersprechen und die Herausgabe deiner Daten in einem gängigen Format beantragen (Art. 25 ff. DSG). Eine formlose Nachricht an die oben genannte Adresse genügt.</p>
+      <p>Wenn du mit unserer Antwort nicht einverstanden bist, kannst du dich bei der Datenschutzbeauftragten des Kantons Bern beschweren.</p>
+
+      <h2>Änderungen</h2>
+      <p>Stand: November 2026. Wenn diese Website erweitert wird – etwa um ein Kontaktformular, eine Statistik oder einen Shop –, passen wir diese Erklärung vorher an.</p>
+    </article>
+  </div>
+</Base>
