@@ -1,8 +1,55 @@
 ---
 import Base from '../../layouts/Base.astro';
-import EntryCard from '../../components/EntryCard.astro';
 import DogPortrait from '../../components/DogPortrait.astro';
-import { publicDogs } from '../../lib-content';
+import StudDog from '../../components/StudDog.astro';
+import MediaImage from '../../components/MediaImage.astro';
+import { publicDogs, studDogs } from '../../lib-content';
+
 const dogs = await publicDogs();
+const studs = await studDogs();
+const [lead, ...family] = dogs;
+const familyLabel = new Intl.ListFormat('de-CH', { style: 'long', type: 'conjunction' }).format(dogs.map(dog => dog.data.title));
 ---
-<Base title="Unsere Hunde">{dogs[0]?<><DogPortrait entry={dogs[0]} dogs={dogs} overview/>{dogs.length>1&&<section class="section wrap"><div class="section-heading"><div><span class="eyebrow">Unsere Hundefamilie</span><h2>Weitere Charakterköpfe.</h2></div></div><div class="cards-grid two-up">{dogs.slice(1).map(dog=><EntryCard {...dog.data} href={`/hunde/${dog.id}/`}/>)}</div></section>}</>:<section class="page-heading wrap"><h1>Unsere Hunde.</h1><p>Die Hundeprofile werden gerade ergänzt.</p></section>}</Base>
+<Base title="Unsere Hunde">
+  {lead ? (
+    <>
+      <DogPortrait entry={lead} dogs={dogs} overview/>
+
+      {family.length > 0 && (
+        <section class="section wrap">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">Unsere Hundefamilie</span>
+              <h2>Weitere Charakterköpfe.</h2>
+            </div>
+            <span class="mono section-count">{familyLabel}</span>
+          </div>
+          <div class="family-stack">
+            {family.map(dog => (
+              <article class="family-card">
+                {dog.data.image && (
+                  <div class="family-image">
+                    <MediaImage src={dog.data.image} alt={dog.data.imageAlt} sizes="(max-width: 940px) 92vw, 46vw"/>
+                  </div>
+                )}
+                <div class="family-copy">
+                  {dog.data.meta && <span class="eyebrow">{dog.data.meta}</span>}
+                  <h3>{dog.data.title}<span class="dot">.</span></h3>
+                  <p>{dog.data.description}</p>
+                  <a class="text-link" href={`/hunde/${dog.id}/`}>Das Porträt entdecken <span aria-hidden="true">↗</span></a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {studs.map(entry => <StudDog entry={entry}/>)}
+    </>
+  ) : (
+    <section class="page-heading wrap">
+      <h1>Unsere Hunde.</h1>
+      <p>Die Hundeprofile werden gerade ergänzt.</p>
+    </section>
+  )}
+</Base>

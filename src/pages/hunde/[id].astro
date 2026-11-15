@@ -4,8 +4,8 @@ import Base from '../../layouts/Base.astro';
 import Gallery from '../../components/Gallery.astro';
 import DogPortrait from '../../components/DogPortrait.astro';
 import ContentBlocks from '../../components/ContentBlocks.astro';
-import { publicDogs } from '../../lib-content';
-export async function getStaticPaths() { return (await publicDogs()).map(entry => ({ params: { id: entry.id }, props: { entry } })); }
+import { allPublicDogs, publicDogs } from '../../lib-content';
+export async function getStaticPaths() { return (await allPublicDogs()).map(entry => ({ params: { id: entry.id }, props: { entry } })); }
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 const dogs=await publicDogs();

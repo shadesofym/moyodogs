@@ -1307,6 +1307,168 @@ select:focus-visible {
   color: var(--ink);
 }
 
+/* ---------- dogs / family cards ---------- */
+.section-count {
+  align-self: flex-end;
+  color: var(--muted);
+}
+
+.family-stack {
+  display: grid;
+  gap: clamp(20px, 3vw, 34px);
+}
+
+.family-card {
+  display: grid;
+  grid-template-columns: 1.18fr 0.82fr;
+  border: 1px solid var(--ink);
+  background: var(--paper-2);
+}
+
+.family-image {
+  overflow: hidden;
+  background: var(--paper-2);
+}
+
+.family-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: clamp(280px, 32vw, 420px);
+  object-fit: cover;
+}
+
+.family-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 16px;
+  padding: clamp(24px, 3.4vw, 48px);
+}
+
+.family-copy h3 {
+  margin: 0;
+  font-size: clamp(2.4rem, 5vw, 4.2rem);
+  line-height: 0.88;
+  letter-spacing: -0.02em;
+}
+
+.family-copy p {
+  max-width: 38ch;
+  margin: 0;
+  color: var(--muted);
+}
+
+.family-copy .eyebrow {
+  margin-bottom: 0;
+}
+
+.dot {
+  color: var(--copper);
+}
+
+/* ---------- dogs / deckrüde ---------- */
+.stud-strip {
+  background: var(--petrol);
+  color: var(--paper);
+}
+
+.stud-inner {
+  display: grid;
+  grid-template-columns: 0.92fr 1.08fr;
+  align-items: center;
+  gap: clamp(24px, 4vw, 60px);
+  padding-block: clamp(40px, 6vw, 82px);
+}
+
+.stud-poster {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgba(239, 236, 227, 0.35);
+  background: var(--petrol-deep);
+}
+
+.stud-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.stud-copy .eyebrow {
+  color: var(--copper-light);
+}
+
+.stud-copy h2 {
+  margin: 12px 0 20px;
+  font-size: clamp(2.6rem, 6vw, 5.2rem);
+  line-height: 0.88;
+  letter-spacing: -0.02em;
+}
+
+.stud-copy .dot {
+  color: var(--copper-light);
+}
+
+.stud-lead {
+  max-width: 46ch;
+  margin: 0 0 26px;
+  color: #d9d4c8;
+}
+
+.stud-lead a {
+  color: var(--paper);
+  border-bottom: 1px solid var(--copper-light);
+}
+
+.stud-data {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px 18px;
+  margin: 0 0 30px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(239, 236, 227, 0.28);
+}
+
+.stud-data div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.stud-data dt {
+  font-family: var(--mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--copper-light);
+}
+
+.stud-data dd {
+  margin: 0;
+  font-size: 0.92rem;
+}
+
+.stud-actions {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  flex-wrap: wrap;
+}
+
+.button--light {
+  background: var(--paper);
+  border-color: var(--paper);
+  color: var(--ink);
+}
+
+.button--light:hover {
+  background: var(--copper-light);
+  border-color: var(--copper-light);
+  color: var(--ink);
+}
+
 /* ---------- detail pages ---------- */
 .detail-hero {
   display: grid;
@@ -2462,8 +2624,18 @@ moyo-journal {
   .contact-grid,
   .about-inner,
   .portrait-stage,
-  .detail-hero {
+  .detail-hero,
+  .family-card,
+  .stud-inner {
     grid-template-columns: 1fr;
+  }
+
+  .stud-data {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .family-copy {
+    padding: clamp(24px, 5vw, 36px);
   }
 
   .litter-feature {
@@ -2636,6 +2808,15 @@ moyo-journal {
 
   .contact h2 {
     font-size: clamp(2.4rem, 11vw, 3.4rem);
+  }
+
+  .family-copy h3,
+  .stud-copy h2 {
+    font-size: clamp(2.2rem, 11vw, 3.4rem);
+  }
+
+  .stud-data {
+    gap: 14px 12px;
   }
 
   .unleashed-box {

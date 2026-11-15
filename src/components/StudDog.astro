@@ -1,0 +1,33 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import MediaImage from './MediaImage.astro';
+interface Props { entry: CollectionEntry<'dogs'> }
+const { entry } = Astro.props;
+const facts = entry.data.facts;
+const headingID = `deckruede-${entry.id}`;
+---
+<section class="stud-strip" aria-labelledby={headingID}>
+  <div class="wrap stud-inner">
+    {entry.data.image && (
+      <figure class="stud-poster">
+        <MediaImage class="stud-photo" src={entry.data.image} alt={entry.data.imageAlt} sizes="(max-width: 940px) 92vw, 40vw"/>
+      </figure>
+    )}
+    <div class="stud-copy">
+      <span class="eyebrow">Deckrüde · Aus unserem ersten Wurf</span>
+      <h2 id={headingID}>{entry.data.title}<span class="dot">.</span></h2>
+      <p class="stud-lead">Ein Rüde aus dem Wurf <a href="/wuerfe/shades-of/">«Shades of»</a>, angekört. Er lebt nicht bei uns – deshalb steht er nicht bei den Charakterköpfen, sondern hier.</p>
+      {facts.length > 0 && (
+        <dl class="stud-data">
+          {facts.map(fact => (
+            <div><dt>{fact.label}</dt><dd>{fact.value}</dd></div>
+          ))}
+        </dl>
+      )}
+      <div class="stud-actions">
+        <a class="button button--light" href={`/hunde/${entry.id}/`}>Zum Profil <span aria-hidden="true">↗</span></a>
+        <a class="text-link light" href="/kontakt/">Deckanfrage</a>
+      </div>
+    </div>
+  </div>
+</section>

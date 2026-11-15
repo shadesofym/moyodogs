@@ -6,7 +6,25 @@ published: true
 image: /media/bumblebee.webp
 imageAlt: Bumblebee von MOYO DOGS
 meta: 'Rüde · 2023 · Deckrüde'
+role: deckruede
 order: 3
+facts:
+- label: Geboren
+  value: 03.01.2023
+- label: Grösse
+  value: 58 cm
+- label: Gewicht
+  value: 24 kg
+- label: HD
+  value: B
+- label: ED
+  value: '0'
+- label: LÜW
+  value: '0'
+- label: DM
+  value: N/N
+- label: SDCA
+  value: 1 & 2 frei
 gallery: []
 seoTitle: Bumblebee – Holländischer Schäferhund
 ---

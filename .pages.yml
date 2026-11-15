@@ -183,6 +183,30 @@ content:
         label: Reihenfolge
         type: number
         default: 0
+      - name: role
+        label: Rolle auf der Website
+        type: select
+        default: charakterkopf
+        options:
+          values:
+            - value: charakterkopf
+              label: Charakterkopf (lebt bei uns)
+            - value: deckruede
+              label: Deckrüde aus eigenem Wurf
+        description: "Deckrüden erscheinen auf /hunde/ als eigener Abschnitt unter der Hundefamilie, nicht im Umschalter der Charakterköpfe."
+      - name: facts
+        label: Kurzdaten für den Deckrüden-Abschnitt
+        type: object
+        list: true
+        fields:
+          - name: label
+            label: Bezeichnung
+            type: string
+            required: true
+          - name: value
+            label: Wert
+            type: string
+            required: true
       - name: body
         label: Über den Hund
         type: rich-text

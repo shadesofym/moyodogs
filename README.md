@@ -26,7 +26,7 @@ Die statische Vorschau läuft auf http://127.0.0.1:4322/ und prüft auch die vor
 ## Inhalte und Verwaltung
 
 - `src/data/site.json`: Startseite und Kontaktadresse.
-- `src/content/dogs`: drei aktuelle Hundeprofile.
+- `src/content/dogs`: drei Hundeprofile. `role: charakterkopf` erscheint auf `/hunde/` als Porträt und im Umschalter, `role: deckruede` als eigener Abschnitt unter der Hundefamilie (Kurzdaten aus `facts`).
 - `src/content/litters`: aktuelle Planung und frühere Würfe.
 - `src/content/offspring`: 23 Nachzuchtporträts mit Zuordnung zum Wurf.
 - `src/content/posts`: Journal; nur ausdrücklich veröffentlichte Einträge werden gebaut.
