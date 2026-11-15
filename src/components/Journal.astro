@@ -1,29 +1,58 @@
 ---
 import MediaImage from './MediaImage.astro';
+import manifest from '../data/media.generated.json';
 export interface JournalPost{title:string;description:string;href:string;category:string;date?:Date;image?:string;imageAlt?:string}
 interface Props{posts:JournalPost[];preview?:boolean}
 const {posts,preview=false}=Astro.props;
 const categories=[...new Set(posts.map(post=>post.category))];
-const styles=['photo','paper','ink','split'];
+const [lead,...rest]=posts;
+const media=manifest as unknown as Record<string,{src:string;variants:{webp:{src:string;width:number}[]}}>;
+const formatDate=(date?:Date)=>date?date.toLocaleDateString('de-CH',{timeZone:'UTC'}):'—';
+const leadTitle=lead?.title.replace(/\.+$/,'');
+const previewSrc=(src?:string)=>{
+  if(!src) return '';
+  const entry=media[src];
+  if(!entry) return src;
+  const webp=[...entry.variants.webp].sort((a,b)=>a.width-b.width);
+  return (webp.find(item=>item.width>=480)??webp[webp.length-1]??entry).src;
+};
 ---
 <section class="journal-heading journal-masthead wrap">
  <div class="journal-edition"><span>{preview?'Gestaltungsbeispiele · keine veröffentlichten Blogbeiträge':'MOYO DOGS · Geschichten & Gedanken'}</span><span>Hunde. Menschen. Verbindung.</span></div>
  <h1>JOURNAL<span>.</span></h1>
  <div class="journal-introduction"><p>Mitten im Leben.<br/>Ganz nah an unseren Hunden.</p><span>Einblicke in unsere Zucht,<br/>in Bewegung und die Zeit dazwischen.</span></div>
 </section>
-<moyo-journal class="wrap journal-board">
- {categories.length>1&&<div class="journal-filters" aria-label="Beiträge nach Thema" hidden><button type="button" data-filter-all aria-pressed="true">Alle</button>{categories.map(category=><button type="button" data-category-filter={category} aria-pressed="false">{category}</button>)}</div>}
- {posts.length>0?<><div class="journal-items journal-posters">{posts.map((post,index)=>{
-  const style=post.image?styles[index%styles.length]:'ink';
-  return <article class:list={['journal-entry',`journal-entry--${style}`]} data-journal-category={post.category}>
-   <a class="journal-poster" href={post.href} aria-label={`${post.title} lesen`}>
-    {post.image&&<div class="poster-image"><MediaImage src={post.image} alt={post.imageAlt??''} sizes="(max-width: 760px) 100vw, 50vw" transitionName={`entry-${post.href.replaceAll('/','-')}`}/></div>}
-    <div class="poster-top"><span>MOYO DOGS</span><span class="poster-number">{String(index+1).padStart(2,'0')} / JOURNAL</span></div>
-    <div class="poster-content"><span class="poster-category">{post.category}</span><h2>{post.title}<span class="poster-stop" aria-hidden="true">.</span></h2><p>{post.description}</p></div>
-    <div class="poster-bottom"><span>{post.date?<time datetime={post.date.toISOString()}>{post.date.toLocaleDateString('de-CH',{timeZone:'UTC'})}</time>:'Einblicke'}<small>Die Geschichte lesen</small></span><span class="poster-arrow" aria-hidden="true">↗</span></div>
-   </a>
-  </article>;
- })}</div><p class="sr-only" data-filter-count role="status" aria-live="polite"></p></>:<div class="empty-state"><h2>Neue Geschichten folgen.</h2><p>Hier teilen wir bald neue Einblicke aus unserem Alltag.</p></div>}
+<moyo-journal class="wrap">
+ {posts.length>0?<>
+  {lead&&<a class="journal-lead" href={lead.href} data-journal-category={lead.category}>
+   {lead.image&&<figure class="journal-lead-image"><MediaImage src={lead.image} alt={lead.imageAlt??''} sizes="(max-width: 940px) 100vw, 46vw" eager transitionName={`entry-${lead.href.replaceAll('/','-')}`}/></figure>}
+   <div class="journal-lead-body">
+    <div class="journal-lead-top"><span>01 / Journal</span><span>{formatDate(lead.date)}</span></div>
+    <div>
+     <h2>{leadTitle}<span class="journal-stop" aria-hidden="true">.</span></h2>
+     <p>{lead.description}</p>
+    </div>
+    <div class="journal-lead-foot"><span>{lead.category}</span><span>Lesen ↗</span></div>
+   </div>
+  </a>}
+  <section class="journal-index">
+   {categories.length>1&&<div class="journal-filters" aria-label="Beiträge nach Thema" hidden><button type="button" data-filter-all aria-pressed="true">Alle</button>{categories.map(category=><button type="button" data-category-filter={category} aria-pressed="false">{category}</button>)}</div>}
+   <div class="journal-index-head"><h2>Alle Beiträge</h2><span>{rest.length} weitere</span></div>
+   <ol class="journal-index-list">
+    {rest.map((post,index)=><li data-journal-category={post.category}>
+     <a class="journal-index-row" href={post.href} data-journal-preview-src={previewSrc(post.image)||undefined}>
+      <span class="journal-index-nr">{String(index+2).padStart(2,'0')}</span>
+      <span class="journal-index-title">{post.title}</span>
+      <span class="journal-index-cat">{post.category}</span>
+      <span class="journal-index-date">{post.date?<time datetime={post.date.toISOString()}>{formatDate(post.date)}</time>:'Einblicke'}</span>
+      <span class="journal-index-arrow" aria-hidden="true">↗</span>
+     </a>
+    </li>)}
+   </ol>
+   <p class="sr-only" data-filter-count role="status" aria-live="polite"></p>
+  </section>
+  <div class="journal-preview" data-journal-preview aria-hidden="true"><img alt="" width="480" height="640" loading="lazy" decoding="async"/></div>
+ </>:<div class="empty-state"><h2>Neue Geschichten folgen.</h2><p>Hier teilen wir bald neue Einblicke aus unserem Alltag.</p></div>}
  {preview&&<p class="journal-example">Diese Beispiele zeigen die Gestaltung. Deine eigenen Beiträge bearbeitest du später in Pages CMS. <a href="/blog/">Zum Journal</a></p>}
 </moyo-journal>
 <script>
@@ -33,4 +62,31 @@ class MoyoJournal extends HTMLElement{
  disconnectedCallback(){this.cleanup?.abort();}
 }
 if(!customElements.get('moyo-journal'))customElements.define('moyo-journal',MoyoJournal);
+
+/* Bildvorschau im Index: nur mit Maus, nicht auf Touchgeräten. */
+const pointer=window.matchMedia('(hover: hover) and (pointer: fine)');
+function initJournalPreview(){
+ const box=document.querySelector<HTMLElement>('[data-journal-preview]');
+ const image=box?.querySelector<HTMLImageElement>('img');
+ if(!box||!image||!pointer.matches)return;
+ const rows=document.querySelectorAll<HTMLElement>('[data-journal-preview-src]');
+ if(!rows.length)return;
+ const width=240;
+ const height=310;
+ const place=(x:number,y:number)=>{
+  let left=x+22;
+  if(left+width>window.innerWidth-12)left=x-width-22;
+  const top=Math.max(12,Math.min(y-height/2,window.innerHeight-height-12));
+  box.style.left=`${left}px`;
+  box.style.top=`${top}px`;
+ };
+ rows.forEach(row=>{
+  const src=row.dataset.journalPreviewSrc;
+  if(!src)return;
+  row.addEventListener('mouseenter',()=>{image.src=src;box.dataset.on='true';});
+  row.addEventListener('mouseleave',()=>{box.dataset.on='false';});
+  row.addEventListener('mousemove',event=>place(event.clientX,event.clientY));
+ });
+}
+document.addEventListener('astro:page-load',initJournalPreview);
 </script>
