@@ -6,7 +6,7 @@ export const GET:APIRoute=async()=>{
   getCollection('dogs',({data})=>data.published),getCollection('litters',({data})=>data.published),
   getCollection('posts',({data})=>data.published),getCollection('offspring',({data})=>data.published),getCollection('pages'),
  ]);
- const paths=['/','/hunde/','/wuerfe/','/blog/','/kontakt/',
+ const paths=['/','/hunde/','/nachzucht/','/wuerfe/','/blog/','/kontakt/',
   ...dogs.map(e=>`/hunde/${e.id}/`),...litters.map(e=>`/wuerfe/${e.id}/`),
   ...posts.map(e=>`/blog/${e.id}/`),...offspring.map(e=>`/nachzucht/${e.id}/`),...pages.map(e=>`/${e.id}/`)];
  const urls=[...new Set(paths)].sort();

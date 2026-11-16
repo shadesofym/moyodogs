@@ -71,6 +71,7 @@ test('Importierte Bilder, Nachzucht und Archivbeiträge sind vorhanden, Entwürf
 test('Sitemap, Metadaten und Vorschausperre sind konsistent',()=>{
  const sitemap=read('dist/sitemap.xml');
  assert.ok(sitemap.includes('https://moyodogs.com/hunde/malu/'));
+ assert.ok(sitemap.includes('https://moyodogs.com/nachzucht/</loc>'),'Nachzucht-Übersicht fehlt in der Sitemap');
  for(const excluded of ['localhost','127.0.0.1','pages.dev','/vorschau/','/konzept/','erster-beitrag','fotoshooting-8-weeks','/404'])assert.ok(!sitemap.includes(excluded));
  const urls=[...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(m=>m[1]);
  assert.equal(new Set(urls).size,urls.length);
