@@ -7,6 +7,7 @@
   --paper: #efece3;
   --paper-2: #e6e1d4;
   --ink: #0c0c0b;
+  --band: #1b1b18;
   --petrol: #0d4f4f;
   --petrol-deep: #083a3a;
   --petrol-light: #79c9bd;
@@ -619,7 +620,7 @@ select:focus-visible {
 .ticker {
   overflow: hidden;
   padding: 13px 0;
-  background: var(--ink);
+  background: var(--band);
   color: var(--paper);
 }
 
@@ -1013,7 +1014,7 @@ select:focus-visible {
 /* ---------- contact ---------- */
 .contact {
   padding-block: clamp(56px, 8vw, 100px);
-  background: var(--ink);
+  background: var(--band);
   color: var(--paper);
 }
 
@@ -2743,7 +2744,7 @@ moyo-journal {
 /* ---------- footer ---------- */
 .site-footer {
   padding-block: clamp(40px, 6vw, 64px) 24px;
-  background: var(--ink);
+  background: var(--band);
   color: rgba(239, 236, 227, 0.72);
 }
 
