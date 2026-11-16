@@ -64,14 +64,14 @@ const offspringList = {
   </section>
 
   {rows.map(group => (
-    <section class="section wrap">
+    <section class="section wrap litter-group">
       <div class="sec-label">
         <h2>{group.title}</h2>
         <span class="mono">{group.year} · {group.entries.length} Hunde</span>
       </div>
       <div class="dog-list">
         {group.entries.map(entry => (
-          <a class="dog-row" href={`/nachzucht/${entry.id}/`} data-preview={entry.image}>
+          <a class="dog-row" href={`/nachzucht/${entry.id}/`} data-preview={entry.image} data-reveal>
             <span class="no">{entry.no}</span>
             <h3>{entry.name}</h3>
             {entry.angekoert
@@ -86,7 +86,7 @@ const offspringList = {
   ))}
 
   <section class="section wrap">
-    <div class="note-band">
+    <div class="note-band" data-reveal>
       <b>Ankörung</b>
       <span>Die Ankörung erfolgt beim Schweizerischen Club für Holländische Schäferhunde (SCHS). Details zu Gesundheit und Prüfungen stehen auf jedem Porträt.</span>
     </div>

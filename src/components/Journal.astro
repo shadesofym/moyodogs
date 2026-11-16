@@ -24,7 +24,7 @@ const previewSrc=(src?:string)=>{
 </section>
 <moyo-journal class="wrap">
  {posts.length>0?<>
-  {lead&&<a class="journal-lead" href={lead.href} data-journal-category={lead.category}>
+  {lead&&<a class="journal-lead" href={lead.href} data-journal-category={lead.category} data-reveal>
    {lead.image&&<figure class="journal-lead-image"><MediaImage src={lead.image} alt={lead.imageAlt??''} sizes="(max-width: 940px) 100vw, 46vw" eager transitionName={`entry-${lead.href.replaceAll('/','-')}`}/></figure>}
    <div class="journal-lead-body">
     <div class="journal-lead-top"><span>01 / Journal</span><span>{formatDate(lead.date)}</span></div>
@@ -37,10 +37,10 @@ const previewSrc=(src?:string)=>{
   </a>}
   <section class="journal-index">
    {categories.length>1&&<div class="journal-filters" aria-label="Beiträge nach Thema" hidden><button type="button" data-filter-all aria-pressed="true">Alle</button>{categories.map(category=><button type="button" data-category-filter={category} aria-pressed="false">{category}</button>)}</div>}
-   <div class="journal-index-head"><h2>Alle Beiträge</h2><span>{rest.length} weitere</span></div>
+   <div class="journal-index-head" data-reveal><h2>Alle Beiträge</h2><span>{rest.length} weitere</span></div>
    <ol class="journal-index-list">
     {rest.map((post,index)=><li data-journal-category={post.category}>
-     <a class="journal-index-row" href={post.href} data-journal-preview-src={previewSrc(post.image)||undefined}>
+     <a class="journal-index-row" href={post.href} data-journal-preview-src={previewSrc(post.image)||undefined} data-reveal>
       <span class="journal-index-nr">{String(index+2).padStart(2,'0')}</span>
       <span class="journal-index-title">{post.title}</span>
       <span class="journal-index-cat">{post.category}</span>

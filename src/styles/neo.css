@@ -1927,7 +1927,8 @@ select:focus-visible {
   color: var(--muted);
 }
 
-.rasse-hint {
+.rasse-hint,
+.rail-hint {
   display: none;
   margin: 0;
   font-family: var(--mono);
@@ -3288,8 +3289,13 @@ moyo-journal {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .stud-grid {
-    grid-template-columns: 1fr;
+  .litter-group .sec-label {
+    position: sticky;
+    top: var(--header);
+    z-index: 4;
+    padding-top: 10px;
+    margin-top: -10px;
+    background: var(--paper);
   }
 
   .nachzucht-split {
@@ -3344,6 +3350,30 @@ moyo-journal {
 }
 
 @media (max-width: 760px) {
+  .stud-grid {
+    display: flex;
+    gap: 14px;
+    margin-inline: -4vw;
+    padding: 0 4vw 6px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .stud-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .stud-card {
+    flex: 0 0 78%;
+    scroll-snap-align: start;
+  }
+
+  .rail-hint {
+    display: block;
+    margin-top: 10px;
+  }
+
   .hero-row-meta {
     display: none;
   }
@@ -3465,6 +3495,12 @@ moyo-journal {
     display: inline;
   }
 
+}
+
+@media (max-width: 560px) {
+  .stud-card {
+    flex-basis: 88%;
+  }
 }
 
 @media (max-width: 520px) {

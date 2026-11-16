@@ -35,7 +35,7 @@ const dogList = {
 
       {family.length > 0 && (
         <section class="section wrap" id="charakterkoepfe">
-          <div class="section-heading">
+          <div class="section-heading" data-reveal>
             <div>
               <span class="eyebrow">Unsere Hundefamilie</span>
               <h2>Weitere Charakterköpfe.</h2>
@@ -44,7 +44,7 @@ const dogList = {
           </div>
           <div class="family-stack">
             {family.map(dog => (
-              <article class="family-card">
+              <article class="family-card" data-reveal>
                 {dog.data.image && (
                   <div class="family-image">
                     <MediaImage src={dog.data.image} alt={dog.data.imageAlt} sizes="(max-width: 940px) 92vw, 46vw"/>
@@ -64,16 +64,16 @@ const dogList = {
 
       {studs.length > 0 && (
         <section class="section wrap" id="deckrueden">
-          <div class="sec-label">
+          <div class="sec-label" data-reveal>
             <h2>Deckrüden</h2>
             <span class="mono">{angekoert.length === studs.length ? 'Angekört' : 'Zuchtzulassung'} · 0{studs.length}</span>
           </div>
-          <p class="stud-intro">Beide Rüden stammen aus unserem ersten Wurf «Shades of» – zwei Brüder, beide angekört. Einer lebt bei uns, einer bei seiner Familie.</p>
+          <p class="stud-intro" data-reveal>Beide Rüden stammen aus unserem ersten Wurf «Shades of» – zwei Brüder, beide angekört. Einer lebt bei uns, einer bei seiner Familie.</p>
           <div class="stud-grid">
             {studs.map(entry => {
               const external = entry.data.role === 'deckruede';
               return (
-                <article class="stud-card">
+                <article class="stud-card" data-reveal>
                   {entry.data.image && (
                     <div class="stud-card-image">
                       <MediaImage src={entry.data.studImage ?? entry.data.image} alt={entry.data.imageAlt} sizes="(max-width: 940px) 92vw, 45vw"/>
@@ -102,15 +102,16 @@ const dogList = {
               );
             })}
           </div>
+          <p class="rail-hint" aria-hidden="true">Wischen für mehr →</p>
         </section>
       )}
 
       <section class="section wrap" id="nachzucht">
-        <div class="sec-label">
+        <div class="sec-label" data-reveal>
           <h2>Nachzucht</h2>
           <span class="mono">{offspring.length} Porträts · 2 Würfe</span>
         </div>
-        <div class="nachzucht-split">
+        <div class="nachzucht-split" data-reveal>
           <p>Alle Hunde aus unseren beiden Würfen: {shadesCount} aus «Shades of» (2023), {godsCount} aus «The Gods» (2025).{angekoertLabel && <> <strong>Angekört sind bislang {angekoertLabel}.</strong></>}</p>
           <div class="nachzucht-actions">
             <a class="button" href="/nachzucht/">Zur Nachzucht <span aria-hidden="true">↗</span></a>

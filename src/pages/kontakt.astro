@@ -15,7 +15,7 @@ const telHref = (value: string) => `tel:${value.replace(/[^\d+]/g, '')}`;
   </section>
 
   <section class="wrap section below-heading" aria-labelledby="whatsapp-titel">
-    <div class="wa-panel">
+    <div class="wa-panel" data-reveal>
       <div class="wa-copy">
         <span class="eyebrow">Direkt im Chat</span>
         <h2 id="whatsapp-titel">Schreib mir<br/>auf WhatsApp<span class="dot">.</span></h2>
@@ -39,7 +39,7 @@ const telHref = (value: string) => `tel:${value.replace(/[^\d+]/g, '')}`;
       </div>
     </div>
 
-    <div class="prose contact-prose">
+    <div class="prose contact-prose" data-reveal>
       <h2>Direkt &amp; persönlich.</h2>
       <p>Du erreichst mich per WhatsApp unter <span class="nowrap">{site.phoneWhatsapp}</span>, telefonisch unter <a class="nowrap" href={telHref(site.phone)}>{site.phone}</a> oder per E-Mail an <!--email_off--><a href={`mailto:${site.email}`}>{site.email}</a><!--/email_off-->.</p>
       <p>Wenn du dich für einen Welpen interessierst, erzähl gerne etwas über dich und wie du dir das Leben mit einem Holländischen Schäferhund vorstellst.</p>

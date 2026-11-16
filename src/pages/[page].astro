@@ -7,4 +7,4 @@ const { Content } = await render(entry);
 const titleLines = entry.data.title.split(/(?<=\.)\s+/);
 const longTitle = entry.data.title.length > 22;
 ---
-<Base title={entry.data.title} description={entry.data.description}><section class="page-heading wrap"><span class="eyebrow">MOYO DOGS</span><h1 class:list={{ 'long-title': longTitle }}>{titleLines.map((line, index) => <>{index > 0 && <br/>}{line}</>)}</h1><p>{entry.data.description}</p></section><div class="wrap"><article class="prose section below-heading"><Content /></article></div></Base>
+<Base title={entry.data.title} description={entry.data.description}><section class="page-heading wrap"><span class="eyebrow">MOYO DOGS</span><h1 class:list={{ 'long-title': longTitle }}>{titleLines.map((line, index) => <>{index > 0 && <br/>}{line}</>)}</h1><p>{entry.data.description}</p></section><div class="wrap"><article class="prose section below-heading" data-reveal-auto><Content /></article></div></Base>

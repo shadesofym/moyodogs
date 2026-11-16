@@ -15,7 +15,7 @@ const yearOf = (period: string) => period.match(/\d{4}/)?.[0] ?? '';
   </section>
 
   <section class="wrap section below-heading">
-    <div class="sec-label">
+    <div class="sec-label" data-reveal>
       <h2>Aktuelle Wurfplanung</h2>
       <span class="mono">{current.length ? `${current.length} geplant` : 'Noch offen'}</span>
     </div>
@@ -41,7 +41,7 @@ const yearOf = (period: string) => period.match(/\d{4}/)?.[0] ?? '';
   </section>
 
   <section class="wrap section past-litters">
-    <div class="sec-label">
+    <div class="sec-label" data-reveal>
       <h2>Teil unserer Geschichte.</h2>
       <span class="mono">{past.length} {past.length === 1 ? 'Wurf' : 'Würfe'}</span>
     </div>
