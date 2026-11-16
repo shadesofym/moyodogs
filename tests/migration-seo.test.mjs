@@ -61,7 +61,8 @@ test('Importierte Bilder, Nachzucht und Archivbeiträge sind vorhanden, Entwürf
  assert.equal(readdirSync(resolve(root,'public/media/wordpress')).filter(p=>p.endsWith('.webp')).length,381);
  assert.ok(read('dist/hunde/malu/index.html').includes('04.09.2019'));
  assert.ok(!read('dist/hunde/malu/index.html').includes('04.09.2029'));
- assert.ok(read('dist/hunde/yam/index.html').includes('begrenzte Zuchtzulassung'));
+ assert.ok(read('dist/hunde/yam/index.html').includes('Ankörung'));
+ assert.ok(!read('dist/hunde/yam/index.html').includes('begrenzte Zuchtzulassung'));
  assert.ok(read('dist/wuerfe/the-gods/index.html').includes('/nachzucht/the-gods-kama/'));
  assert.ok(read('dist/blog/birthday/index.html').includes('Aus unserem Archiv'));
  assert.equal(existsSync(resolve(root,'dist/blog/fotoshooting-8-weeks/index.html')),false);

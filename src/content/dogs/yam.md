@@ -47,8 +47,6 @@ SDCA 1 & 2 frei
 
 Yam hat 2025 die Ankörung beim **Schweizerischen Club für Holländische Schäferhunde (SCHS)** erfolgreich bestanden.
 
-Aufgrund seiner Grösse von 64,5 cm liegt er über dem Rassestandard. Vom SCHS erhielt er deshalb eine **begrenzte Zuchtzulassung für einen Wurf**.
-
 ## **Sport & Prüfungen**
 
 BH-VT · Obedience 2 · VPG 1 · IGP 1
