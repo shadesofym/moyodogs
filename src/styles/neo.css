@@ -14,8 +14,8 @@
   --copper: #c68346;
   --copper-deep: #a4682f;
   --copper-light: #dfa970;
-  --line: rgba(12, 12, 11, 0.16);
-  --line-soft: rgba(12, 12, 11, 0.09);
+  --line: color-mix(in srgb, var(--ink) 16%, transparent);
+  --line-soft: color-mix(in srgb, var(--ink) 9%, transparent);
   --muted: #6f6d66;
   --display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
   --mono: "Space Mono", ui-monospace, monospace;
@@ -74,6 +74,7 @@ a {
 
 p {
   margin: 0 0 1em;
+  text-wrap: pretty;
 }
 
 p:last-child {
@@ -86,10 +87,30 @@ h3 {
   margin: 0;
   font-family: var(--display);
   font-weight: 800;
+  font-optical-sizing: auto;
   line-height: 0.94;
   letter-spacing: -0.02em;
   text-transform: uppercase;
   overflow-wrap: break-word;
+  text-wrap: balance;
+}
+
+/* Variable Font: grosse Displays nutzen den Display-Schnitt, Karten eine Spur
+   leichter – feinere Abstufung als nur 400/800. */
+.poster-hero h1,
+.page-heading h1,
+.journal-masthead h1 {
+  font-variation-settings: "opsz" 96;
+}
+
+.section-heading h2,
+.sec-label h2 {
+  font-weight: 790;
+  font-variation-settings: "opsz" 64;
+}
+
+h3 {
+  font-weight: 760;
 }
 
 button,
@@ -225,7 +246,7 @@ select:focus-visible {
   min-height: var(--header);
   padding: 10px min(4vw, 44px);
   border-bottom: 1px solid var(--line);
-  background: rgba(239, 236, 227, 0.88);
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
 }
@@ -327,7 +348,7 @@ select:focus-visible {
   justify-content: space-between;
   gap: 20px;
   padding: 10px 0;
-  border-bottom: 1px solid rgba(12, 12, 11, 0.28);
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 28%, transparent);
   font-family: var(--display);
   font-weight: 800;
   font-size: clamp(2rem, 8.4vw, 4.4rem);
@@ -441,7 +462,7 @@ select:focus-visible {
 
 .text-link.light {
   color: var(--paper);
-  border-color: rgba(239, 236, 227, 0.5);
+  border-color: color-mix(in srgb, var(--paper) 50%, transparent);
 }
 
 .text-link.light:hover {
@@ -717,7 +738,7 @@ select:focus-visible {
 
 .dog-row:hover {
   padding-left: 16px;
-  background: rgba(12, 12, 11, 0.035);
+  background: color-mix(in srgb, var(--ink) 3.5%, transparent);
 }
 
 .dog-row .no {
@@ -773,7 +794,7 @@ select:focus-visible {
   opacity: 0;
   transform: translate(-50%, -50%) scale(0.92);
   transition: opacity 0.25s, transform 0.25s;
-  box-shadow: 12px 12px 0 rgba(12, 12, 11, 0.16);
+  box-shadow: 12px 12px 0 color-mix(in srgb, var(--ink) 16%, transparent);
 }
 
 .dog-preview[data-on="true"] {
@@ -851,7 +872,7 @@ select:focus-visible {
   font-weight: 800;
   font-size: clamp(7rem, 22vw, 20rem);
   line-height: 1;
-  color: rgba(239, 236, 227, 0.07);
+  color: color-mix(in srgb, var(--paper) 7%, transparent);
   pointer-events: none;
 }
 
@@ -872,7 +893,7 @@ select:focus-visible {
 
 .unleashed-copy p {
   max-width: 42ch;
-  color: rgba(239, 236, 227, 0.82);
+  color: color-mix(in srgb, var(--paper) 82%, transparent);
   font-size: 0.96rem;
 }
 
@@ -944,7 +965,7 @@ select:focus-visible {
   margin: 0;
   transform: rotate(2deg);
   border: 2px solid var(--ink);
-  box-shadow: 14px 14px 0 rgba(12, 12, 11, 0.32);
+  box-shadow: 14px 14px 0 color-mix(in srgb, var(--ink) 32%, transparent);
 }
 
 .unleashed-poster img {
@@ -1011,7 +1032,7 @@ select:focus-visible {
 
 .journal-item h3 {
   margin: 5px 0 6px;
-  font-size: clamp(1.05rem, 1.7vw, 1.5rem);
+  font-size: clamp(1.05rem, 3.8cqi, 1.5rem);
   line-height: 1.02;
 }
 
@@ -1050,11 +1071,11 @@ select:focus-visible {
 
 .contact p {
   max-width: 42ch;
-  color: rgba(239, 236, 227, 0.72);
+  color: color-mix(in srgb, var(--paper) 72%, transparent);
 }
 
 .contact-links {
-  border-top: 1px solid rgba(239, 236, 227, 0.24);
+  border-top: 1px solid color-mix(in srgb, var(--paper) 24%, transparent);
 }
 
 .contact-links a {
@@ -1063,7 +1084,7 @@ select:focus-visible {
   justify-content: space-between;
   gap: 16px;
   padding: 14px 0;
-  border-bottom: 1px solid rgba(239, 236, 227, 0.24);
+  border-bottom: 1px solid color-mix(in srgb, var(--paper) 24%, transparent);
   font-family: var(--mono);
   font-size: 0.66rem;
   letter-spacing: 0.06em;
@@ -1395,7 +1416,7 @@ select:focus-visible {
 .stud-poster {
   margin: 0;
   overflow: hidden;
-  border: 1px solid rgba(239, 236, 227, 0.35);
+  border: 1px solid color-mix(in srgb, var(--paper) 35%, transparent);
   background: var(--petrol-deep);
 }
 
@@ -1437,7 +1458,7 @@ select:focus-visible {
   gap: 16px 18px;
   margin: 0 0 30px;
   padding-top: 22px;
-  border-top: 1px solid rgba(239, 236, 227, 0.28);
+  border-top: 1px solid color-mix(in srgb, var(--paper) 28%, transparent);
 }
 
 .stud-data div {
@@ -1568,7 +1589,7 @@ select:focus-visible {
   max-width: 40ch;
   margin: 0;
   padding-top: 12px;
-  border-top: 1px solid rgba(12, 12, 11, 0.12);
+  border-top: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
   font-size: 0.82rem;
   line-height: 1.6;
   color: var(--muted);
@@ -1618,7 +1639,7 @@ select:focus-visible {
   gap: 18px;
   flex-wrap: wrap;
   padding: 18px 22px;
-  border: 1px solid rgba(12, 12, 11, 0.22);
+  border: 1px solid color-mix(in srgb, var(--ink) 22%, transparent);
   background: var(--paper-2);
 }
 
@@ -1771,7 +1792,7 @@ select:focus-visible {
   margin: 0;
   font-size: 0.76rem;
   line-height: 1.55;
-  color: rgba(239, 236, 227, 0.82);
+  color: color-mix(in srgb, var(--paper) 82%, transparent);
 }
 
 .wa-qr b {
@@ -2321,7 +2342,7 @@ select:focus-visible {
   font-weight: 800;
   font-size: clamp(7rem, 13vw, 12rem);
   line-height: 1;
-  color: rgba(239, 236, 227, 0.08);
+  color: color-mix(in srgb, var(--paper) 8%, transparent);
 }
 
 .litter-poster-fallback .mono {
@@ -2625,7 +2646,7 @@ moyo-journal {
 }
 
 .lightbox::backdrop {
-  background: rgba(12, 12, 11, 0.82);
+  background: color-mix(in srgb, var(--ink) 82%, transparent);
   backdrop-filter: blur(6px);
 }
 
@@ -2754,7 +2775,7 @@ moyo-journal {
 .site-footer {
   padding-block: clamp(40px, 6vw, 64px) 24px;
   background: var(--band);
-  color: rgba(239, 236, 227, 0.72);
+  color: color-mix(in srgb, var(--paper) 72%, transparent);
 }
 
 .footer-top {
@@ -2763,7 +2784,7 @@ moyo-journal {
   justify-content: space-between;
   gap: 32px;
   padding-bottom: 36px;
-  border-bottom: 1px solid rgba(239, 236, 227, 0.18);
+  border-bottom: 1px solid color-mix(in srgb, var(--paper) 18%, transparent);
 }
 
 .footer-brand {
@@ -2841,7 +2862,10 @@ moyo-journal {
 .entry-card,
 .stud-card,
 .family-card,
-.litter-card {
+.litter-card,
+.journal-item,
+.journal-lead,
+.journal-index-row {
   container-type: inline-size;
 }
 
@@ -3055,7 +3079,7 @@ moyo-journal {
 
 .journal-lead h2 {
   margin: 0;
-  font-size: clamp(2.4rem, 5.4vw, 4.9rem);
+  font-size: clamp(2.4rem, 5.9cqi, 4.9rem);
   line-height: 0.88;
   letter-spacing: -0.03em;
 }
@@ -3074,7 +3098,7 @@ moyo-journal {
 
 .journal-lead-foot {
   padding-top: 16px;
-  border-top: 1px solid rgba(239, 236, 227, 0.25);
+  border-top: 1px solid color-mix(in srgb, var(--paper) 25%, transparent);
 }
 
 .journal-lead-foot span:last-child {
@@ -3152,8 +3176,9 @@ moyo-journal {
 
 .journal-index-title {
   font-family: var(--display);
-  font-size: clamp(1.3rem, 2.5vw, 2.25rem);
-  font-weight: 800;
+  font-size: clamp(1.3rem, 2.7cqi, 2.25rem);
+  font-weight: 750;
+  text-wrap: balance;
   line-height: 0.95;
   letter-spacing: -0.02em;
   text-transform: uppercase;
@@ -3191,7 +3216,7 @@ moyo-journal {
   overflow: hidden;
   border: 1px solid var(--ink);
   background: var(--paper-2);
-  box-shadow: 14px 14px 0 rgba(12, 12, 11, 0.1);
+  box-shadow: 14px 14px 0 color-mix(in srgb, var(--ink) 10%, transparent);
   opacity: 0;
   transform: scale(0.96);
   pointer-events: none;
@@ -3633,7 +3658,7 @@ moyo-journal {
 
   .unleashed-pair div + div {
     padding-top: 8px;
-    border-top: 1px solid rgba(223, 169, 112, 0.4);
+    border-top: 1px solid color-mix(in srgb, var(--copper-light) 40%, transparent);
   }
 
   .unleashed-box::after {
