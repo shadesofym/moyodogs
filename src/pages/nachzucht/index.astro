@@ -20,7 +20,8 @@ const groups = litters
       period: litter.data.period,
       entries,
     };
-  });
+  })
+  .sort((a, b) => a.year.localeCompare(b.year));
 
 let counter = 0;
 const rows = groups.map(group => ({
