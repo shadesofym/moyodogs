@@ -2075,6 +2075,7 @@ select:focus-visible {
     padding: 0 4vw 6px;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
+    scroll-padding-inline: 4vw;
     scrollbar-width: none;
   }
 
@@ -3357,6 +3358,7 @@ moyo-journal {
     padding: 0 4vw 6px;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
+    scroll-padding-inline: 4vw;
     scrollbar-width: none;
   }
 
