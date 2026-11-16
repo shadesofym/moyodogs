@@ -101,7 +101,7 @@ Transparenz ist mir wichtig. Du erhältst alle relevanten Unterlagen und Informa
 
 Auch während der Planung und Aufzucht möchte ich die zukünftigen Welpenbesitzer mitnehmen: vom Decken über die Untersuchungen und die Geburt bis zur Entwicklung der einzelnen Welpen halte ich dich regelmässig auf dem Laufenden.
 
-Meine Verantwortung endet nicht mit der Übergabe. Auch danach stehe ich bei Fragen zur Entwicklung, Haltung oder Ausbildung zur Seite und begleite euch gerne weiter.
+Meine Verantwortung endet nicht mit der Übergabe. Auch danach stehe ich bei Fragen zur Entwicklung, Haltung oder Ausbildung zur Seite und begleite dich gerne weiter.
 
 Besuche sind möglich, sobald es für die Welpen sinnvoll ist. Es geht nicht darum, möglichst früh einen Welpen «auszusuchen». Gemeinsam beobachten wir die Entwicklung und schauen, welcher Charakter, welches Temperament und welche Anlagen zu dir und deinem Alltag passen.
 
