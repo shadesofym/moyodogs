@@ -7,6 +7,9 @@ image: /media/bumblebee.webp
 imageAlt: Bumblebee von MOYO DOGS
 meta: 'Rüde · 2023 · Deckrüde'
 role: deckruede
+studImage: /media/wordpress/wp-743.webp
+studAvailable: true
+angekoert: true
 order: 3
 facts:
 - label: Geboren

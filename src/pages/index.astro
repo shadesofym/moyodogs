@@ -69,7 +69,7 @@ const dateLabel = (date?: Date) => date ? date.toLocaleDateString('de-CH', { day
         <span class="go" aria-hidden="true">↗</span>
       </a>
     ))}
-    <a class="dog-row" href="/wuerfe/" data-preview="/media/wordpress/wp-724.webp" data-reveal>
+    <a class="dog-row" href="/nachzucht/" data-preview={offspring[0]?.data.image ?? '/media/wordpress/wp-724.webp'} data-reveal>
       <span class="no">{String(dogs.length + 1).padStart(3, '0')}</span>
       <h3>Nachzucht</h3>
       <span class="meta">{offspring.length} Porträts · Shades of &amp; The Gods</span>

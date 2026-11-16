@@ -214,6 +214,20 @@ content:
             - value: deckruede
               label: Deckrüde aus eigenem Wurf
         description: "Deckrüden erscheinen auf /hunde/ als eigener Abschnitt unter der Hundefamilie, nicht im Umschalter der Charakterköpfe."
+      - name: studImage
+        label: Bild für die Deckrüden-Karte
+        type: image
+        description: "Optionales sauberes Foto. Ohne Angabe wird das Profilbild verwendet."
+      - name: studAvailable
+        label: Steht als Deckrüde zur Verfügung
+        type: boolean
+        default: false
+        description: "Zeigt den Hund im Abschnitt Deckrüden auf /hunde/ und in der Nachzucht-Liste."
+      - name: angekoert
+        label: Angekört
+        type: boolean
+        default: false
+        description: "Körung bestanden. Erscheint als Badge auf der Deckrüden-Karte und in der Nachzucht-Liste."
       - name: facts
         label: Kurzdaten für den Deckrüden-Abschnitt
         type: object
@@ -438,6 +452,10 @@ content:
         required: true
         options:
           values: [shades-of, the-gods]
+      - name: dog
+        label: Hundeprofil (optional)
+        type: string
+        description: "ID des Hundeprofils, z.B. yam oder bumblebee. Verknüpft das Porträt mit Ankörung und Deckrüden-Status."
       - name: published
         label: Auf der Website veröffentlichen
         type: boolean

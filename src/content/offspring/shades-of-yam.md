@@ -3,6 +3,7 @@ title: Shades of Yam
 description: 'Shades of Yam aus unserem Wurf «Shades of»: Porträt und Bilder von MOYO DOGS.'
 published: true
 litter: shades-of
+dog: yam
 image: /media/wordpress/wp-852.webp
 imageAlt: Shades of Yam – Aufnahme 1
 gallery:

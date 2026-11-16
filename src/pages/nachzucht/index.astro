@@ -1,0 +1,80 @@
+---
+import Base from '../../layouts/Base.astro';
+import { allPublicDogs, publicLitters, publicOffspring } from '../../lib-content';
+
+const offspring = await publicOffspring();
+const litters = await publicLitters();
+const dogs = new Map((await allPublicDogs()).map(entry => [entry.id, entry]));
+
+const shortName = (title: string) => title.replace(/^(Shades of|The Gods)\s+/i, '');
+const yearOf = (period: string) => period.match(/\d{4}/)?.[0] ?? '';
+
+const groups = litters
+  .filter(litter => offspring.some(entry => entry.data.litter === litter.id))
+  .map(litter => {
+    const entries = offspring.filter(entry => entry.data.litter === litter.id);
+    return {
+      id: litter.id,
+      title: litter.data.title,
+      year: yearOf(litter.data.period),
+      period: litter.data.period,
+      entries,
+    };
+  });
+
+let counter = 0;
+const rows = groups.map(group => ({
+  ...group,
+  entries: group.entries.map(entry => {
+    counter += 1;
+    const dog = entry.data.dog ? dogs.get(entry.data.dog) : undefined;
+    return {
+      id: entry.id,
+      no: String(counter).padStart(3, '0'),
+      name: shortName(entry.data.title),
+      image: entry.data.image,
+      angekoert: dog?.data.angekoert ?? false,
+      year: group.year,
+    };
+  }),
+}));
+
+const total = offspring.length;
+const angekoertCount = rows.flatMap(group => group.entries).filter(entry => entry.angekoert).length;
+---
+<Base title="Nachzucht" description="Alle Hunde aus den Würfen von MOYO DOGS: Porträts, Abstammung und Entwicklung der Nachzucht im Kanton Bern.">
+  <section class="page-heading wrap">
+    <span class="eyebrow">Aus unseren Würfen</span>
+    <h1>Nachzucht<span class="dot">.</span></h1>
+    <p>{total} Hunde aus zwei Würfen.{angekoertCount > 0 && ` ${angekoertCount} davon haben die Ankörung bestanden und stehen als Deckrüden zur Verfügung.`}</p>
+  </section>
+
+  {rows.map(group => (
+    <section class="section wrap">
+      <div class="sec-label">
+        <h2>{group.title}</h2>
+        <span class="mono">{group.year} · {group.entries.length} Hunde</span>
+      </div>
+      <div class="dog-list">
+        {group.entries.map(entry => (
+          <a class="dog-row" href={`/nachzucht/${entry.id}/`} data-preview={entry.image}>
+            <span class="no">{entry.no}</span>
+            <h3>{entry.name}</h3>
+            {entry.angekoert
+              ? <span class="meta meta--angekoert">Angekört · Deckrüde</span>
+              : <span class="meta">Wurf {entry.year}</span>}
+            <span class="go" aria-hidden="true">↗</span>
+          </a>
+        ))}
+      </div>
+      <div class="dog-preview" data-dog-preview aria-hidden="true"><img src={group.entries[0]?.image} alt="" width="520" height="650"/></div>
+    </section>
+  ))}
+
+  <section class="section wrap">
+    <div class="note-band">
+      <b>Ankörung</b>
+      <span>Die Ankörung erfolgt beim Schweizerischen Club für Holländische Schäferhunde (SCHS). Details zu Gesundheit und Prüfungen stehen auf jedem Porträt.</span>
+    </div>
+  </section>
+</Base>

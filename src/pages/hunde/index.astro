@@ -1,14 +1,18 @@
 ---
 import Base from '../../layouts/Base.astro';
 import DogPortrait from '../../components/DogPortrait.astro';
-import StudDog from '../../components/StudDog.astro';
 import MediaImage from '../../components/MediaImage.astro';
-import { publicDogs, studDogs } from '../../lib-content';
+import { publicDogs, studDogs, publicOffspring } from '../../lib-content';
 
 const dogs = await publicDogs();
 const studs = await studDogs();
+const offspring = await publicOffspring();
 const [lead, ...family] = dogs;
 const familyLabel = new Intl.ListFormat('de-CH', { style: 'long', type: 'conjunction' }).format(dogs.map(dog => dog.data.title));
+const shadesCount = offspring.filter(entry => entry.data.litter === 'shades-of').length;
+const godsCount = offspring.filter(entry => entry.data.litter === 'the-gods').length;
+const angekoert = studs.filter(entry => entry.data.angekoert).map(entry => entry.data.title);
+const angekoertLabel = angekoert.length ? new Intl.ListFormat('de-CH', { style: 'long', type: 'conjunction' }).format(angekoert) : '';
 ---
 <Base title="Unsere Hunde">
   {lead ? (
@@ -16,7 +20,7 @@ const familyLabel = new Intl.ListFormat('de-CH', { style: 'long', type: 'conjunc
       <DogPortrait entry={lead} dogs={dogs} overview/>
 
       {family.length > 0 && (
-        <section class="section wrap">
+        <section class="section wrap" id="charakterkoepfe">
           <div class="section-heading">
             <div>
               <span class="eyebrow">Unsere Hundefamilie</span>
@@ -44,7 +48,62 @@ const familyLabel = new Intl.ListFormat('de-CH', { style: 'long', type: 'conjunc
         </section>
       )}
 
-      {studs.map(entry => <StudDog entry={entry}/>)}
+      {studs.length > 0 && (
+        <section class="section wrap" id="deckrueden">
+          <div class="sec-label">
+            <h2>Deckrüden</h2>
+            <span class="mono">{angekoert.length === studs.length ? 'Angekört' : 'Zuchtzulassung'} · 0{studs.length}</span>
+          </div>
+          <p class="stud-intro">Beide Rüden stammen aus unserem ersten Wurf «Shades of» – zwei Brüder, beide angekört. Einer lebt bei uns, einer bei seiner Familie.</p>
+          <div class="stud-grid">
+            {studs.map(entry => {
+              const external = entry.data.role === 'deckruede';
+              return (
+                <article class="stud-card">
+                  {entry.data.image && (
+                    <div class="stud-card-image">
+                      <MediaImage src={entry.data.studImage ?? entry.data.image} alt={entry.data.imageAlt} sizes="(max-width: 940px) 92vw, 45vw"/>
+                    </div>
+                  )}
+                  <div class="stud-card-body">
+                    <h3>{entry.data.title}<span class="dot">.</span></h3>
+                    {entry.data.angekoert && <span class="badge">Angekört</span>}
+                    <p class="stud-where">{external ? 'Lebt bei seiner Familie' : 'Lebt bei uns'}</p>
+                    {entry.data.facts.length > 0 && (
+                      <dl class="stud-data">
+                        {entry.data.facts.map(fact => (
+                          <div><dt>{fact.label}</dt><dd>{fact.value}</dd></div>
+                        ))}
+                      </dl>
+                    )}
+                    <div class="stud-actions">
+                      <a class="button" href={`/hunde/${entry.id}/`}>Zum Profil <span aria-hidden="true">↗</span></a>
+                      {!external && <a class="text-link" href="/kontakt/">Deckanfrage</a>}
+                    </div>
+                    {external && (
+                      <p class="stud-note">{entry.data.title} lebt nicht bei uns. Deckanfragen laufen direkt über die Besitzerin – wir vermitteln nicht.</p>
+                    )}
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
+      <section class="section wrap" id="nachzucht">
+        <div class="sec-label">
+          <h2>Nachzucht</h2>
+          <span class="mono">{offspring.length} Porträts · 2 Würfe</span>
+        </div>
+        <div class="nachzucht-split">
+          <p>Alle Hunde aus unseren beiden Würfen: {shadesCount} aus «Shades of» (2023), {godsCount} aus «The Gods» (2025).{angekoertLabel && <> <strong>Angekört sind bislang {angekoertLabel}.</strong></>}</p>
+          <div class="nachzucht-actions">
+            <a class="button" href="/nachzucht/">Zur Nachzucht <span aria-hidden="true">↗</span></a>
+            <a class="text-link" href="/wuerfe/">Die Würfe</a>
+          </div>
+        </div>
+      </section>
     </>
   ) : (
     <section class="page-heading wrap">

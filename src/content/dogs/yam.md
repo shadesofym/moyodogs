@@ -6,6 +6,25 @@ published: true
 image: /media/yam.webp
 imageAlt: Yam von MOYO DOGS
 meta: 'Rüde · 2023 · Angekört'
+studAvailable: true
+angekoert: true
+facts:
+- label: Geboren
+  value: 03.01.2023
+- label: Grösse
+  value: 64,5 cm
+- label: Gewicht
+  value: 31 kg
+- label: HD
+  value: B
+- label: ED
+  value: '0'
+- label: LÜW
+  value: '0'
+- label: DM
+  value: N/N
+- label: Prüfungen
+  value: IGP 1
 order: 2
 gallery: []
 seoTitle: Yam – Holländischer Schäferhund

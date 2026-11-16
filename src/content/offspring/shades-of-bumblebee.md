@@ -3,6 +3,7 @@ title: Shades of Bumblebee
 description: 'Shades of Bumblebee aus unserem Wurf «Shades of»: Porträt und Bilder von MOYO DOGS.'
 published: true
 litter: shades-of
+dog: bumblebee
 image: /media/wordpress/wp-898.webp
 imageAlt: Shades of Bumblebee – Aufnahme 1
 gallery:

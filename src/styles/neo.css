@@ -1469,6 +1469,157 @@ select:focus-visible {
   color: var(--ink);
 }
 
+/* ---------- dogs / deckrüden cards ---------- */
+.stud-intro {
+  max-width: 58ch;
+  margin: 16px 0 26px;
+  color: var(--muted);
+}
+
+.stud-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(20px, 3vw, 34px);
+}
+
+.stud-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--ink);
+  background: var(--paper-2);
+}
+
+.stud-card-image {
+  overflow: hidden;
+  border-bottom: 1px solid var(--ink);
+  background: var(--paper-2);
+}
+
+.stud-card-image img {
+  display: block;
+  width: 100%;
+  height: clamp(240px, 24vw, 340px);
+  object-fit: cover;
+}
+
+.stud-card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  flex: 1;
+  padding: clamp(22px, 2.6vw, 34px);
+}
+
+.stud-card h3 {
+  margin: 0;
+  font-size: clamp(2rem, 3.4vw, 3.1rem);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+}
+
+.badge {
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 5px 9px;
+  border: 1px solid var(--copper-deep);
+  color: var(--copper-deep);
+}
+
+.stud-where {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.stud-card .stud-data {
+  width: 100%;
+  margin: 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.stud-card .stud-data dt {
+  color: var(--copper-deep);
+}
+
+.stud-card .stud-data dd {
+  font-size: 0.9rem;
+}
+
+.stud-card .stud-actions {
+  margin-top: auto;
+  padding-top: 6px;
+}
+
+.stud-note {
+  max-width: 40ch;
+  margin: 0;
+  padding-top: 12px;
+  border-top: 1px solid rgba(12, 12, 11, 0.12);
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* ---------- nachzucht ---------- */
+.nachzucht-split {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: end;
+  gap: clamp(20px, 4vw, 54px);
+  margin-top: 22px;
+}
+
+.nachzucht-split p {
+  max-width: 54ch;
+  margin: 0;
+  color: var(--muted);
+}
+
+.nachzucht-split strong {
+  color: var(--ink);
+}
+
+.nachzucht-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.dog-row .meta--angekoert {
+  color: var(--copper-deep);
+}
+
+.dog-row .meta--angekoert::before {
+  content: "●";
+  margin-right: 6px;
+  font-size: 0.5rem;
+  vertical-align: 1px;
+}
+
+.note-band {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  flex-wrap: wrap;
+  padding: 18px 22px;
+  border: 1px solid rgba(12, 12, 11, 0.22);
+  background: var(--paper-2);
+}
+
+.note-band b {
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--copper-deep);
+}
+
 /* ---------- detail pages ---------- */
 .detail-hero {
   display: grid;
@@ -2632,6 +2783,19 @@ moyo-journal {
 
   .stud-data {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .stud-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .nachzucht-split {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .nachzucht-actions {
+    justify-content: flex-start;
   }
 
   .family-copy {
