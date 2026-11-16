@@ -784,7 +784,7 @@ select:focus-visible {
 
 .stats-in {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .stat {
@@ -2869,6 +2869,10 @@ moyo-journal {
 
   .stat:nth-child(-n + 2) {
     border-bottom: 1px solid var(--line);
+  }
+
+  .stat:nth-child(3) {
+    grid-column: 1 / -1;
   }
 
   .cards-grid,
