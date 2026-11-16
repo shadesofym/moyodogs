@@ -91,7 +91,7 @@ O’Deadshot bringt eine stark arbeitsgeprägte Abstammung in diese Verpaarung e
 
 ## **Ecyoj-Malu of Black-Golden Pearls**
 
-**57 cm · 23 kg**
+**57,8 cm · 24 kg**
 
 **Gesundheit**  
 HD A/A · ED 0/0 · LÜW 0  
