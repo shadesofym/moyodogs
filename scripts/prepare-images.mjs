@@ -1,4 +1,5 @@
 import sharp from 'sharp';
+import { rgbaToThumbHash, thumbHashToRGBA } from 'thumbhash';
 import { readdir, readFile, mkdir, writeFile } from 'node:fs/promises';
 import { resolve, relative } from 'node:path';
 import { createHash } from 'node:crypto';
@@ -29,6 +30,11 @@ while(next<files.length){
  const width=rotated?metadata.height:metadata.width;
  const height=rotated?metadata.width:metadata.height;
  if(!width||!height)throw new Error(`Bildmasse fehlen: ${file}`);
+ const thumb=await sharp(buffer).rotate().resize({width:32,height:32,fit:'inside'}).ensureAlpha().raw().toBuffer({resolveWithObject:true});
+ const thumbHash=rgbaToThumbHash(thumb.info.width,thumb.info.height,thumb.data);
+ const decoded=thumbHashToRGBA(thumbHash);
+ const placeholder=await sharp(decoded.rgba,{raw:{width:decoded.w,height:decoded.h,channels:4}}).webp({quality:55}).toBuffer();
+ const lqip=`data:image/webp;base64,${placeholder.toString('base64')}`;
  const widths=[...new Set([480,800,1200,1800].filter(w=>w<width).concat(Math.min(width,1800)))];
  const variants={webp:[],avif:[]};
  for(const w of widths){
@@ -38,7 +44,7 @@ while(next<files.length){
    variants[format].push({src:'/generated/'+name,width:w});
   }
  }
- manifest['/media/'+relative(directory,source).replaceAll('\\','/')]={width,height,variants,src:variants.webp.at(-1).src};
+ manifest['/media/'+relative(directory,source).replaceAll('\\','/')]={width,height,variants,src:variants.webp.at(-1).src,lqip};
 }
 }));
 await writeFile(resolve(root,'src/data/media.generated.json'),JSON.stringify(manifest,null,2)+'\n');

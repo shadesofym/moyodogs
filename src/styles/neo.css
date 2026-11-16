@@ -58,6 +58,15 @@ img {
   height: auto;
 }
 
+/* Thumbhash-Platzhalter: zeigt den Bildton, bis das Foto geladen ist */
+.media img {
+  background-color: var(--paper-2);
+  background-image: var(--lqip);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -2828,6 +2837,41 @@ moyo-journal {
   color: var(--copper-light);
 }
 
+/* ---------- container queries: Karten richten sich nach ihrer Breite ---------- */
+.entry-card,
+.stud-card,
+.family-card,
+.litter-card {
+  container-type: inline-size;
+}
+
+.stud-card h3 {
+  font-size: clamp(2rem, 7.5cqi, 3.1rem);
+}
+
+.entry-card .card-heading h3 {
+  font-size: clamp(1.3rem, 6.5cqi, 1.7rem);
+}
+
+.family-copy h3 {
+  font-size: clamp(2.4rem, 5.5cqi, 4.2rem);
+}
+
+.litter-card-body h3 {
+  font-size: clamp(1.7rem, 6.3cqi, 2.4rem);
+}
+
+@container (max-width: 340px) {
+  .stud-card-body {
+    padding: 18px;
+    gap: 10px;
+  }
+
+  .stud-card-image img {
+    height: 200px;
+  }
+}
+
 /* ---------- reveal ---------- */
 .will-reveal {
   opacity: 0;
@@ -2836,6 +2880,37 @@ moyo-journal {
 
 [data-reveal] {
   transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.6, 0.3, 1);
+}
+
+/* Scroll-getriebene Reveals: laufen ohne JavaScript, wo der Browser sie kann */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    /* Name über eine Variable, damit der Minifier die Timeline nicht in die
+       animation-Kurzschrift zieht (die wird sonst verworfen). */
+    [data-reveal] {
+      --reveal-name: reveal-rise;
+      animation: var(--reveal-name) linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 55%;
+    }
+
+    .will-reveal {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+@keyframes reveal-rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2856,6 +2931,15 @@ moyo-journal {
   ::view-transition-old(*),
   ::view-transition-new(*) {
     animation: none !important;
+  }
+}
+
+/* Beim Drucken ist nichts gescrollt: Inhalte immer sichtbar */
+@media print {
+  [data-reveal] {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
 

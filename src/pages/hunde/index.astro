@@ -47,7 +47,7 @@ const dogList = {
               <article class="family-card" data-reveal>
                 {dog.data.image && (
                   <div class="family-image">
-                    <MediaImage src={dog.data.image} alt={dog.data.imageAlt} sizes="(max-width: 940px) 92vw, 46vw"/>
+                    <MediaImage src={dog.data.image} alt={dog.data.imageAlt} sizes="(max-width: 940px) 92vw, 46vw" transitionName={`entry--hunde-${dog.id}-`}/>
                   </div>
                 )}
                 <div class="family-copy">
