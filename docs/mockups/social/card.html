@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<style>
+@font-face{font-family:"Bricolage";src:url("file:///Users/moyo/Projects/moyodogs/public/fonts/bricolage-grotesque-latin.woff2") format("woff2");font-weight:200 800;font-display:block}
+@font-face{font-family:"Space Mono";src:url("file:///Users/moyo/Projects/moyodogs/public/fonts/space-mono-400-latin.woff2") format("woff2");font-weight:400;font-display:block}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1200px;height:630px;overflow:hidden;background:#0c0c0b}
+.card{position:relative;width:1200px;height:630px;overflow:hidden;background:#0c0c0b}
+.photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;filter:saturate(.96) contrast(1.04);transform:translateY(-34px)}
+.scrim{position:absolute;inset:0;background:
+  radial-gradient(48% 52% at 19% 24%,rgba(0,0,0,.58) 0%,rgba(0,0,0,.30) 55%,rgba(0,0,0,0) 100%),
+  linear-gradient(180deg,rgba(0,0,0,.30) 0%,rgba(0,0,0,0) 24%),
+  linear-gradient(0deg,rgba(0,0,0,.62) 0%,rgba(0,0,0,.18) 18%,rgba(0,0,0,0) 34%)}
+.brand{position:absolute;left:58px;top:42px;width:302px}
+.dog{display:block;width:116px;height:auto;margin:0 auto -2px;filter:drop-shadow(0 3px 10px rgba(0,0,0,.55))}
+.bar{position:relative;padding:10px 0 12px;text-align:center;background:#070706;border-top:1px solid rgba(239,236,227,.28);box-shadow:0 12px 34px rgba(0,0,0,.38)}
+.word{font-family:Didot,"Bodoni 72",Georgia,serif;font-weight:700;font-size:38px;line-height:1;letter-spacing:.10em;
+  color:#efece3;text-shadow:0 1px 12px rgba(0,0,0,.35)}
+.sub{width:max-content;margin:11px auto 0;padding-bottom:7px;border-bottom:1px solid rgba(239,236,227,.55);
+  font-family:"Helvetica Neue",Arial,sans-serif;font-weight:700;font-size:11.5px;letter-spacing:.22em;color:#efece3;
+  text-shadow:0 1px 8px rgba(0,0,0,.7)}
+.foot{position:absolute;left:58px;right:58px;bottom:38px;display:flex;align-items:flex-end;justify-content:space-between}
+.foot .place{font-family:Bricolage,Arial,sans-serif;font-weight:700;font-size:13px;
+  letter-spacing:.16em;text-transform:uppercase;color:#efece3;text-shadow:0 1px 10px rgba(0,0,0,.8)}
+.url{font-family:"Space Mono",monospace;font-size:13px;letter-spacing:.10em;color:#c68346;text-shadow:0 1px 10px rgba(0,0,0,.8)}
+.card--min .photo{object-position:center top}
+.card--min .scrim{background:
+  radial-gradient(48% 52% at 19% 24%,rgba(0,0,0,.60) 0%,rgba(0,0,0,.30) 55%,rgba(0,0,0,0) 100%),
+  linear-gradient(180deg,rgba(0,0,0,.22) 0%,rgba(0,0,0,0) 22%),
+  linear-gradient(0deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,.12) 16%,rgba(0,0,0,0) 32%)}
+</style>
+</head>
+<body>
+<div class="card card--min">
+  <img class="photo" src="file:///Users/moyo/Downloads/IMG_6577.JPG" alt="">
+  <div class="scrim"></div>
+  <div class="brand">
+    <img class="dog" src="assets/dog-cream.png" alt="">
+    <div class="bar"><span class="word">MOYO DOGS</span></div>
+    <div class="sub">HOLLANDSE HERDERSHOND</div>
+  </div>
+  <div class="foot">
+    <span class="place">Holländische Schäferhunde</span>
+    <span class="url">moyodogs.com</span>
+  </div>
+</div>
+</body>
+</html>

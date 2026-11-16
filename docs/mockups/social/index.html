@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MOYO DOGS · Social-Vorschaubild</title>
+<style>
+@font-face{font-family:"Bricolage";src:url("../../../public/fonts/bricolage-grotesque-latin.woff2") format("woff2");font-weight:200 800}
+@font-face{font-family:"Space Mono";src:url("../../../public/fonts/space-mono-400-latin.woff2") format("woff2");font-weight:400}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#111110;color:#ece6da;font-family:"Bricolage",Arial,sans-serif;padding:5vh 5vw}
+h1{font-size:clamp(1.8rem,4vw,2.8rem);line-height:1;margin-bottom:10px}
+p{color:#9d9789;max-width:64ch;line-height:1.6;margin-bottom:26px}
+p b{color:#ece6da;font-weight:700}
+figure{background:#191918;border:1px solid rgba(236,230,218,.14);padding:14px;max-width:900px}
+img{display:block;width:100%;height:auto;border:1px solid rgba(236,230,218,.1)}
+figcaption{display:flex;justify-content:space-between;gap:12px;margin-top:12px;font-size:.78rem;color:#9d9789}
+figcaption b{color:#ece6da}
+a{color:#c3a15c}
+.note{margin-top:28px;padding-top:20px;border-top:1px solid rgba(236,230,218,.14);font-size:.82rem;color:#9d9789}
+</style>
+</head>
+<body>
+<h1>Social-Vorschaubild</h1>
+<p>Finale Variante für den Link-Preview, <b>1200 × 630 px</b>. Das Foto ist unverändert – nur der Bildausschnitt wurde beschnitten und leicht nach oben verschoben, damit beide Hunde gut ins Format passen. Ausdruck und Gestik sind nicht bearbeitet. Logo und Schrift in Creme statt Gold, Fusszeile ohne Kanton Bern. Das Original-Wasserzeichen bleibt im Bild.</p>
+<figure>
+  <a href="preview.jpg"><img src="preview.jpg" alt="Social-Vorschaubild: zwei Holländische Schäferhunde, Logo MOYO DOGS in Creme"></a>
+  <figcaption><span><b>social-card.jpg</b> · 1200 × 630 · JPEG</span><span>65 KB</span></figcaption>
+</figure>
+<p class="note">Die Datei liegt als <code>public/media/social-card.jpg</code> in der Website und ist in <code>src/data/site.json</code> als <code>socialImage</code> hinterlegt. <code>card.html</code> ist die Render-Vorlage und verweist auf das Originalfoto <code>IMG_6577.JPG</code>; <code>assets/dog-cream.png</code> ist die freigestellte Creme-Silhouette.</p>
+</body>
+</html>
