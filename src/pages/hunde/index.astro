@@ -2,10 +2,12 @@
 import Base from '../../layouts/Base.astro';
 import DogPortrait from '../../components/DogPortrait.astro';
 import MediaImage from '../../components/MediaImage.astro';
-import { publicDogs, studDogs, publicOffspring } from '../../lib-content';
+import { publicDogs, studDogs, publicOffspring, allPublicDogs } from '../../lib-content';
+import { canonicalUrl } from '../../lib/seo';
 
 const dogs = await publicDogs();
 const studs = await studDogs();
+const allDogs = await allPublicDogs();
 const offspring = await publicOffspring();
 const [lead, ...family] = dogs;
 const familyLabel = new Intl.ListFormat('de-CH', { style: 'long', type: 'conjunction' }).format(dogs.map(dog => dog.data.title));
@@ -13,8 +15,20 @@ const shadesCount = offspring.filter(entry => entry.data.litter === 'shades-of')
 const godsCount = offspring.filter(entry => entry.data.litter === 'the-gods').length;
 const angekoert = studs.filter(entry => entry.data.angekoert).map(entry => entry.data.title);
 const angekoertLabel = angekoert.length ? new Intl.ListFormat('de-CH', { style: 'long', type: 'conjunction' }).format(angekoert) : '';
+const dogList = {
+  '@type': 'ItemList',
+  '@id': `${canonicalUrl('/hunde/')}#hunde`,
+  name: 'Unsere Hunde',
+  numberOfItems: allDogs.length,
+  itemListElement: allDogs.map((entry, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: entry.data.title,
+    url: canonicalUrl(`/hunde/${entry.id}/`),
+  })),
+};
 ---
-<Base title="Unsere Hunde">
+<Base title="Hunde & Deckrüden" description="Malu, Yam und Bumblebee: unsere Holländischen Schäferhunde mit Gesundheit, Prüfungen und Ankörung – zwei Rüden stehen als Deckrüden zur Verfügung." extraJsonLd={[dogList]}>
   {lead ? (
     <>
       <DogPortrait entry={lead} dogs={dogs} overview/>

@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { allPublicDogs, publicLitters, publicOffspring } from '../../lib-content';
+import { canonicalUrl } from '../../lib/seo';
 
 const offspring = await publicOffspring();
 const litters = await publicLitters();
@@ -42,8 +43,20 @@ const rows = groups.map(group => ({
 
 const total = offspring.length;
 const angekoertCount = rows.flatMap(group => group.entries).filter(entry => entry.angekoert).length;
+const offspringList = {
+  '@type': 'ItemList',
+  '@id': `${canonicalUrl('/nachzucht/')}#nachzucht`,
+  name: 'Nachzucht',
+  numberOfItems: total,
+  itemListElement: rows.flatMap(group => group.entries).map(entry => ({
+    '@type': 'ListItem',
+    position: Number(entry.no),
+    name: entry.name,
+    url: canonicalUrl(`/nachzucht/${entry.id}/`),
+  })),
+};
 ---
-<Base title="Nachzucht" description="Alle Hunde aus den Würfen von MOYO DOGS: Porträts, Abstammung und Entwicklung der Nachzucht im Kanton Bern.">
+<Base title="Nachzucht aus zwei Würfen" description="Alle Hunde aus den Würfen von MOYO DOGS: Porträts, Abstammung und Entwicklung der Nachzucht im Kanton Bern." extraJsonLd={[offspringList]}>
   <section class="page-heading wrap">
     <span class="eyebrow">Aus unseren Würfen</span>
     <h1>Nachzucht<span class="dot">.</span></h1>
