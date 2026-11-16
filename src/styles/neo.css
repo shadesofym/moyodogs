@@ -1620,6 +1620,203 @@ select:focus-visible {
   color: var(--copper-deep);
 }
 
+/* ---------- whatsapp contact ---------- */
+.wa-panel {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  border: 1px solid var(--ink);
+  background: var(--paper-2);
+}
+
+.wa-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 18px;
+  padding: clamp(24px, 3.4vw, 46px);
+}
+
+.wa-copy h2 {
+  margin: 0;
+  font-size: clamp(2.1rem, 4vw, 3.6rem);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+}
+
+.wa-copy > p {
+  max-width: 44ch;
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+.wa-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 18px 22px;
+  border: 1px solid var(--petrol);
+  background: var(--petrol);
+  color: var(--paper);
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.25s, border-color 0.25s, color 0.25s;
+}
+
+.wa-button span:last-child {
+  font-size: 1rem;
+}
+
+.wa-button:hover {
+  border-color: var(--copper);
+  background: var(--copper);
+  color: var(--ink);
+}
+
+.wa-alt {
+  margin: 0;
+  font-size: 0.86rem;
+  color: var(--muted);
+}
+
+.wa-alt a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.wa-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 22px;
+  padding: clamp(22px, 3vw, 36px);
+  border-left: 1px solid var(--ink);
+  background: var(--petrol);
+  color: var(--paper);
+}
+
+.wa-chat {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.wa-chat span {
+  font-family: var(--mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--copper-light);
+}
+
+.wa-bubble {
+  position: relative;
+  max-width: 34ch;
+  margin: 0;
+  padding: 14px 16px;
+  border-radius: 2px 12px 12px 12px;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+
+.wa-bubble::after {
+  content: "";
+  position: absolute;
+  right: 12px;
+  bottom: 8px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--copper);
+}
+
+.wa-qr {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.wa-qr-card {
+  flex: 0 0 auto;
+  padding: 8px;
+  border: 1px solid var(--paper);
+  background: var(--paper);
+}
+
+.wa-qr-card img {
+  display: block;
+  width: 104px;
+  height: auto;
+}
+
+.wa-qr p {
+  margin: 0;
+  font-size: 0.76rem;
+  line-height: 1.55;
+  color: rgba(239, 236, 227, 0.82);
+}
+
+.wa-qr b {
+  display: block;
+  margin-bottom: 6px;
+  font-family: var(--mono);
+  font-size: 0.52rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--copper-light);
+}
+
+.contact-prose {
+  max-width: 62ch;
+  margin-top: clamp(40px, 5vw, 64px);
+}
+
+.contact-prose .nowrap {
+  white-space: nowrap;
+}
+
+@media (max-width: 940px) {
+  .wa-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .wa-side {
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    border-left: 0;
+    border-top: 1px solid var(--ink);
+  }
+
+  .wa-chat {
+    flex: 1 1 220px;
+  }
+}
+
+@media (max-width: 560px) {
+  .wa-side {
+    padding: 20px;
+  }
+
+  .wa-qr {
+    display: none;
+  }
+
+  .wa-button {
+    padding: 16px 18px;
+    font-size: 0.56rem;
+  }
+}
+
 /* ---------- detail pages ---------- */
 .detail-hero {
   display: grid;

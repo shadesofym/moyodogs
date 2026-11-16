@@ -1,5 +1,49 @@
 ---
 import Base from '../layouts/Base.astro';
 import site from '../data/site.json';
+
+const waNumber = site.phoneWhatsapp.replace(/\D/g, '');
+const waText = 'Hallo Sandra, ich habe eine Frage zu MOYO DOGS.';
+const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(waText)}`;
+const telHref = (value: string) => `tel:${value.replace(/[^\d+]/g, '')}`;
 ---
-<Base title="Kontakt" description="Fragen zu unseren Hunden, Deckanfragen oder der Wurfplanung? Schreib Sandra von MOYO DOGS im Kanton Bern – per E-Mail oder WhatsApp."><section class="page-heading wrap"><span class="eyebrow">Der erste Schritt ist eine Nachricht</span><h1>Lernen wir<br/>uns kennen.</h1><p>Fragen zu unseren Hunden, unserer Zucht oder einem geplanten Wurf? Ich freue mich darauf, von dir zu hören.</p><!--email_off--><a class="button" href={`mailto:${site.email}`}>E-Mail an Sandra ↗</a><!--/email_off--></section><section class="wrap section below-heading"><div class="prose"><h2>Direkt & persönlich.</h2><p>Du erreichst uns unter <!--email_off--><a href={`mailto:${site.email}`}>{site.email}</a><!--/email_off-->.</p><p>Wenn du dich für einen Welpen interessierst, erzähl gerne etwas über dich und wie du dir das Leben mit einem Holländischen Schäferhund vorstellst.</p><p>MOYO DOGS · Kanton Bern, Schweiz</p></div></section></Base>
+<Base title="Kontakt" description="Fragen zu unseren Hunden, Deckanfragen oder der Wurfplanung? Schreib Sandra von MOYO DOGS im Kanton Bern – per WhatsApp, E-Mail oder Telefon.">
+  <section class="page-heading wrap">
+    <span class="eyebrow">Der erste Schritt ist eine Nachricht</span>
+    <h1>Lernen wir<br/>uns kennen.</h1>
+    <p>Fragen zu unseren Hunden, unserer Zucht oder einem geplanten Wurf? Ich freue mich darauf, von dir zu hören.</p>
+  </section>
+
+  <section class="wrap section below-heading" aria-labelledby="whatsapp-titel">
+    <div class="wa-panel">
+      <div class="wa-copy">
+        <span class="eyebrow">Direkt im Chat</span>
+        <h2 id="whatsapp-titel">Schreib mir<br/>auf WhatsApp<span class="dot">.</span></h2>
+        <p>Ein Klick öffnet WhatsApp mit einer vorbereiteten Nachricht. Du kannst sie vor dem Senden lesen und ändern – abgeschickt wird nichts automatisch.</p>
+        <a class="wa-button" href={waUrl} target="_blank" rel="noopener">
+          <span>WhatsApp öffnen</span><span aria-hidden="true">↗</span>
+        </a>
+        <p class="wa-alt">Lieber E-Mail? <!--email_off--><a href={`mailto:${site.email}`}>{site.email}</a><!--/email_off--></p>
+      </div>
+      <div class="wa-side">
+        <div class="wa-chat">
+          <span>So startet die Nachricht</span>
+          <p class="wa-bubble">{waText}</p>
+        </div>
+        <div class="wa-qr">
+          <div class="wa-qr-card">
+            <img src="/media/whatsapp-qr.svg" alt="QR-Code: WhatsApp-Chat mit MOYO DOGS öffnen" width="104" height="104" loading="lazy"/>
+          </div>
+          <p><b>Mit dem Handy scannen</b>Auf dem Telefon öffnet sich WhatsApp direkt, am Computer kannst du den Code scannen.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="prose contact-prose">
+      <h2>Direkt &amp; persönlich.</h2>
+      <p>Du erreichst mich per WhatsApp unter <span class="nowrap">{site.phoneWhatsapp}</span>, telefonisch unter <a class="nowrap" href={telHref(site.phone)}>{site.phone}</a> oder per E-Mail an <!--email_off--><a href={`mailto:${site.email}`}>{site.email}</a><!--/email_off-->.</p>
+      <p>Wenn du dich für einen Welpen interessierst, erzähl gerne etwas über dich und wie du dir das Leben mit einem Holländischen Schäferhund vorstellst.</p>
+      <p>MOYO DOGS · Kanton Bern, Schweiz</p>
+    </div>
+  </section>
+</Base>
