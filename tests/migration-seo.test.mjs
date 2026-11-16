@@ -90,8 +90,8 @@ test('Sitemap, Metadaten und Vorschausperre sind konsistent',()=>{
  assert.ok(read('dist/_headers').includes('https://:version.:project.pages.dev/*'));
 });
 test('Geteilte Links zeigen die Social Card, Unterseiten behalten ihr eigenes Bild',()=>{
- assert.ok(existsSync(resolve(root,'public/media/social-card.jpg')),'Social Card fehlt');
- const card='https://moyodogs.com/media/social-card.jpg';
+ assert.ok(existsSync(resolve(root,'public/media/social-card-v2.jpg')),'Social Card fehlt');
+ const card='https://moyodogs.com/media/social-card-v2.jpg';
  const home=read('dist/index.html');
  assert.ok(home.includes(`<meta property="og:image" content="${card}">`));
  assert.ok(home.includes('<meta property="og:image:width" content="1200">'));
@@ -101,7 +101,7 @@ test('Geteilte Links zeigen die Social Card, Unterseiten behalten ihr eigenes Bi
  const dog=read('dist/hunde/yam/index.html');
  assert.ok(dog.includes('<meta property="og:image" content="https://moyodogs.com/media/yam.webp">'));
  assert.ok(dog.includes('<meta name="twitter:image" content="https://moyodogs.com/media/yam.webp">'));
- assert.ok(!dog.includes('social-card.jpg'));
+ assert.ok(!dog.includes('social-card-v2.jpg'));
  assert.ok(!dog.includes('og:image:width'));
 });
 test('Jede reguläre Seite hat einen eigenen Suchergebnis-Titel',()=>{
