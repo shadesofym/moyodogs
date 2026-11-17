@@ -65,14 +65,16 @@ const active=(href:string)=>pathname.startsWith(href)||(href==='/blog/'&&pathnam
 </header>
 <nav class="site-menu" id="site-menu" aria-label="Hauptnavigation" data-menu data-open="false" inert>
   <button class="site-menu-close" type="button" data-menu-close>Schliessen ✕</button>
-  <a href="/hunde/">Hunde <span>01</span></a>
-  <a href="/hunde/#deckrueden">Deckrüden <span>02</span></a>
-  <a href="/wuerfe/">Würfe <span>03</span></a>
-  <a href="/zucht/">Zucht <span>04</span></a>
-  <a href="/rasse/">Rasse <span>05</span></a>
-  <a href="/blog/">Journal <span>06</span></a>
-  <a href="/kontakt/">Kontakt <span>07</span></a>
-  <div class="site-menu-foot"><span>Kanton Bern · Schweiz</span><EmailLink/></div>
+  <div class="site-menu-scroll">
+    <a href="/hunde/">Hunde <span>01</span></a>
+    <a href="/hunde/#deckrueden">Deckrüden <span>02</span></a>
+    <a href="/wuerfe/">Würfe <span>03</span></a>
+    <a href="/zucht/">Zucht <span>04</span></a>
+    <a href="/rasse/">Rasse <span>05</span></a>
+    <a href="/blog/">Journal <span>06</span></a>
+    <a href="/kontakt/">Kontakt <span>07</span></a>
+    <div class="site-menu-foot"><span>Kanton Bern · Schweiz</span><EmailLink/></div>
+  </div>
 </nav>
 <main id="inhalt" tabindex="-1"><slot /></main>
 <footer class="site-footer">

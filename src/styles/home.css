@@ -810,7 +810,7 @@
 @media (max-width: 940px) {
 
   .hero-band {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1.45fr 0.85fr;
   }
 
   .hero-band img {
@@ -844,6 +844,14 @@
   .journal-item:nth-child(even) {
     padding-inline: 0;
     border-right: 0;
+  }
+}
+
+/* Erst auf echten Hochformat-Breiten untereinander: Tablets haben für zwei
+   Bildfelder nebeneinander genug Platz und sparen so viel Scrollhöhe. */
+@media (max-width: 620px) {
+  .hero-band {
+    grid-template-columns: 1fr;
   }
 }
 

@@ -271,7 +271,9 @@ select:focus-visible,
   justify-content: space-between;
   gap: 20px;
   min-height: var(--header);
-  padding: 10px min(4vw, 44px);
+  /* Auf breiten Screens sitzt der Header auf derselben Flucht wie der Inhalt
+     (.wrap = max. 1320px), statt an den Fensterrand zu wandern. */
+  padding: 9px max(4vw, calc((100% - 1320px) / 2));
   border-bottom: 1px solid var(--line);
   background: color-mix(in srgb, var(--paper) 88%, transparent);
   backdrop-filter: blur(14px);
@@ -281,6 +283,7 @@ select:focus-visible,
 .brand {
   display: inline-flex;
   align-items: center;
+  min-height: 44px;
   gap: 10px;
   font-family: var(--display);
   font-weight: 800;
@@ -310,9 +313,18 @@ select:focus-visible,
 }
 
 .desktop-nav a {
+  position: relative;
   padding: 6px 0;
   border-bottom: 1px solid transparent;
   white-space: nowrap;
+}
+
+/* Unsichtbare Trefferfläche: die Unterlinie bleibt am Text, der Klickbereich
+   ist auch auf Touch-Tablets 44 px hoch. */
+.desktop-nav a::after {
+  content: "";
+  position: absolute;
+  inset: -12px -6px;
 }
 
 .desktop-nav a:hover,
@@ -338,7 +350,7 @@ select:focus-visible,
   align-items: center;
   justify-content: center;
   min-width: 54px;
-  height: 38px;
+  height: 44px;
   padding: 0 10px;
   border: 1px solid var(--ink);
   background: transparent;
@@ -356,17 +368,30 @@ select:focus-visible,
   z-index: 120;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 4px;
-  padding: 14vh 7vw 10vh;
+  padding: 0;
   background: var(--copper);
   color: var(--ink);
+  overflow: hidden;
   transform: translateY(-101%);
   transition: transform 0.55s cubic-bezier(0.7, 0, 0.2, 1);
 }
 
 .site-menu[data-open="true"] {
   transform: translateY(0);
+}
+
+/* Eigener Scrollbereich: im Querformat und auf niedrigen Fenstern bleiben
+   alle Einträge erreichbar, der Schliessen-Knopf bleibt oben stehen. */
+.site-menu-scroll {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 4px;
+  min-height: 0;
+  padding: clamp(56px, 12vh, 112px) 7vw clamp(20px, 6vh, 56px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 .site-menu a {
@@ -396,10 +421,12 @@ select:focus-visible,
 
 .site-menu-close {
   position: absolute;
+  z-index: 2;
   top: 18px;
   right: 5vw;
+  min-height: 44px;
   border: 1px solid var(--ink);
-  background: transparent;
+  background: var(--copper);
   padding: 10px 14px;
   font-family: var(--mono);
   font-size: 0.6rem;
@@ -432,6 +459,24 @@ select:focus-visible,
   font-size: 0.6rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+}
+
+/* Querformat und niedrige Fenster: kleinere Zeilen, damit das Menü
+   ohne Scrollen passt – und wenn nicht, bleibt es scrollbar. */
+@media (max-height: 560px) {
+  .site-menu-scroll {
+    padding-top: 48px;
+    padding-bottom: 14px;
+  }
+
+  .site-menu a {
+    padding-block: 5px;
+    font-size: clamp(1.35rem, 5.9vh, 2.3rem);
+  }
+
+  .site-menu-foot {
+    margin-top: 12px;
+  }
 }
 
 /* ---------- buttons / links ---------- */
@@ -879,6 +924,7 @@ select:focus-visible,
 .portrait-switch a {
   display: inline-flex;
   align-items: center;
+  min-width: 44px;
   min-height: 44px;
   padding-bottom: 6px;
   border-bottom: 2px solid transparent;
@@ -1998,7 +2044,7 @@ select:focus-visible,
 
 /* ---------- prose ---------- */
 .prose {
-  max-width: 760px;
+  max-width: 660px;
   overflow-wrap: anywhere;
 }
 
@@ -3009,7 +3055,7 @@ moyo-journal {
 /* ============================================================
    Responsive
    ============================================================ */
-@media (max-width: 1100px) {
+@media (max-width: 940px) {
   .desktop-nav {
     display: none;
   }
@@ -3017,9 +3063,7 @@ moyo-journal {
   .menu-toggle {
     display: inline-flex;
   }
-}
 
-@media (max-width: 940px) {
   .contact-grid,
   .about-inner,
   .portrait-stage,
@@ -3070,6 +3114,11 @@ moyo-journal {
   }
 
   .dog-row {
+    grid-template-columns: 40px minmax(0, 1fr) 42px;
+  }
+
+  /* Zeilen mit Vorschaubild (Startseite) brauchen eine Spalte mehr. */
+  .dog-row:has(.dog-thumb) {
     grid-template-columns: 40px 56px minmax(0, 1fr) 42px;
   }
 
