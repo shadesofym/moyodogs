@@ -143,3 +143,17 @@ test('Kleine Labels erfüllen den Mindestkontrast von 4,5:1',()=>{
  }
  assert.ok(ratio(token('copper-light'),token('petrol'))>=4.5,'Kupfer hell auf Petrol');
 });
+test('Die Startseite beantwortet Abgabe und Ausland vor dem Journal',()=>{
+ const home=read('dist/index.html');
+ const steps=home.indexOf('id="ablauf"');
+ const faq=home.indexOf('id="fragen"');
+ const journal=home.indexOf('id="journal"');
+ assert.ok(steps>0&&faq>steps&&journal>faq,'FAQ steht nicht zwischen Ablauf und Journal');
+ assert.ok(home.includes('<details'),'FAQ ist kein Akkordeon');
+ for(const question of ['Ab wann ziehen die Welpen um?','Kann ich einen Welpen ins Ausland mitnehmen?','Wer entscheidet, welcher Welpe zu wem kommt?']){
+  assert.ok(home.includes(question),question);
+ }
+ for(const fact of ['acht Wochen','geimpft, gechipt','Mikrochip','Tollwutimpfung','EU-Heimtierausweis','Deutschland','Österreich','Frankreich','Italien','Züchterin']){
+  assert.ok(home.includes(fact),fact);
+ }
+});
