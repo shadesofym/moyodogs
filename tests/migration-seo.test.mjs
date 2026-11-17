@@ -114,3 +114,32 @@ test('Jede reguläre Seite hat einen eigenen Suchergebnis-Titel',()=>{
   seen.set(title,file);
  }
 });
+test('Die Startseite führt vor dem Bildband zur Anfrage und erklärt den Ablauf',()=>{
+ const home=read('dist/index.html');
+ const cta=home.indexOf('Welpenanfrage');
+ const band=home.indexOf('class="hero-band"');
+ assert.ok(cta>0&&band>0&&cta<band,'Anfrage-Button steht erst nach dem Bildband');
+ assert.ok(home.includes('wa.me/41767174965'),'WhatsApp-Link fehlt');
+ assert.ok(home.includes(encodeURIComponent('Hallo Sandra, ich habe eine Frage zu MOYO DOGS.')),'WhatsApp-Text weicht ab');
+ for(const fact of ['HD A–B · ED 0 · LÜW 0','DM N/N','SDCA 1 &amp; 2','Wohnzimmer'])assert.ok(home.includes(fact),fact);
+ for(const step of ['Kennenlernen','Besuch','Wurf','Übergabe'])assert.ok(home.includes(step),step);
+ assert.ok(home.includes('Frühestens mit acht Wochen'));
+});
+test('Kleine Labels erfüllen den Mindestkontrast von 4,5:1',()=>{
+ const css=read('src/styles/neo.css');
+ const token=name=>css.match(new RegExp(`${name}:\\s*#([0-9a-f]{6})`, 'i'))[1];
+ const luminance=hex=>{
+  const channels=[0,2,4].map(i=>parseInt(hex.slice(i,i+2),16)/255)
+   .map(value=>value<=0.04045?value/12.92:((value+0.055)/1.055)**2.4);
+  return 0.2126*channels[0]+0.7152*channels[1]+0.0722*channels[2];
+ };
+ const ratio=(a,b)=>{
+  const [high,low]=[luminance(a),luminance(b)].sort((x,y)=>y-x);
+  return (high+0.05)/(low+0.05);
+ };
+ for(const name of ['muted','copper-deep']){
+  assert.ok(ratio(token(name),token('paper'))>=4.5,`${name} auf Papier`);
+  assert.ok(ratio(token(name),token('paper-2'))>=4.5,`${name} auf Papier 2`);
+ }
+ assert.ok(ratio(token('copper-light'),token('petrol'))>=4.5,'Kupfer hell auf Petrol');
+});
