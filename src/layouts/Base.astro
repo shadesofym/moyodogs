@@ -16,11 +16,13 @@ const socialImage=new URL(image,siteOrigin).href;
 const socialCard=image===site.socialImage;
 const socialAlt=socialCard?(site.socialImageAlt??imageAlt):imageAlt;
 const fullTitle=`${title} | ${site.name}`;
-const organisation={'@type':'Organization','@id':`${siteOrigin}/#organisation`,name:site.name,url:siteOrigin,email:site.email,telephone:site.phone,address:{'@type':'PostalAddress',postalCode:site.postalCode,addressLocality:site.city,addressCountry:'CH'},founder:{'@type':'Person',name:site.owner},sameAs:[site.instagram,site.facebook].filter(Boolean),areaServed:{'@type':'Country',name:'Schweiz'}};
+const founderId=`${siteOrigin}/#sandra`;
+const founder={'@type':'Person','@id':founderId,name:site.owner,url:`${siteOrigin}/zucht/`,jobTitle:'Züchterin',worksFor:{'@id':`${siteOrigin}/#organisation`}};
+const organisation={'@type':'Organization','@id':`${siteOrigin}/#organisation`,name:site.name,url:siteOrigin,email:site.email,telephone:site.phone,logo:{'@type':'ImageObject',url:`${siteOrigin}/media/logo-original.jpg`,width:1300,height:500},image:socialImage,address:{'@type':'PostalAddress',postalCode:site.postalCode,addressLocality:site.city,addressCountry:'CH'},founder:{'@id':founderId},sameAs:[site.instagram,site.facebook].filter(Boolean),areaServed:{'@type':'Country',name:'Schweiz'},knowsAbout:['Holländische Schäferhunde','Hundezucht','Aufzucht','Ankörung','SKG / FCI']};
 const website={'@type':'WebSite','@id':`${siteOrigin}/#website`,name:site.name,url:siteOrigin,inLanguage:'de-CH',publisher:{'@id':`${siteOrigin}/#organisation`}};
-const page={'@type':article?'BlogPosting':'WebPage','@id':`${canonical}#page`,url:canonical,name:title,headline:title,description,inLanguage:'de-CH',isPartOf:{'@id':`${siteOrigin}/#website`},image:socialImage,...(article&&date?{datePublished:date.toISOString(),author:{'@type':'Person',name:'Sandra'},publisher:{'@id':`${siteOrigin}/#organisation`},mainEntityOfPage:canonical}:{})};
+const page={'@type':article?'BlogPosting':'WebPage','@id':`${canonical}#page`,url:canonical,name:title,headline:title,description,inLanguage:'de-CH',isPartOf:{'@id':`${siteOrigin}/#website`},image:socialImage,...(article&&date?{datePublished:date.toISOString(),author:{'@id':founderId},publisher:{'@id':`${siteOrigin}/#organisation`},mainEntityOfPage:canonical}:{})};
 const breadcrumbs=pathname==='/'?null:{'@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'MOYO DOGS',item:siteOrigin+'/'},{'@type':'ListItem',position:2,name:title,item:canonical}]};
-const structured={'@context':'https://schema.org','@graph':[organisation,website,page,...(breadcrumbs?[breadcrumbs]:[]),...extraJsonLd]};
+const structured={'@context':'https://schema.org','@graph':[organisation,founder,website,page,...(breadcrumbs?[breadcrumbs]:[]),...extraJsonLd]};
 const links = [['/hunde/', 'Hunde'], ['/hunde/#deckrueden', 'Deckrüden'], ['/wuerfe/', 'Würfe'], ['/zucht/', 'Zucht'], ['/blog/', 'Journal']];
 const active=(href:string)=>pathname.startsWith(href)||(href==='/blog/'&&pathname.startsWith('/vorschau/journal/'));
 ---
@@ -68,7 +70,7 @@ const active=(href:string)=>pathname.startsWith(href)||(href==='/blog/'&&pathnam
   <a href="/kontakt/">Kontakt <span>07</span></a>
   <div class="site-menu-foot"><span>Kanton Bern · Schweiz</span><EmailLink/></div>
 </nav>
-<main id="inhalt"><slot /></main>
+<main id="inhalt" tabindex="-1"><slot /></main>
 <footer class="site-footer">
   <div class="wrap footer-top">
     <div><a class="footer-brand" href="/">{site.name}</a><p>Holländische Schäferhunde.<br/>Ein Teil unseres Lebens.</p></div>

@@ -9,18 +9,52 @@ function initMenu() {
   const closeButton = document.querySelector<HTMLButtonElement>('[data-menu-close]');
   if (!toggle || !menu) return;
 
+  // Alles ausserhalb des Menüs wird inert, damit Tastatur und Screenreader im
+  // Overlay bleiben und nicht hinter dem offenen Menü weiterlaufen.
+  const behind = () =>
+    Array.from(document.querySelectorAll<HTMLElement>('body > :not(#site-menu):not(script):not(style)'));
+
   const setOpen = (open: boolean, restoreFocus = true) => {
     menu.dataset.open = String(open);
     menu.inert = !open;
     toggle.setAttribute('aria-expanded', String(open));
+    behind().forEach((element) => {
+      element.inert = open;
+    });
     document.body.style.overflow = open ? 'hidden' : '';
     if (open) closeButton?.focus();
     else if (restoreFocus) toggle.focus();
   };
 
+  const focusable = () =>
+    Array.from(menu.querySelectorAll<HTMLElement>('a[href], button:not([disabled])')).filter(
+      (element) => element.getClientRects().length > 0,
+    );
+
   toggle.addEventListener('click', () => setOpen(menu.dataset.open !== 'true'));
   closeButton?.addEventListener('click', () => setOpen(false));
   menu.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setOpen(false, false)));
+
+  menu.addEventListener('keydown', (event) => {
+    if (menu.dataset.open !== 'true') return;
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      setOpen(false);
+      return;
+    }
+    if (event.key !== 'Tab') return;
+    const items = focusable();
+    if (!items.length) return;
+    const first = items[0];
+    const last = items[items.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  });
 }
 
 /* ---------- read progress ---------- */

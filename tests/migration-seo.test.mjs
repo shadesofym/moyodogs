@@ -179,3 +179,43 @@ test('Deckrüden sind über Navigation und Sprungband direkt erreichbar',()=>{
  assert.ok(hunde.includes('Deckrüden <span>02</span>'),'Mobilmenü nicht neu nummeriert');
  assert.ok(!/Deckrüden <span>02<\/span>[\s\S]{0,240}?Würfe <span>02<\/span>/.test(hunde),'Doppelte Nummer im Mobilmenü');
 });
+test('Die FAQ sind als FAQPage ausgezeichnet und stimmen mit dem sichtbaren Text überein',()=>{
+ const home=read('dist/index.html');
+ const json=JSON.parse(home.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
+ const faq=json['@graph'].find(node=>node['@type']==='FAQPage');
+ assert.ok(faq,'FAQPage fehlt');
+ assert.equal(faq.mainEntity.length,3);
+ for(const item of faq.mainEntity){
+  assert.equal(item['@type'],'Question');
+  assert.ok(home.includes(item.name),`Frage nicht sichtbar: ${item.name}`);
+  assert.ok(item.acceptedAnswer.text.length>80,'Antwort zu kurz');
+ }
+});
+test('Organisation und Züchterin sind als Entitäten verknüpft',()=>{
+ const home=read('dist/index.html');
+ const json=JSON.parse(home.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
+ const org=json['@graph'].find(node=>node['@type']==='Organization');
+ const person=json['@graph'].find(node=>node['@type']==='Person');
+ assert.ok(org?.logo?.url?.includes('/media/logo-original.jpg'),'Logo fehlt');
+ assert.equal(org.founder['@id'],person['@id'],'Gründerin nicht verknüpft');
+ assert.equal(person.worksFor['@id'],org['@id'],'Arbeitgeber nicht verknüpft');
+ assert.ok(org.sameAs.includes('https://www.facebook.com/sandra.moyos'),'Facebook-URL fehlt');
+});
+test('llms.txt beschreibt die Seite für KI-Agenten',()=>{
+ const llms=read('dist/llms.txt');
+ for(const path of ['/hunde/','/zucht/','/wuerfe/','/nachzucht/','/blog/','/kontakt/']){
+  assert.ok(llms.includes(`https://moyodogs.com${path}`),path);
+ }
+ assert.ok(llms.includes('zucht@moyodogs.com'));
+});
+test('Vollbildmenü schliesst mit Escape und hält den Fokus im Overlay',()=>{
+ const script=read('src/scripts/site.ts');
+ assert.ok(script.includes("event.key === 'Escape'"),'Escape fehlt');
+ assert.ok(script.includes('element.inert = open'),'Hintergrund wird nicht inert');
+ assert.ok(script.includes("'body > :not(#site-menu)"),'Selektoren für den Hintergrund fehlen');
+});
+test('Sprungziele liegen frei unter dem fixierten Header',()=>{
+ const css=read('src/styles/neo.css');
+ assert.ok(/:target\s*\{[^}]*scroll-margin-top/.test(css),'scroll-margin-top fehlt');
+ assert.ok(read('dist/index.html').includes('id="inhalt" tabindex="-1"'),'Skip-Link-Ziel nicht fokussierbar');
+});

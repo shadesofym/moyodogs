@@ -21,6 +21,8 @@
   --mono: "Space Mono", ui-monospace, monospace;
   --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
   --header: 64px;
+  --focus: var(--petrol);
+  --focus-halo: var(--paper);
   color-scheme: light;
 }
 
@@ -132,9 +134,34 @@ button {
 a:focus-visible,
 button:focus-visible,
 summary:focus-visible,
-select:focus-visible {
-  outline: 3px solid var(--petrol);
-  outline-offset: 4px;
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px var(--focus-halo);
+}
+
+/* Auf dunklen Flächen braucht der Fokusring einen hellen Ton,
+   sonst verschwindet Petrol im Anthrazit (1,85:1). */
+.site-footer,
+.contact,
+.unleashed-box,
+.litter-teaser,
+.stud-jump,
+.journal-lead-body {
+  --focus: var(--copper-light);
+  --focus-halo: var(--ink);
+}
+
+.site-menu {
+  --focus: var(--ink);
+  --focus-halo: var(--paper);
+}
+
+/* Das Sprungziel des Skip-Links ist das <main>-Element selbst. */
+#inhalt:focus {
+  outline: none;
+  box-shadow: none;
 }
 
 [hidden] {
@@ -381,8 +408,10 @@ select:focus-visible {
 }
 
 .site-menu-foot a {
-  display: inline;
+  display: inline-flex;
+  align-items: center;
   width: auto;
+  min-height: 44px;
   padding: 0;
   border: 0;
   font-family: var(--display);
@@ -1888,7 +1917,8 @@ select:focus-visible {
   color: var(--copper-light);
 }
 
-#deckrueden {
+/* Sprungziele nicht unter dem fixierten Header verstecken (WCAG 2.4.11) */
+:target {
   scroll-margin-top: calc(var(--header) + 12px);
 }
 
