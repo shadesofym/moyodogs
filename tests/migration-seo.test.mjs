@@ -73,10 +73,10 @@ test('Sitemap, Metadaten und Vorschausperre sind konsistent',()=>{
  const sitemap=read('dist/sitemap.xml');
  assert.ok(sitemap.includes('https://moyodogs.com/hunde/malu/'));
  assert.ok(sitemap.includes('https://moyodogs.com/nachzucht/</loc>'),'Nachzucht-Übersicht fehlt in der Sitemap');
- for(const excluded of ['localhost','127.0.0.1','pages.dev','/vorschau/','/konzept/','erster-beitrag','fotoshooting-8-weeks','/404'])assert.ok(!sitemap.includes(excluded));
+ for(const excluded of ['localhost','127.0.0.1','pages.dev','/vorschau/','erster-beitrag','fotoshooting-8-weeks','/404'])assert.ok(!sitemap.includes(excluded));
  const urls=[...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(m=>m[1]);
  assert.equal(new Set(urls).size,urls.length);
- for(const file of readdirSync(resolve(root,'dist'),{recursive:true}).filter(f=>f.endsWith('.html')&&!f.startsWith('konzept/'))){
+ for(const file of readdirSync(resolve(root,'dist'),{recursive:true}).filter(f=>f.endsWith('.html'))){
   const html=read('dist/'+file);
   assert.ok(html.includes('rel="canonical"'),file);
   assert.ok(html.includes('noindex, follow'),file);
@@ -271,4 +271,39 @@ test('Die Sitemap datiert Blogbeiträge, aber keine Listenseiten',()=>{
  assert.ok(!/<loc>https:\/\/moyodogs\.com\/blog\/<\/loc><lastmod>/.test(sitemap),'Blog-Übersicht hat ein lastmod');
  const lastmods=blog.map(entry=>entry.match(/<lastmod>([^<]+)<\/lastmod>/)[1]);
  for(const value of lastmods)assert.match(value,/^\d{4}-\d{2}-\d{2}T/);
+});
+test('Die interne Konzeptseite ist entfernt und leitet auf die Startseite',()=>{
+ assert.ok(!existsSync(resolve(root,'src/pages/konzept/index.astro')),'Konzeptseite existiert noch');
+ assert.ok(!existsSync(resolve(root,'dist/konzept/index.html')),'Konzeptseite wird noch gebaut');
+ for(const font of ['manrope-regular.ttf','manrope-bold.ttf','OFL-Manrope.txt'])assert.ok(!existsSync(resolve(root,'public/fonts',font)),`${font} existiert noch`);
+ const redirects=read('dist/_redirects');
+ assert.ok(redirects.includes('/konzept / 301'));
+ assert.ok(redirects.includes('/konzept/ / 301'));
+ assert.ok(!read('dist/_headers').includes('/konzept'));
+});
+test('Unter dem Hundename steht eine kompakte Gesundheitszeile',()=>{
+ const overview=read('dist/hunde/index.html');
+ assert.ok(overview.includes('class="portrait-health"'),'Gesundheitszeile fehlt auf der Übersicht');
+ assert.ok(overview.includes('HD A · ED 0 · LÜW 0 · DM N/N · SDCA 1 &amp; 2 frei'));
+ const yam=read('dist/hunde/yam/index.html');
+ assert.ok(yam.includes('class="portrait-health"'),'Gesundheitszeile fehlt im Porträt');
+ assert.ok(yam.includes('HD B · ED 0 · LÜW 0 · DM N/N · SDCA 1 &amp; 2 frei'));
+ // Die Deckrüden-Karten bleiben unverändert.
+ const cards=overview.match(/<article class="stud-card"[\s\S]*?<\/article>/g)?.join('')??'';
+ assert.ok(cards.includes('class="stud-data"'),'Deckrüden-Daten fehlen');
+ assert.ok(!cards.includes('portrait-health'),'Deckrüden-Karte wurde verändert');
+});
+test('Ablauf und FAQ bilden einen gemeinsamen Abschnitt',()=>{
+ const home=read('dist/index.html');
+ assert.ok(home.includes('id="ablauf"'));
+ assert.ok(home.includes('id="fragen"'));
+ assert.ok(!/<section class="faq/.test(home),'FAQ steht noch als eigene Sektion');
+ const merged=home.slice(home.indexOf('id="ablauf"'),home.indexOf('Interesse am Wurf'));
+ assert.ok(merged.includes('Häufige Fragen'),'FAQ fehlt im Ablauf-Abschnitt');
+ assert.equal((home.match(/id="fragen"/g)||[]).length,1,'FAQ-Anker ist nicht eindeutig');
+});
+test('Lange Startseiten-Abschnitte werden erst beim Scrollen gerendert',()=>{
+ const css=read('src/styles/neo.css');
+ assert.ok(/\.proof,[\s\S]{0,200}?content-visibility:\s*auto/.test(css),'content-visibility fehlt');
+ assert.ok(css.includes('contain-intrinsic-size: auto 620px'),'Intrinsic Size fehlt');
 });

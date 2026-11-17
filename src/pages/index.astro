@@ -166,9 +166,9 @@ const faqPage = {
   </section>
 )}
 
-<section class="steps wrap" id="ablauf">
+<section class="steps wrap" id="ablauf" aria-labelledby="ablauf-title">
   <div class="sec-label" data-reveal>
-    <h2>Der Weg zum Welpen</h2>
+    <h2 id="ablauf-title">Der Weg zum Welpen</h2>
     <span class="mono">04 Schritte</span>
   </div>
   <ol class="steps-grid">
@@ -193,25 +193,25 @@ const faqPage = {
       <p>Frühestens mit acht Wochen ziehen die Welpen um – geimpft, gechipt und mit Stammbaum.</p>
     </li>
   </ol>
-  <p class="steps-cta" data-reveal>Interesse am Wurf {plannedYear}? <a class="text-link" href="/kontakt/">Schreib mir <span aria-hidden="true">↗</span></a></p>
-</section>
 
-<section class="faq wrap" id="fragen">
-  <div class="sec-label" data-reveal>
-    <h2>Häufige Fragen</h2>
-    <span class="mono">Abgabe &amp; Ausland</span>
+  <div class="faq-block" id="fragen">
+    <div class="sec-label sec-label--sub" data-reveal>
+      <h3>Häufige Fragen</h3>
+      <span class="mono">Abgabe &amp; Ausland</span>
+    </div>
+    <div class="faq-list">
+      {faqs.map(item => (
+        <details class="faq-item" data-reveal>
+          <summary>{item.q}</summary>
+          <div class="faq-body">
+            {item.a.map(paragraph => <p>{paragraph}</p>)}
+          </div>
+        </details>
+      ))}
+    </div>
   </div>
-  <div class="faq-list">
-    {faqs.map(item => (
-      <details class="faq-item" data-reveal>
-        <summary>{item.q}</summary>
-        <div class="faq-body">
-          {item.a.map(paragraph => <p>{paragraph}</p>)}
-        </div>
-      </details>
-    ))}
-  </div>
-  <p class="faq-cta" data-reveal>Deine Frage ist nicht dabei? <a class="text-link" href="/kontakt/">Schreib mir <span aria-hidden="true">↗</span></a></p>
+
+  <p class="steps-cta" data-reveal>Interesse am Wurf {plannedYear} oder eine Frage? <a class="text-link" href="/kontakt/">Schreib mir <span aria-hidden="true">↗</span></a></p>
 </section>
 
 <section class="portrait-home wrap" id="sandra" aria-labelledby="sandra-label">

@@ -4,7 +4,7 @@ export function indexingEnabled(value?:string,branch?:string){
  return value==='enabled'&&(!branch||branch==='main');
 }
 export function excludedFromSearch(path:string){
- return /^\/(?:vorschau(?:\/|$)|konzept(?:\/|$)|404(?:\.html|\/|$)|impressum(?:\/|$)|datenschutz(?:\/|$))/.test(path);
+ return /^\/(?:vorschau(?:\/|$)|404(?:\.html|\/|$)|impressum(?:\/|$)|datenschutz(?:\/|$))/.test(path);
 }
 export function canonicalUrl(path:string){
  const url=new URL(path,siteOrigin);

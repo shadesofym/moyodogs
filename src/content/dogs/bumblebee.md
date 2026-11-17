@@ -10,6 +10,7 @@ role: deckruede
 studImage: /media/wordpress/wp-743.webp
 studAvailable: true
 angekoert: true
+health: 'HD B · ED 0 · LÜW 0 · DM N/N · SDCA 1 & 2 frei'
 order: 3
 facts:
 - label: Geboren

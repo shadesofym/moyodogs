@@ -6,6 +6,7 @@ published: true
 image: /media/malu-portrait.webp
 imageAlt: Malu von MOYO DOGS
 meta: 'Hündin · 2019 · Mutterlinie'
+health: 'HD A · ED 0 · LÜW 0 · DM N/N · SDCA 1 & 2 frei'
 order: 1
 gallery:
 - image: /media/malu.webp

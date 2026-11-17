@@ -1162,9 +1162,19 @@ select:focus-visible,
   color: var(--muted);
 }
 
-/* ---------- faq: Abgabe & Ausland ---------- */
-.faq {
-  padding-bottom: clamp(50px, 7vw, 90px);
+/* ---------- faq: Abgabe & Ausland (im Ablauf) ---------- */
+.faq-block {
+  margin-top: clamp(38px, 5vw, 60px);
+}
+
+.sec-label--sub {
+  border-bottom-width: 1px;
+}
+
+.sec-label--sub h3 {
+  font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+  font-weight: 790;
+  font-variation-settings: "opsz" 64;
 }
 
 .faq-list {
@@ -1227,24 +1237,6 @@ select:focus-visible,
 
 .faq-body p + p {
   margin-top: 10px;
-}
-
-.faq-cta {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 6px 16px;
-  margin: 22px 0 0;
-  font-family: var(--mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.faq-cta .text-link {
-  min-height: 0;
-  padding-bottom: 2px;
 }
 
 /* ---------- portrait: die Züchterin ---------- */
@@ -1631,6 +1623,17 @@ select:focus-visible,
 
 .portrait-heading .eyebrow {
   max-width: 200px;
+}
+
+/* Kompakte Gesundheitszeile direkt unter dem Hundename. */
+.portrait-health {
+  margin: -6px 0 16px;
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  line-height: 1.6;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
 .portrait-stage {
@@ -3357,6 +3360,19 @@ moyo-journal {
   .stud-card-image img {
     height: 200px;
   }
+}
+
+/* ---------- content-visibility: lange Startseite ---------- */
+/* Nur der Startseiten-Stack; Sprungziele bleiben über :target erreichbar. */
+.proof,
+.unleashed,
+.steps,
+.portrait-home,
+.journal-home,
+.contact {
+  content-visibility: auto;
+  contain-intrinsic-size: 620px;
+  contain-intrinsic-size: auto 620px;
 }
 
 /* ---------- reveal ---------- */

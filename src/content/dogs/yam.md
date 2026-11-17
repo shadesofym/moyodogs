@@ -8,6 +8,7 @@ imageAlt: Yam von MOYO DOGS
 meta: 'Rüde · 2023 · Angekört'
 studAvailable: true
 angekoert: true
+health: 'HD B · ED 0 · LÜW 0 · DM N/N · SDCA 1 & 2 frei'
 facts:
 - label: Geboren
   value: 03.01.2023

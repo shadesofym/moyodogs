@@ -10,7 +10,7 @@ let headers=await readFile(resolve(root,'public/_headers'),'utf8');
 headers=headers.replace(/^ {2}X-Robots-Tag:.*\n/gm,'');
 if(!enabled)headers=headers.replace('/*\n','/*\n  X-Robots-Tag: noindex, follow\n');
 headers+='\nhttps://:project.pages.dev/*\n  X-Robots-Tag: noindex, follow\n\nhttps://:version.:project.pages.dev/*\n  X-Robots-Tag: noindex, follow\n';
-for(const path of ['/vorschau/*','/vorschau','/konzept/*','/konzept','/404.html','/impressum/','/datenschutz/'])headers+=`\n${path}\n  X-Robots-Tag: noindex, follow\n`;
+for(const path of ['/vorschau/*','/vorschau','/404.html','/impressum/','/datenschutz/'])headers+=`\n${path}\n  X-Robots-Tag: noindex, follow\n`;
 await writeFile(resolve(output,'_headers'),headers);
 await writeFile(resolve(output,'robots.txt'),enabled?`User-agent: *\nAllow: /\nSitemap: ${origin}/sitemap.xml\n`:'User-agent: *\nDisallow: /\n');
 const posts=await Promise.all((await readdir(resolve(root,'src/content/posts'))).filter(file=>file.endsWith('.md')).sort().map(async file=>{
