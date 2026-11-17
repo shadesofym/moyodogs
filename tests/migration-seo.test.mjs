@@ -157,3 +157,15 @@ test('Die Startseite beantwortet Abgabe und Ausland vor dem Journal',()=>{
   assert.ok(home.includes(fact),fact);
  }
 });
+test('Die Startseite stellt Sandra mit Foto zwischen FAQ und Journal vor',()=>{
+ const home=read('dist/index.html');
+ const faq=home.indexOf('id="fragen"');
+ const portrait=home.indexOf('class="portrait-home wrap"');
+ const journal=home.indexOf('id="journal"');
+ assert.ok(portrait>faq&&journal>portrait,'Porträt steht nicht zwischen FAQ und Journal');
+ assert.ok(home.includes('Ich bin Sandra'),'Überschrift fehlt');
+ const media=JSON.parse(read('src/data/media.generated.json'));
+ assert.ok(media['/media/sandra.jpg']?.variants?.avif?.length,'Foto ist nicht vorbereitet');
+ assert.ok(home.includes('alt="Sandra mit ihren Hunden Malu und Yam"'),'Alternativtext fehlt');
+ assert.ok(home.includes('href="/zucht/"')&&home.includes('instagram.com/dog.boss.vibes'),'Links fehlen');
+});
