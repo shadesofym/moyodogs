@@ -2998,6 +2998,29 @@ moyo-journal {
   color: var(--copper-light);
 }
 
+.footer-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  margin-top: 4px;
+  font-family: var(--mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.footer-social a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  color: color-mix(in srgb, var(--paper) 72%, transparent);
+}
+
+.footer-social a:hover {
+  color: var(--copper-light);
+}
+
 .footer-bottom {
   display: flex;
   align-items: center;

@@ -43,6 +43,7 @@ const telHref = (value: string) => `tel:${value.replace(/[^\d+]/g, '')}`;
       <h2>Direkt &amp; persönlich.</h2>
       <p>Du erreichst mich per WhatsApp unter <span class="nowrap">{site.phoneWhatsapp}</span>, telefonisch unter <a class="nowrap" href={telHref(site.phone)}>{site.phone}</a> oder per E-Mail an <!--email_off--><a href={`mailto:${site.email}`}>{site.email}</a><!--/email_off-->.</p>
       <p>Wenn du dich für einen Welpen interessierst, erzähl gerne etwas über dich und wie du dir das Leben mit einem Holländischen Schäferhund vorstellst.</p>
+      <p>Bilder und Geschichten aus unserem Alltag gibt es auf <a href={site.instagram} target="_blank" rel="noopener">Instagram</a> und <a href={site.facebook} target="_blank" rel="noopener">Facebook</a>.</p>
       <p>MOYO DOGS · Kanton Bern, Schweiz</p>
     </div>
   </section>
