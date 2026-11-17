@@ -1830,6 +1830,86 @@ select:focus-visible {
   color: var(--ink);
 }
 
+/* ---------- dogs / deckrüden jump band ---------- */
+.stud-jump {
+  display: block;
+  background: var(--petrol);
+  color: var(--paper);
+  text-decoration: none;
+}
+
+.stud-jump-in {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 28px;
+  padding-block: clamp(13px, 1.4vw, 17px);
+}
+
+.stud-jump-label {
+  display: inline-flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 2px 13px;
+}
+
+.stud-jump b {
+  font-family: var(--display);
+  font-size: clamp(1.05rem, 1.7vw, 1.4rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--paper);
+}
+
+.stud-jump-note {
+  font-family: var(--mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--copper-light);
+}
+
+.stud-jump-go {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 9px;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--paper);
+}
+
+.stud-jump:hover .stud-jump-go,
+.stud-jump:focus-visible .stud-jump-go {
+  color: var(--copper-light);
+}
+
+#deckrueden {
+  scroll-margin-top: calc(var(--header) + 12px);
+}
+
+@media (max-width: 520px) {
+  .stud-jump-in {
+    justify-content: flex-start;
+    gap: 4px 12px;
+    padding-block: 12px;
+  }
+
+  .stud-jump-note {
+    font-size: 0.52rem;
+    letter-spacing: 0.06em;
+  }
+
+  .stud-jump-status,
+  .stud-jump-go-text {
+    display: none;
+  }
+}
+
 /* ---------- dogs / deckrüden cards ---------- */
 .stud-intro {
   max-width: 58ch;

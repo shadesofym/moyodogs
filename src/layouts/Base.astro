@@ -21,7 +21,7 @@ const website={'@type':'WebSite','@id':`${siteOrigin}/#website`,name:site.name,u
 const page={'@type':article?'BlogPosting':'WebPage','@id':`${canonical}#page`,url:canonical,name:title,headline:title,description,inLanguage:'de-CH',isPartOf:{'@id':`${siteOrigin}/#website`},image:socialImage,...(article&&date?{datePublished:date.toISOString(),author:{'@type':'Person',name:'Sandra'},publisher:{'@id':`${siteOrigin}/#organisation`},mainEntityOfPage:canonical}:{})};
 const breadcrumbs=pathname==='/'?null:{'@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'MOYO DOGS',item:siteOrigin+'/'},{'@type':'ListItem',position:2,name:title,item:canonical}]};
 const structured={'@context':'https://schema.org','@graph':[organisation,website,page,...(breadcrumbs?[breadcrumbs]:[]),...extraJsonLd]};
-const links = [['/hunde/', 'Hunde'], ['/wuerfe/', 'Würfe'], ['/zucht/', 'Zucht'], ['/blog/', 'Journal']];
+const links = [['/hunde/', 'Hunde'], ['/hunde/#deckrueden', 'Deckrüden'], ['/wuerfe/', 'Würfe'], ['/zucht/', 'Zucht'], ['/blog/', 'Journal']];
 const active=(href:string)=>pathname.startsWith(href)||(href==='/blog/'&&pathname.startsWith('/vorschau/journal/'));
 ---
 <!doctype html>
@@ -60,11 +60,12 @@ const active=(href:string)=>pathname.startsWith(href)||(href==='/blog/'&&pathnam
 <nav class="site-menu" id="site-menu" aria-label="Hauptnavigation" data-menu data-open="false" inert>
   <button class="site-menu-close" type="button" data-menu-close>Schliessen ✕</button>
   <a href="/hunde/">Hunde <span>01</span></a>
-  <a href="/wuerfe/">Würfe <span>02</span></a>
-  <a href="/zucht/">Zucht <span>03</span></a>
-  <a href="/rasse/">Rasse <span>04</span></a>
-  <a href="/blog/">Journal <span>05</span></a>
-  <a href="/kontakt/">Kontakt <span>06</span></a>
+  <a href="/hunde/#deckrueden">Deckrüden <span>02</span></a>
+  <a href="/wuerfe/">Würfe <span>03</span></a>
+  <a href="/zucht/">Zucht <span>04</span></a>
+  <a href="/rasse/">Rasse <span>05</span></a>
+  <a href="/blog/">Journal <span>06</span></a>
+  <a href="/kontakt/">Kontakt <span>07</span></a>
   <div class="site-menu-foot"><span>Kanton Bern · Schweiz</span><EmailLink/></div>
 </nav>
 <main id="inhalt"><slot /></main>

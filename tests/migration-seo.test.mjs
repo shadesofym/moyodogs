@@ -169,3 +169,13 @@ test('Die Startseite stellt Sandra mit Foto zwischen FAQ und Journal vor',()=>{
  assert.ok(home.includes('alt="Sandra mit ihren Hunden Malu und Yam"'),'Alternativtext fehlt');
  assert.ok(home.includes('href="/zucht/"')&&home.includes('instagram.com/dog.boss.vibes'),'Links fehlen');
 });
+test('Deckrüden sind über Navigation und Sprungband direkt erreichbar',()=>{
+ const home=read('dist/index.html');
+ const hunde=read('dist/hunde/index.html');
+ assert.ok(home.includes('href="/hunde/#deckrueden"'),'Navigation ohne Deckrüden-Eintrag');
+ assert.ok(hunde.includes('class="stud-jump"'),'Sprungband fehlt');
+ assert.ok(hunde.includes('href="#deckrueden"'),'Sprungband verlinkt nicht auf die Sektion');
+ assert.ok(hunde.includes('Zu den Deckrüden'),'Sprungband ohne Beschriftung');
+ assert.ok(hunde.includes('Deckrüden <span>02</span>'),'Mobilmenü nicht neu nummeriert');
+ assert.ok(!/Deckrüden <span>02<\/span>[\s\S]{0,240}?Würfe <span>02<\/span>/.test(hunde),'Doppelte Nummer im Mobilmenü');
+});

@@ -15,6 +15,8 @@ const shadesCount = offspring.filter(entry => entry.data.litter === 'shades-of')
 const godsCount = offspring.filter(entry => entry.data.litter === 'the-gods').length;
 const angekoert = studs.filter(entry => entry.data.angekoert).map(entry => entry.data.title);
 const angekoertLabel = angekoert.length ? new Intl.ListFormat('de-CH', { style: 'long', type: 'conjunction' }).format(angekoert) : '';
+const studNames = new Intl.ListFormat('de-CH', { style: 'long', type: 'conjunction' }).format(studs.map(entry => entry.data.title));
+const studStatus = !studs.length || angekoert.length !== studs.length ? 'Zuchtzulassung' : studs.length > 2 ? 'alle angekört' : 'beide angekört';
 const dogList = {
   '@type': 'ItemList',
   '@id': `${canonicalUrl('/hunde/')}#hunde`,
@@ -32,6 +34,15 @@ const dogList = {
   {lead ? (
     <>
       <DogPortrait entry={lead} dogs={dogs} overview/>
+
+      {studs.length > 0 && (
+        <a class="stud-jump" href="#deckrueden">
+          <span class="wrap stud-jump-in">
+            <span class="stud-jump-label"><b>Deckrüden</b> <span class="stud-jump-note">{studNames}<span class="stud-jump-status"> · {studStatus}</span></span></span>
+            <span class="stud-jump-go"><span class="stud-jump-go-text">Zu den Deckrüden </span><span aria-hidden="true">↓</span></span>
+          </span>
+        </a>
+      )}
 
       {family.length > 0 && (
         <section class="section wrap" id="charakterkoepfe">
