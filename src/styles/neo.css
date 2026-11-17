@@ -4098,6 +4098,7 @@ moyo-journal {
 
   .proof-in li,
   .proof-in li:nth-child(odd),
+  .proof-in li:nth-child(even),
   .proof-in li + li {
     padding: 15px 0;
     border-right: 0;
