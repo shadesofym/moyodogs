@@ -5,9 +5,12 @@ import '../styles/neo.css';
 import {ClientRouter} from 'astro:transitions';
 import site from '../data/site.json';
 import EmailLink from '../components/EmailLink.astro';
+import manifest from '../data/media.generated.json';
 import {canonicalUrl,excludedFromSearch,indexingEnabled,jsonLd,siteOrigin} from '../lib/seo';
-interface Props { title: string; description?: string; image?:string; imageAlt?:string; article?:boolean; date?:Date; noindex?:boolean; extraJsonLd?:Record<string,unknown>[] }
-const { title, description = site.intro, image=site.socialImage ?? site.heroImage, imageAlt=site.heroAlt, article=false, date, noindex=false, extraJsonLd=[] } = Astro.props;
+interface Props { title: string; description?: string; image?:string; imageAlt?:string; article?:boolean; date?:Date; noindex?:boolean; extraJsonLd?:Record<string,unknown>[]; preloadImage?:string; preloadSizes?:string }
+const { title, description = site.intro, image=site.socialImage ?? site.heroImage, imageAlt=site.heroAlt, article=false, date, noindex=false, extraJsonLd=[], preloadImage, preloadSizes='(max-width: 940px) 100vw, 62vw' } = Astro.props;
+const preloadEntry=preloadImage?(manifest as Record<string,{variants:Record<string,{src:string;width:number}[]>}>)[preloadImage]:undefined;
+const preloadSrcset=(format:string)=>preloadEntry?.variants?.[format]?.map(v=>`${v.src} ${v.width}w`).join(', ');
 const pathname = Astro.url.pathname;
 const preview=!indexingEnabled(import.meta.env.SITE_INDEXING,import.meta.env.CF_PAGES_BRANCH);
 const excluded=excludedFromSearch(pathname)||noindex;
@@ -36,6 +39,7 @@ const active=(href:string)=>pathname.startsWith(href)||(href==='/blog/'&&pathnam
   <meta name="theme-color" content="#efece3" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="preload" href="/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin/>
+  {preloadSrcset('avif') && <link rel="preload" as="image" type="image/avif" imagesrcset={preloadSrcset('avif')} imagesizes={preloadSizes} fetchpriority="high"/>}
   <meta property="og:title" content={fullTitle} /><meta property="og:description" content={description} />
   <meta property="og:type" content={article?'article':'website'} /><meta property="og:url" content={canonical}/>
   <meta property="og:site_name" content={site.name}/><meta property="og:locale" content="de_CH"/>

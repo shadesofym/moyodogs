@@ -121,7 +121,8 @@ test('Die Startseite führt vor dem Bildband zur Anfrage und erklärt den Ablauf
  assert.ok(cta>0&&band>0&&cta<band,'Anfrage-Button steht erst nach dem Bildband');
  assert.ok(home.includes('wa.me/41767174965'),'WhatsApp-Link fehlt');
  assert.ok(home.includes(encodeURIComponent('Hallo Sandra, ich habe eine Frage zu MOYO DOGS.')),'WhatsApp-Text weicht ab');
- for(const fact of ['HD A–B · ED 0 · LÜW 0','DM N/N','SDCA 1 &amp; 2','Wohnzimmer'])assert.ok(home.includes(fact),fact);
+ for(const fact of ['Charakter zuerst','Aufzucht im Alltag','Begleitung danach'])assert.ok(home.includes(fact),fact);
+ assert.ok(!home.includes('HD A–B · ED 0 · LÜW 0'),'Gesundheitsleiste steht noch auf der Startseite');
  for(const step of ['Kennenlernen','Besuch','Wurf','Übergabe'])assert.ok(home.includes(step),step);
  assert.ok(home.includes('Frühestens mit acht Wochen'));
 });
@@ -218,4 +219,56 @@ test('Sprungziele liegen frei unter dem fixierten Header',()=>{
  const css=read('src/styles/neo.css');
  assert.ok(/:target\s*\{[^}]*scroll-margin-top/.test(css),'scroll-margin-top fehlt');
  assert.ok(read('dist/index.html').includes('id="inhalt" tabindex="-1"'),'Skip-Link-Ziel nicht fokussierbar');
+});
+test('Die Startseite zeigt drei Grundsätze statt der Gesundheitsleiste',()=>{
+ const home=read('dist/index.html');
+ for(const claim of ['Charakter zuerst','Aufzucht im Alltag','Begleitung danach']){
+  assert.ok(home.includes(claim),`Grundsatz fehlt: ${claim}`);
+ }
+ assert.ok(!home.includes('HD A–B'),'Alte Gesundheitsleiste steht noch auf der Startseite');
+ assert.ok(!home.includes('Alle Zuchthunde untersucht'));
+ // Gesundheitswerte gehören zur einzelnen Hündin bzw. zum Rüden.
+ const yam=read('dist/hunde/yam/index.html');
+ assert.ok(yam.includes('HD B'));
+ assert.ok(yam.includes('DM N/N'));
+ assert.ok(yam.includes('SDCA 1 &amp; 2'));
+});
+test('Das Hero-Bild wird vorab geladen und teilt sich die Quelle mit dem Bild',()=>{
+ const home=read('dist/index.html');
+ const link=home.match(/<link rel="preload" as="image" type="image\/avif" imagesrcset="([^"]+)" imagesizes="([^"]+)" fetchpriority="high">/);
+ assert.ok(link,'Hero-Preload fehlt oder ist unvollständig');
+ const [,srcset,sizes]=link;
+ assert.equal(sizes,'(max-width: 940px) 100vw, 62vw');
+ assert.ok(home.includes(`<source type="image/avif" srcset="${srcset}" sizes="${sizes}">`),'Preload und Hero-Bild nutzen unterschiedliche Quellen');
+});
+test('Unveränderliche Assets werden lange gecacht',()=>{
+ const headers=read('dist/_headers');
+ for(const [path,rule] of [
+  ['/_astro/*','public, max-age=31536000, immutable'],
+  ['/generated/*','public, max-age=31536000, immutable'],
+  ['/fonts/*','public, max-age=31536000, immutable'],
+  ['/media/*','public, max-age=604800'],
+ ]){
+  assert.ok(headers.includes(`${path}\n  Cache-Control: ${rule}`),`Cache-Regel fehlt: ${path}`);
+ }
+ assert.ok(!/\/media\/\*\n\s+Cache-Control: public, max-age=31536000, immutable/.test(headers),'Medien dürfen nicht unveränderlich gecacht werden');
+});
+test('Tote Theme-Reste sind entfernt und werden nicht mehr referenziert',()=>{
+ for(const file of ['src/styles/global.css','src/styles/studio.css','src/components/ThemeSelect.astro','src/components/FilmHero.astro','src/components/PhotoStage.astro','public/theme-init.js']){
+  assert.ok(!existsSync(resolve(root,file)),`Datei existiert noch: ${file}`);
+ }
+ for(const file of ['src/layouts/Base.astro','src/pages/index.astro','src/styles/neo.css','src/scripts/site.ts']){
+  const source=read(file);
+  for(const token of ['global.css','studio.css','ThemeSelect','FilmHero','PhotoStage','theme-init']){
+   assert.ok(!source.includes(token),`${file} verweist noch auf ${token}`);
+  }
+ }
+});
+test('Die Sitemap datiert Blogbeiträge, aber keine Listenseiten',()=>{
+ const sitemap=read('dist/sitemap.xml');
+ const blog=sitemap.match(/<loc>https:\/\/moyodogs\.com\/blog\/[^<]+\/<\/loc><lastmod>[^<]+<\/lastmod>/g) ?? [];
+ assert.ok(blog.length>10,`Zu wenige datierte Blogbeiträge: ${blog.length}`);
+ assert.ok(!/<loc>https:\/\/moyodogs\.com\/blog\/<\/loc><lastmod>/.test(sitemap),'Blog-Übersicht hat ein lastmod');
+ const lastmods=blog.map(entry=>entry.match(/<lastmod>([^<]+)<\/lastmod>/)[1]);
+ for(const value of lastmods)assert.match(value,/^\d{4}-\d{2}-\d{2}T/);
 });

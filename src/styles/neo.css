@@ -4256,3 +4256,27 @@ moyo-journal {
     transform: translate(10px, 10px);
   }
 }
+
+/* ---------- proof: drei Grundsätze ---------- */
+.proof-in--three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (max-width: 940px) {
+  .proof-in--three {
+    grid-template-columns: 1fr;
+  }
+
+  .proof-in--three li,
+  .proof-in--three li:nth-child(odd),
+  .proof-in--three li:nth-child(even),
+  .proof-in--three li + li {
+    padding: 15px 0;
+    border-right: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .proof-in--three li:first-child {
+    border-top: 0;
+  }
+}

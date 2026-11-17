@@ -2,7 +2,6 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,existsSync} from 'node:fs';
 import {resolve} from 'node:path';
-import {runInNewContext} from 'node:vm';
 import {parse} from 'yaml';
 import MarkdownIt from 'markdown-it';
 import {blockSchema,timelineSchema} from '../src/lib/content-schema.ts';
@@ -46,35 +45,10 @@ test('Responsive Bilder sind vorhanden und werden nicht hochskaliert',()=>{
   for(const variant of entry.variants[format]){assert.ok(variant.width<=entry.width);assert.ok(existsSync(resolve(root,'public',variant.src.slice(1))));}
  }
 });
-function themeEnvironment({saved=null,dark=false,blocked=false}={}){
- const listeners={};const selects=[{value:''}];let stored=saved;
- const element={dataset:{},style:{}};
- const device={matches:dark,addEventListener(type,fn){listeners['device-'+type]=fn;}};
- const document={documentElement:element,querySelectorAll(){return selects;},querySelector(){return null;},addEventListener(type,fn){listeners[type]=fn;}};
- const window={matchMedia(){return device;},addEventListener(type,fn){listeners['window-'+type]=fn;}};
- const localStorage={getItem(){if(blocked)throw new Error('Gesperrt');return stored;},setItem(_,value){if(blocked)throw new Error('Gesperrt');stored=value;}};
- runInNewContext(readFileSync(resolve(root,'public/theme-init.js'),'utf8'),{window,document,localStorage});listeners.DOMContentLoaded();
- return {element,listeners,selects,device};
-}
-test('Hell/Dunkel bleibt ausdrücklich gewählt, auch wenn das Gerät anders eingestellt ist',()=>{
- const env=themeEnvironment({saved:'light',dark:true});assert.equal(env.element.dataset.theme,'light');assert.equal(env.selects[0].value,'light');
- env.device.matches=false;env.listeners['device-change']();assert.equal(env.element.dataset.theme,'light');
-});
-test('Erster Besuch startet dunkel und folgt nicht ungefragt dem Gerät',()=>{
- const env=themeEnvironment();assert.equal(env.element.dataset.theme,'dark');assert.equal(env.selects[0].value,'dark');
- env.device.matches=true;env.listeners['device-change']();env.device.matches=false;env.listeners['device-change']();assert.equal(env.element.dataset.theme,'dark');
-});
-test('Ausdrücklich gewählte Automatik folgt weiterhin dem Gerät',()=>{
- const env=themeEnvironment({saved:'auto',dark:true});assert.equal(env.element.dataset.theme,'dark');
- env.device.matches=false;env.listeners['device-change']();assert.equal(env.element.dataset.theme,'light');
-});
-test('Gesperrter Speicher startet dunkel und verhindert die Bedienung nicht',()=>{
- const env=themeEnvironment({blocked:true});assert.equal(env.element.dataset.theme,'dark');
- env.listeners.change({target:{matches:()=>true,value:'light'}});assert.equal(env.element.dataset.theme,'light');
- env.listeners.change({target:{matches:()=>true,value:'auto'}});env.device.matches=true;env.listeners['device-change']();assert.equal(env.element.dataset.theme,'dark');
-});
-test('Ungültige oder entfernte Einstellungen fallen auf Dunkel zurück; Seitenwechsel behält das Profil',()=>{
- const env=themeEnvironment({saved:'unbekannt'});assert.equal(env.element.dataset.themeChoice,'dark');
- const next={dataset:{},style:{}};env.listeners['astro:before-swap']({newDocument:{documentElement:next}});assert.equal(next.dataset.theme,'dark');
- env.listeners.change({target:{matches:()=>true,value:'light'}});env.listeners['window-storage']({key:'moyodogs-theme',newValue:null});assert.equal(env.element.dataset.theme,'dark');
+test('Es gibt keinen Theme-Umschalter mehr und die Seite bleibt hell',()=>{
+ assert.ok(!existsSync(resolve(root,'public/theme-init.js')),'theme-init.js existiert noch');
+ const base=readFileSync(resolve(root,'src/layouts/Base.astro'),'utf8');
+ assert.ok(!base.includes('theme-init'),'Base lädt noch ein Theme-Skript');
+ const css=readFileSync(resolve(root,'src/styles/neo.css'),'utf8');
+ assert.ok(/color-scheme: light/.test(css),'Die Seite deklariert nicht mehr ausdrücklich hell');
 });
