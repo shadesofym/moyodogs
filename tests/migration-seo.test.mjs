@@ -303,7 +303,21 @@ test('Ablauf und FAQ bilden einen gemeinsamen Abschnitt',()=>{
  assert.equal((home.match(/id="fragen"/g)||[]).length,1,'FAQ-Anker ist nicht eindeutig');
 });
 test('Lange Startseiten-Abschnitte werden erst beim Scrollen gerendert',()=>{
- const css=read('src/styles/neo.css');
+ const css=read('src/styles/home.css');
  assert.ok(/\.proof,[\s\S]{0,200}?content-visibility:\s*auto/.test(css),'content-visibility fehlt');
  assert.ok(css.includes('contain-intrinsic-size: auto 620px'),'Intrinsic Size fehlt');
+});
+test('Startseiten-CSS wird nur auf der Startseite geladen',()=>{
+ const links=html=>[...html.matchAll(/<link rel="stylesheet" href="(\/_astro\/[^"]+\.css)"/g)].map(m=>m[1]);
+ const homeLinks=links(read('dist/index.html'));
+ const hundeLinks=links(read('dist/hunde/index.html'));
+ assert.equal(homeLinks.length,hundeLinks.length+1,'Startseite lädt kein zusätzliches Stylesheet');
+ const extra=homeLinks.find(href=>!hundeLinks.includes(href));
+ assert.ok(extra,'Kein eigenes Startseiten-Stylesheet gefunden');
+ const homeCss=read('dist'+extra);
+ assert.ok(homeCss.includes('.poster-hero'),'Hero-CSS fehlt im Startseiten-Stylesheet');
+ assert.ok(homeCss.includes('.steps-grid'),'Ablauf-CSS fehlt im Startseiten-Stylesheet');
+ for(const href of hundeLinks){
+  assert.ok(!read('dist'+href).includes('.steps-grid'),`${href} enthält Startseiten-CSS`);
+ }
 });
