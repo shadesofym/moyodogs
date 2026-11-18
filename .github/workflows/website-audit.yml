@@ -1,0 +1,74 @@
+name: MOYO DOGS Website Audit
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - audit/live-website-20261118
+  schedule:
+    - cron: '17 7 * * 1'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: website-audit-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    name: Production HTTP, responsive browser and Lighthouse
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.15.0'
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Validate project
+        run: |
+          npm run validate
+          npm run check
+          npm run lint
+          npm test
+      - name: HTTP / SEO / redirect checks
+        id: http
+        continue-on-error: true
+        run: node scripts/audit-live.mjs
+      - name: Install Chromium and Playwright
+        run: |
+          npm install --no-save --package-lock=false playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Responsive checks and screenshots
+        id: responsive
+        continue-on-error: true
+        run: node scripts/audit-responsive.mjs
+      - name: Lighthouse mobile
+        id: lighthouse_mobile
+        continue-on-error: true
+        run: npx --yes lighthouse@13 https://moyodogs.com/ --only-categories=performance,accessibility,best-practices,seo --form-factor=mobile --chrome-flags="--headless --no-sandbox" --output=html --output=json --output-path=./audit-results/lighthouse-mobile --quiet
+      - name: Lighthouse desktop
+        id: lighthouse_desktop
+        continue-on-error: true
+        run: npx --yes lighthouse@13 https://moyodogs.com/ --preset=desktop --only-categories=performance,accessibility,best-practices,seo --chrome-flags="--headless --no-sandbox" --output=html --output=json --output-path=./audit-results/lighthouse-desktop --quiet
+      - name: Upload audit reports and screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: website-audit-${{ github.run_number }}
+          path: audit-results/
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Fail when audit reports a problem
+        if: always()
+        env:
+          HTTP: ${{ steps.http.outcome }}
+          RESPONSIVE: ${{ steps.responsive.outcome }}
+          MOBILE: ${{ steps.lighthouse_mobile.outcome }}
+          DESKTOP: ${{ steps.lighthouse_desktop.outcome }}
+        run: |
+          echo "HTTP=$HTTP responsive=$RESPONSIVE mobile=$MOBILE desktop=$DESKTOP"
+          test "$HTTP" = success && test "$RESPONSIVE" = success && test "$MOBILE" = success && test "$DESKTOP" = success
