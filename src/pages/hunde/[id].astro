@@ -10,4 +10,28 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 const dogs=await publicDogs();
 ---
-<Base title={entry.data.seoTitle??entry.data.title} description={entry.data.description} image={entry.data.image} imageAlt={entry.data.imageAlt}><DogPortrait entry={entry} dogs={dogs}/><div class="wrap"><article class="prose section" id="hundegeschichte"><Content /></article></div><ContentBlocks blocks={entry.data.blocks}/><Gallery images={entry.data.gallery} /></Base>
+<Base title={entry.data.seoTitle??entry.data.title} description={entry.data.description} image={entry.data.image} imageAlt={entry.data.imageAlt}>
+  <DogPortrait entry={entry} dogs={dogs}/>
+  {entry.data.facts.length > 0 && (
+    <section class="dog-profile-facts wrap" aria-labelledby="profil-daten">
+      <div class="sec-label">
+        <h2 id="profil-daten">Auf einen Blick</h2>
+        <span class="mono">{entry.data.title} · Profil</span>
+      </div>
+      <dl class="dog-profile-grid">
+        {entry.data.facts.map(fact => (
+          <div><dt>{fact.label}</dt><dd>{fact.value}</dd></div>
+        ))}
+      </dl>
+      {entry.data.studAvailable && entry.data.role !== 'deckruede' && (
+        <div class="dog-profile-cta">
+          <p>Fragen zu {entry.data.title} oder Interesse an einer Deckanfrage?</p>
+          <a class="button" href="/kontakt/">Deckanfrage stellen <span aria-hidden="true">↗</span></a>
+        </div>
+      )}
+    </section>
+  )}
+  <div class="wrap"><article class="prose section" id="hundegeschichte"><Content /></article></div>
+  <ContentBlocks blocks={entry.data.blocks}/>
+  <Gallery images={entry.data.gallery} />
+</Base>

@@ -8,7 +8,7 @@ imageAlt: Yam von MOYO DOGS
 meta: 'Rüde · 2023 · Angekört'
 studAvailable: true
 angekoert: true
-health: 'HD B · ED 0 · LÜW 0 · DM N/N · SDCA 1 & 2 frei'
+health: 'HD B · ED 0 · LÜW 0 · DM & SDCA 1/2 frei (über Elterntiere)'
 facts:
 - label: Geboren
   value: 03.01.2023
@@ -23,7 +23,9 @@ facts:
 - label: LÜW
   value: '0'
 - label: DM
-  value: N/N
+  value: Frei durch Abstammung
+- label: SDCA 1 & 2
+  value: Frei durch Abstammung
 - label: Prüfungen
   value: IGP 1
 order: 2
@@ -41,8 +43,10 @@ Vater: Easy van Cholinchove
 ## **Gesundheit**
 
 HD B · ED 0 · LÜW 0  
-DM N/N (frei)  
-SDCA 1 & 2 frei
+DM: frei über die Elterntiere (*Free by Parentage*)  
+SDCA 1 & 2: frei über die Elterntiere (*Free by Parentage*)
+
+*Hinweis: Diese genetischen Angaben beruhen auf den Befunden der Elterntiere, nicht auf einem eigenen Labortest von Yam.*
 
 ## **Ankörung & Zuchtzulassung**
 

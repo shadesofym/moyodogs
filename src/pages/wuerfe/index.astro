@@ -40,6 +40,19 @@ const yearOf = (period: string) => period.match(/\d{4}/)?.[0] ?? '';
     )}
   </section>
 
+  {current.length > 0 && (
+    <section class="wrap litter-inquiry" aria-label="Welpenanfrage">
+      <div>
+        <span class="eyebrow">Du interessierst dich für einen Welpen?</span>
+        <p>Schreib mir ein paar Zeilen über dich, deinen Alltag und deine Erfahrung mit Hunden. Ich melde mich persönlich bei dir.</p>
+      </div>
+      <div class="litter-inquiry-actions">
+        <a class="button" href="/kontakt/">Welpenanfrage <span aria-hidden="true">↗</span></a>
+        <a class="text-link" href="/#ablauf">So läuft es ab</a>
+      </div>
+    </section>
+  )}
+
   <section class="wrap section past-litters">
     <div class="sec-label" data-reveal>
       <h2>Teil unserer Geschichte.</h2>
