@@ -14,7 +14,7 @@ test('Yams genetische Angaben bleiben klar als Free by Parentage ausgewiesen',()
   assert.equal(frontmatter.facts.find(fact=>fact.label==='DM')?.value,'Frei durch Abstammung');
   assert.equal(frontmatter.facts.find(fact=>fact.label==='SDCA 1 & 2')?.value,'Frei durch Abstammung');
   assert.match(source,/Free by Parentage/);
-  assert.match(source,/kein(?:em|en)? eigenen Labortest/);
+  assert.match(source,/nicht auf einem eigenen Labortest/);
   assert.doesNotMatch(frontmatter.health,/DM N\/N/);
 });
 
