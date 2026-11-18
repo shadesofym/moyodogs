@@ -9,9 +9,8 @@ on:
       - opened
       - synchronize
       - reopened
-  push:
-    branches:
-      - audit/live-website-20261118
+  schedule:
+    - cron: '17 7 * * 1'
 
 permissions:
   contents: read
@@ -38,7 +37,14 @@ jobs:
           npm run validate
           npm run check
           npm run lint
+          npm run build
           npm test
+      - name: Inventory npm security advisories
+        continue-on-error: true
+        run: |
+          mkdir -p audit-results
+          npm audit --json > audit-results/npm-audit-all.json || true
+          npm audit --omit=dev --json > audit-results/npm-audit-production.json || true
       - name: HTTP / SEO / redirect checks
         id: http
         continue-on-error: true
