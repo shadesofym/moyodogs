@@ -32,6 +32,23 @@ jobs:
         run: npm run build
       - name: Run regression tests
         run: npm test
+      - name: Install Chromium for local preview
+        run: |
+          npm install --no-save --package-lock=false playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Verify responsive production build in local preview
+        run: |
+          npm run preview > /tmp/moyodogs-preview.log 2>&1 &
+          curl --retry 20 --retry-connrefused --retry-delay 1 -fsS http://127.0.0.1:4321/ > /dev/null
+          node scripts/smoke-preview.mjs
+      - name: Archive preview screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: preview-screenshots-${{ github.run_number }}
+          path: preview-check/
+          if-no-files-found: warn
+          retention-days: 30
       - name: Audit production dependency advisories
         run: |
           mkdir -p audit-results
