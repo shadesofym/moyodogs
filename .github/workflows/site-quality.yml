@@ -1,0 +1,36 @@
+name: MOYO DOGS Quality Gate
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: site-quality-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  quality:
+    name: Build, content, tests and production audit
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.15.0'
+          cache: npm
+      - name: Install lockfile dependencies
+        run: npm ci
+      - name: Validate CMS and content
+        run: npm run validate
+      - name: Astro and TypeScript validation
+        run: npm run check
+      - name: Lint scripts and tests
+        run: npm run lint
+      - name: Build static site
+        run: npm run build
+      - name: Run regression tests
+        run: npm test
+      - name: Reject high and critical production dependency advisories
+        run: npm audit --omit=dev --audit-level=high
