@@ -154,7 +154,7 @@ test('Die Startseite beantwortet Abgabe und Ausland vor dem Journal',()=>{
  for(const question of ['Ab wann ziehen die Welpen um?','Kann ich einen Welpen ins Ausland mitnehmen?','Wer entscheidet, welcher Welpe zu wem kommt?']){
   assert.ok(home.includes(question),question);
  }
- for(const fact of ['acht Wochen','geimpft, gechipt','Mikrochip','Tollwutimpfung','EU-Heimtierausweis','Deutschland','Österreich','Frankreich','Italien','Züchterin']){
+ for(const fact of ['acht Wochen','geimpft, gechipt','Mikrochip','Tollwutschutz','Schweizer Heimtierpass','BLV','Züchterin']){
   assert.ok(home.includes(fact),fact);
  }
 });
@@ -230,7 +230,7 @@ test('Die Startseite zeigt drei Grundsätze statt der Gesundheitsleiste',()=>{
  // Gesundheitswerte gehören zur einzelnen Hündin bzw. zum Rüden.
  const yam=read('dist/hunde/yam/index.html');
  assert.ok(yam.includes('HD B'));
- assert.ok(yam.includes('DM N/N'));
+ assert.ok(yam.includes('Free by Parentage'));
  assert.ok(yam.includes('SDCA 1 &amp; 2'));
 });
 test('Das Hero-Bild wird vorab geladen und teilt sich die Quelle mit dem Bild',()=>{
@@ -287,7 +287,8 @@ test('Unter dem Hundename steht eine kompakte Gesundheitszeile',()=>{
  assert.ok(overview.includes('HD A · ED 0 · LÜW 0 · DM N/N · SDCA 1 &amp; 2 frei'));
  const yam=read('dist/hunde/yam/index.html');
  assert.ok(yam.includes('class="portrait-health"'),'Gesundheitszeile fehlt im Porträt');
- assert.ok(yam.includes('HD B · ED 0 · LÜW 0 · DM N/N · SDCA 1 &amp; 2 frei'));
+ assert.ok(yam.includes('HD B · ED 0 · LÜW 0'));
+  assert.ok(yam.includes('über Elterntiere'));
  // Die Deckrüden-Karten bleiben unverändert.
  const cards=overview.match(/<article class="stud-card"[\s\S]*?<\/article>/g)?.join('')??'';
  assert.ok(cards.includes('class="stud-data"'),'Deckrüden-Daten fehlen');
