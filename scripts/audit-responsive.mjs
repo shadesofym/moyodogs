@@ -26,9 +26,23 @@ try {
     for (const path of paths) {
       const key=device.name+(path==='/'?'-home':path.replaceAll('/','-'));
       try {
-        const response=await page.goto(new URL(path,origin).href,{waitUntil:'domcontentloaded',timeout:30000});
+        const response=await page.goto(new URL(path,origin).href,{waitUntil:'load',timeout:30000});
         await page.locator('main').waitFor({timeout:12000});
         await page.evaluate(()=>document.fonts.ready);
+        // Avoid capturing blurred placeholders before above-the-fold images finish.
+        const visibleImages = await page.evaluate(async () => {
+          const visible = [...document.images].filter((img) => {
+            const rect = img.getBoundingClientRect();
+            return rect.width > 0 && rect.height > 0 && rect.top < globalThis.innerHeight && rect.bottom > 0;
+          });
+          await Promise.race([
+            Promise.all(visible.map((img) => img.decode().catch(() => {}))),
+            new Promise((resolve) => globalThis.setTimeout(resolve, 8000)),
+          ]);
+          return visible.map((img) => ({ src: img.currentSrc || img.src, loaded: img.complete && img.naturalWidth > 0 }));
+        });
+        const brokenImages = visibleImages.filter((img) => !img.loaded);
+        if (brokenImages.length) failures.push(key+': visible images failed to load: '+brokenImages.map((img) => img.src).join(', '));
         const metrics=await page.evaluate(()=>({
           viewport:document.documentElement.clientWidth,
           content:document.documentElement.scrollWidth,
