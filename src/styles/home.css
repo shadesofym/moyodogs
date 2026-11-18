@@ -1095,3 +1095,16 @@
     border-top: 0;
   }
 }
+
+/* Offizielle Informationsquelle zu den häufigen Fragen zur Ausreise. */
+.faq-source {
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+.faq-source a {
+  color: var(--petrol);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
