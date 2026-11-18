@@ -1108,3 +1108,10 @@
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
 }
+
+/* Bildpaar vollständig zeigen – die Ohrspitzen dürfen nicht beschnitten werden. */
+.hero-band .band-big img {
+  aspect-ratio: 3 / 2;
+  object-fit: contain;
+  background: var(--ink);
+}
