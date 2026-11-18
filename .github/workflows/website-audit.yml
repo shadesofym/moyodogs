@@ -22,7 +22,7 @@ concurrency:
 jobs:
   audit:
     name: Production HTTP, responsive browser and Lighthouse
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
