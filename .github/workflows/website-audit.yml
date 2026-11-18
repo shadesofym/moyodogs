@@ -2,11 +2,16 @@ name: MOYO DOGS Website Audit
 
 on:
   workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+      - reopened
   push:
     branches:
       - audit/live-website-20261118
-  schedule:
-    - cron: '17 7 * * 1'
 
 permissions:
   contents: read
