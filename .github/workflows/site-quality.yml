@@ -32,5 +32,16 @@ jobs:
         run: npm run build
       - name: Run regression tests
         run: npm test
-      - name: Reject high and critical production dependency advisories
-        run: npm audit --omit=dev --audit-level=high
+      - name: Audit production dependency advisories
+        run: |
+          mkdir -p audit-results
+          npm audit --omit=dev --json > audit-results/npm-production-audit.json || true
+          node scripts/check-production-audit.mjs audit-results/npm-production-audit.json
+      - name: Archive production security audit
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-audit-${{ github.run_number }}
+          path: audit-results/npm-production-audit.json
+          if-no-files-found: warn
+          retention-days: 30
