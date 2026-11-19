@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import '../../styles/nachzucht-filter.css';
 import { allPublicDogs, publicLitters, publicOffspring } from '../../lib-content';
 import { canonicalUrl } from '../../lib/seo';
 
@@ -63,8 +64,19 @@ const offspringList = {
     <p>{total} Hunde aus zwei Würfen.{angekoertCount > 0 && ` ${angekoertCount} davon haben die Ankörung bestanden und stehen als Deckrüden zur Verfügung.`}</p>
   </section>
 
+  <section class="wrap nachzucht-filter" aria-label="Nachzucht nach Wurf filtern" data-nachzucht-filter>
+    <div class="nachzucht-filter-controls" role="group" aria-label="Wurf auswählen">
+      <span class="mono nachzucht-filter-label">Schneller filtern:</span>
+      <button type="button" data-nachzucht-filter-button data-litter="all" aria-pressed="true">Alle</button>
+      {rows.map(group => (
+        <button type="button" data-nachzucht-filter-button data-litter={group.id} aria-pressed="false">{group.title} · {group.year}</button>
+      ))}
+    </div>
+    <p class="mono nachzucht-filter-count" data-nachzucht-filter-count aria-live="polite" aria-atomic="true">{total} Einträge</p>
+  </section>
+
   {rows.map(group => (
-    <section class="section wrap litter-group">
+    <section class="section wrap litter-group" data-nachzucht-group data-litter={group.id} data-litter-count={group.entries.length}>
       <div class="sec-label">
         <h2>{group.title}</h2>
         <span class="mono">{group.year} · {group.entries.length} Hunde</span>
@@ -84,6 +96,8 @@ const offspringList = {
       <div class="dog-preview" data-dog-preview aria-hidden="true"><img src={group.entries[0]?.image} alt="" width="520" height="650"/></div>
     </section>
   ))}
+
+  <script>import '../../scripts/nachzucht-filter';</script>
 
   <section class="section wrap">
     <div class="note-band" data-reveal>

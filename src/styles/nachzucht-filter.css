@@ -1,0 +1,60 @@
+/* Only the controls above the original Nachzucht list.
+   Existing dog rows, hover effects, group headings and layout stay unchanged. */
+.nachzucht-filter {
+  padding-top: 0;
+  padding-bottom: 10px;
+}
+.nachzucht-filter-controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 9px 12px;
+  padding: 18px 0;
+  border-block: 1px solid var(--line);
+}
+.nachzucht-filter-label {
+  margin-right: 10px;
+  color: var(--ink);
+}
+.nachzucht-filter-controls button {
+  min-height: 44px;
+  padding: 10px 19px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  line-height: 1.25;
+  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+.nachzucht-filter-controls button:hover {
+  border-color: var(--petrol);
+}
+.nachzucht-filter-controls button[aria-pressed="true"] {
+  border-color: var(--petrol);
+  background: var(--petrol);
+  color: var(--paper);
+}
+.nachzucht-filter-count {
+  margin: 0;
+  padding: 12px 0 0;
+  color: var(--muted);
+}
+@media (max-width: 620px) {
+  .nachzucht-filter-controls {
+    gap: 8px;
+  }
+  .nachzucht-filter-label {
+    flex-basis: 100%;
+  }
+  .nachzucht-filter-controls button {
+    padding-inline: 13px;
+    font-size: 0.58rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nachzucht-filter-controls button {
+    transition: none;
+  }
+}
