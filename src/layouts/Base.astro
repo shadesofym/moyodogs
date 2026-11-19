@@ -26,8 +26,8 @@ const website={'@type':'WebSite','@id':`${siteOrigin}/#website`,name:site.name,u
 const page={'@type':article?'BlogPosting':'WebPage','@id':`${canonical}#page`,url:canonical,name:title,headline:title,description,inLanguage:'de-CH',isPartOf:{'@id':`${siteOrigin}/#website`},image:socialImage,...(article&&date?{datePublished:date.toISOString(),author:{'@id':founderId},publisher:{'@id':`${siteOrigin}/#organisation`},mainEntityOfPage:canonical}:{})};
 const breadcrumbs=pathname==='/'?null:{'@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'MOYO DOGS',item:siteOrigin+'/'},{'@type':'ListItem',position:2,name:title,item:canonical}]};
 const structured={'@context':'https://schema.org','@graph':[organisation,founder,website,page,...(breadcrumbs?[breadcrumbs]:[]),...extraJsonLd]};
-const links = [['/hunde/', 'Hunde'], ['/hunde/#deckrueden', 'Deckrüden'], ['/wuerfe/', 'Würfe'], ['/zucht/', 'Zucht'], ['/blog/', 'Journal']];
-const active=(href:string)=>pathname.startsWith(href)||(href==='/blog/'&&pathname.startsWith('/vorschau/journal/'));
+const links = [['/hunde/', 'Hunde'], ['/wuerfe/', 'Würfe'], ['/nachzucht/', 'Nachzucht'], ['/kontakt/', 'Kontakt']];
+const active=(href:string)=>pathname.startsWith(href);
 ---
 <!doctype html>
 <html lang="de-CH">
@@ -58,10 +58,13 @@ const active=(href:string)=>pathname.startsWith(href)||(href==='/blog/'&&pathnam
   <a href="/" class="brand" aria-label="MOYO DOGS Startseite">{site.name}</a>
   <nav class="desktop-nav" aria-label="Hauptnavigation">
     {links.map(([href, label]) => <a href={href} aria-current={active(href) ? 'page' : undefined}>{label}</a>)}
-    <a href="/rasse/">Rasse</a>
-    <a class="nav-contact" href="/kontakt/">Kontakt ↗</a>
   </nav>
-  <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="site-menu">Menü</button>
+  <div class="header-actions">
+    <a class="header-search" href="/suche/" aria-label="Website durchsuchen" aria-current={pathname==='/suche/' ? 'page' : undefined}>
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.2"></circle><path d="m15.5 15.5 5 5"></path></svg>
+    </a>
+    <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="site-menu">Menü <span class="menu-toggle-lines" aria-hidden="true"></span></button>
+  </div>
 </header>
 <nav class="site-menu" id="site-menu" aria-label="Hauptnavigation" data-menu data-open="false" inert>
   <button class="site-menu-close" type="button" data-menu-close>Schliessen ✕</button>
@@ -69,10 +72,11 @@ const active=(href:string)=>pathname.startsWith(href)||(href==='/blog/'&&pathnam
     <a href="/hunde/">Hunde <span>01</span></a>
     <a href="/hunde/#deckrueden">Deckrüden <span>02</span></a>
     <a href="/wuerfe/">Würfe <span>03</span></a>
-    <a href="/zucht/">Zucht <span>04</span></a>
-    <a href="/rasse/">Rasse <span>05</span></a>
-    <a href="/blog/">Journal <span>06</span></a>
-    <a href="/kontakt/">Kontakt <span>07</span></a>
+    <a href="/nachzucht/">Nachzucht <span>04</span></a>
+    <a href="/zucht/">Zucht <span>05</span></a>
+    <a href="/rasse/">Rasse <span>06</span></a>
+    <a href="/blog/">Journal <span>07</span></a>
+    <a href="/kontakt/">Kontakt <span>08</span></a>
     <div class="site-menu-foot"><span>Kanton Bern · Schweiz</span><EmailLink/></div>
   </div>
 </nav>
