@@ -238,7 +238,7 @@ test('Das Hero-Bild wird vorab geladen und teilt sich die Quelle mit dem Bild',(
  const link=home.match(/<link rel="preload" as="image" type="image\/avif" imagesrcset="([^"]+)" imagesizes="([^"]+)" fetchpriority="high">/);
  assert.ok(link,'Hero-Preload fehlt oder ist unvollständig');
  const [,srcset,sizes]=link;
- assert.equal(sizes,'(max-width: 940px) 100vw, 62vw');
+ assert.equal(sizes,'(max-width: 940px) 100vw, 92vw');
  assert.ok(home.includes(`<source type="image/avif" srcset="${srcset}" sizes="${sizes}">`),'Preload und Hero-Bild nutzen unterschiedliche Quellen');
 });
 test('Unveränderliche Assets werden lange gecacht',()=>{
