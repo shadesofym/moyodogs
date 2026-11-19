@@ -266,28 +266,27 @@ select:focus-visible,
   position: fixed;
   inset: 0 0 auto;
   z-index: 100;
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(160px, 1fr) auto minmax(160px, 1fr);
   align-items: center;
-  justify-content: space-between;
-  gap: 20px;
+  gap: clamp(12px, 2vw, 26px);
   min-height: var(--header);
-  /* Auf breiten Screens sitzt der Header auf derselben Flucht wie der Inhalt
-     (.wrap = max. 1320px), statt an den Fensterrand zu wandern. */
   padding: 9px max(4vw, calc((100% - 1320px) / 2));
   border-bottom: 1px solid var(--line);
-  background: color-mix(in srgb, var(--paper) 88%, transparent);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  background: color-mix(in srgb, var(--paper) 96%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .brand {
   display: inline-flex;
   align-items: center;
+  justify-self: start;
   min-height: 44px;
   gap: 10px;
   font-family: var(--display);
   font-weight: 800;
-  font-size: 1.02rem;
+  font-size: clamp(1rem, 1.35vw, 1.14rem);
   letter-spacing: 0.005em;
   text-transform: uppercase;
   white-space: nowrap;
@@ -305,10 +304,11 @@ select:focus-visible,
 .desktop-nav {
   display: flex;
   align-items: center;
-  gap: clamp(14px, 1.8vw, 26px);
+  justify-self: center;
+  gap: clamp(15px, 1.9vw, 30px);
   font-family: var(--mono);
   font-size: 0.62rem;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.075em;
   text-transform: uppercase;
 }
 
@@ -345,13 +345,35 @@ select:focus-visible,
   color: var(--paper);
 }
 
-.menu-toggle {
-  display: none;
+.header-actions {
+  display: flex;
+  align-items: center;
+  justify-self: end;
+  gap: clamp(6px, 1vw, 14px);
+}
+
+.header-search {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 54px;
+  width: 44px;
   height: 44px;
-  padding: 0 10px;
+  color: var(--ink);
+}
+
+.header-search:hover,
+.header-search[aria-current="page"] {
+  color: var(--copper-deep);
+}
+
+.menu-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-width: 86px;
+  height: 44px;
+  padding: 0 13px;
   border: 1px solid var(--ink);
   background: transparent;
   color: var(--ink);
@@ -359,6 +381,31 @@ select:focus-visible,
   font-size: 0.6rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.menu-toggle:hover,
+.menu-toggle[aria-expanded="true"] {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.menu-toggle-lines {
+  position: relative;
+  display: block;
+  width: 14px;
+  height: 12px;
+  border-top: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+}
+
+.menu-toggle-lines::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  right: 0;
+  left: 0;
+  border-top: 2px solid currentColor;
 }
 
 /* ---------- fullscreen menu ---------- */
@@ -3056,12 +3103,13 @@ moyo-journal {
    Responsive
    ============================================================ */
 @media (max-width: 940px) {
-  .desktop-nav {
-    display: none;
+  .site-header {
+    grid-template-columns: minmax(0, 1fr) auto;
   }
 
-  .menu-toggle {
-    display: inline-flex;
+  .desktop-nav,
+  .header-search {
+    display: none;
   }
 
   .contact-grid,
