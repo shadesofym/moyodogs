@@ -1,0 +1,65 @@
+---
+import '../styles/search.css';
+import Base from '../layouts/Base.astro';
+import { allPublicDogs, publicLitters, publicOffspring, publicPosts } from '../lib-content';
+
+const [dogs, litters, offspring, posts] = await Promise.all([
+  allPublicDogs(), publicLitters(), publicOffspring(), publicPosts(),
+]);
+const pages = [
+  { title: 'Unsere Hunde', description: 'Holländische Schäferhunde und Deckrüden von MOYO DOGS', href: '/hunde/', category: 'Seite' },
+  { title: 'Würfe und Wurfplanung', description: 'Aktuelle und vergangene Würfe', href: '/wuerfe/', category: 'Seite' },
+  { title: 'Nachzucht', description: 'Hunde aus den MOYO DOGS Würfen', href: '/nachzucht/', category: 'Seite' },
+  { title: 'Unsere Zucht', description: 'Zuchtphilosophie und Aufzucht', href: '/zucht/', category: 'Seite' },
+  { title: 'Holländischer Schäferhund', description: 'Informationen zur Rasse', href: '/rasse/', category: 'Seite' },
+  { title: 'Journal', description: 'Neues und Einblicke', href: '/blog/', category: 'Seite' },
+  { title: 'Kontakt', description: 'Fragen, Welpenanfrage und Deckanfrage', href: '/kontakt/', category: 'Seite' },
+];
+const entries = [
+  ...pages,
+  ...dogs.map(entry => ({
+    title: entry.data.title, description: entry.data.description,
+    href: `/hunde/${entry.id}/`, category: 'Hunde',
+  })),
+  ...litters.map(entry => ({
+    title: entry.data.title, description: entry.data.description,
+    href: `/wuerfe/${entry.id}/`, category: 'Würfe',
+  })),
+  ...offspring.map(entry => ({
+    title: entry.data.title, description: entry.data.description,
+    href: `/nachzucht/${entry.id}/`, category: 'Nachzucht',
+  })),
+  ...posts.map(entry => ({
+    title: entry.data.title, description: entry.data.description,
+    href: `/blog/${entry.id}/`, category: 'Journal',
+  })),
+];
+---
+<Base title="Suche" description="MOYO DOGS durchsuchen: Hunde, Nachzucht, Wurfplanung, Zucht und Journal.">
+  <section class="page-heading wrap">
+    <span class="eyebrow">Das Wichtigste finden</span>
+    <h1>Suche<span class="dot">.</span></h1>
+    <p>Suche nach einem Hund, einem Wurf oder einem Thema.</p>
+  </section>
+  <section class="site-search-page wrap" aria-label="Suchergebnisse">
+    <label for="site-search-input" class="mono">Suchbegriff</label>
+    <input id="site-search-input" data-site-search-input type="search" placeholder="Zum Beispiel: Yam, Shades of, Welpen …" autocomplete="off" aria-controls="site-search-results"/>
+    <p class="site-search-count mono" data-site-search-count role="status">{entries.length} Einträge</p>
+    <ul class="site-search-results" id="site-search-results">
+      {entries.map(entry => (
+        <li data-site-search-result data-search-text={`${entry.title} ${entry.description} ${entry.category}`}>
+          <a href={entry.href}>
+            <span class="site-search-result-copy">
+              <span class="eyebrow">{entry.category}</span>
+              <strong>{entry.title}</strong>
+              <span class="site-search-excerpt">{entry.description}</span>
+            </span>
+            <span aria-hidden="true">↗</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+    <p class="site-search-empty" data-site-search-empty hidden>Keine Treffer. Versuch einen anderen Suchbegriff.</p>
+  </section>
+  <script>import '../scripts/site-search';</script>
+</Base>
